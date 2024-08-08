@@ -9,3 +9,6 @@ targets:
     ragie:
         target: python
         source: Ragie-OAS
+        publish:
+            pypi:
+                token: $pypi_token
