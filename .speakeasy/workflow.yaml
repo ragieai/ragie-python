@@ -1,0 +1,11 @@
+workflowVersion: 1.0.0
+sources:
+    Ragie-OAS:
+        inputs:
+            - location: https://api.ragie.ai/openapi.json
+        registry:
+            location: registry.speakeasyapi.dev/ragie-ai/ragie-ai/ragie-oas
+targets:
+    ragie:
+        target: python
+        source: Ragie-OAS

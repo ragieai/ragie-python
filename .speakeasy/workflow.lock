@@ -1,0 +1,27 @@
+speakeasyVersion: 1.358.0
+sources:
+    Ragie-OAS:
+        sourceNamespace: ragie-oas
+        sourceRevisionDigest: sha256:78ba16e283833a3cd1296ba99034df582d45a509380caa0b0915ca083f872afd
+        sourceBlobDigest: sha256:9fec238c3d9ee32c815c368cf19ae4c72d43b862745aaf07d3be10b775cbd268
+        tags:
+            - latest
+targets:
+    ragie:
+        source: Ragie-OAS
+        sourceNamespace: ragie-oas
+        sourceRevisionDigest: sha256:78ba16e283833a3cd1296ba99034df582d45a509380caa0b0915ca083f872afd
+        sourceBlobDigest: sha256:9fec238c3d9ee32c815c368cf19ae4c72d43b862745aaf07d3be10b775cbd268
+        outLocation: /Users/mattkauffman/dev/ragie/ragie-python
+workflow:
+    workflowVersion: 1.0.0
+    sources:
+        Ragie-OAS:
+            inputs:
+                - location: https://api.ragie.ai/openapi.json
+            registry:
+                location: registry.speakeasyapi.dev/ragie-ai/ragie-ai/ragie-oas
+    targets:
+        ragie:
+            target: python
+            source: Ragie-OAS
