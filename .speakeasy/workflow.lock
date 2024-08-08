@@ -2,19 +2,21 @@ speakeasyVersion: 1.358.0
 sources:
     Ragie-OAS:
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:78ba16e283833a3cd1296ba99034df582d45a509380caa0b0915ca083f872afd
-        sourceBlobDigest: sha256:9fec238c3d9ee32c815c368cf19ae4c72d43b862745aaf07d3be10b775cbd268
+        sourceRevisionDigest: sha256:3240f06a0e493a164a41541fe2414b1ffaa674da5d6915360c6fb9c45b61b1c0
+        sourceBlobDigest: sha256:46dea952781eaab36bed789300ccb66db35cfd926f01bc32977dddfc2fc91fb1
         tags:
             - latest
+            - main
 targets:
     ragie:
         source: Ragie-OAS
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:78ba16e283833a3cd1296ba99034df582d45a509380caa0b0915ca083f872afd
-        sourceBlobDigest: sha256:9fec238c3d9ee32c815c368cf19ae4c72d43b862745aaf07d3be10b775cbd268
-        outLocation: /Users/mattkauffman/dev/ragie/ragie-python
+        sourceRevisionDigest: sha256:3240f06a0e493a164a41541fe2414b1ffaa674da5d6915360c6fb9c45b61b1c0
+        sourceBlobDigest: sha256:46dea952781eaab36bed789300ccb66db35cfd926f01bc32977dddfc2fc91fb1
+        outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
+    speakeasyVersion: latest
     sources:
         Ragie-OAS:
             inputs:
@@ -25,3 +27,6 @@ workflow:
         ragie:
             target: python
             source: Ragie-OAS
+            publish:
+                pypi:
+                    token: $pypi_token

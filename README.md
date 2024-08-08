@@ -21,12 +21,12 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 
 PIP
 ```bash
-pip install git+<UNSET>.git
+pip install ragie
 ```
 
 Poetry
 ```bash
-poetry add git+<UNSET>.git
+poetry add ragie
 ```
 <!-- End SDK Installation [installation] -->
 
