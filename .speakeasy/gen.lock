@@ -5,8 +5,11 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.358.0
   generationVersion: 2.390.6
-  releaseVersion: 0.0.1
-  configChecksum: 9ef79fef299f2bcaaab5d9a2be8c00a6
+  releaseVersion: 0.0.2
+  configChecksum: 60d1e0747c5db59ece6bb213a4dbf013
+  repoURL: https://github.com/ragieai/ragie-python.git
+  installationURL: https://github.com/ragieai/ragie-python.git
+  published: true
 features:
   python:
     additionalDependencies: 1.0.0
