@@ -21,12 +21,12 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 
 PIP
 ```bash
-pip install git+<UNSET>.git
+pip install ragie
 ```
 
 Poetry
 ```bash
-poetry add git+<UNSET>.git
+poetry add ragie
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -98,30 +98,30 @@ asyncio.run(main())
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [documents](docs/sdks/documents/README.md)
+### [documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
 
-* [list](docs/sdks/documents/README.md#list) - List Documents
-* [create](docs/sdks/documents/README.md#create) - Create Document
-* [create_raw](docs/sdks/documents/README.md#create_raw) - Create Document Raw
-* [create_document_from_url](docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
-* [get](docs/sdks/documents/README.md#get) - Get Document
-* [delete](docs/sdks/documents/README.md#delete) - Delete Document
-* [update_file](docs/sdks/documents/README.md#update_file) - Update Document File
-* [update_raw](docs/sdks/documents/README.md#update_raw) - Update Document Raw
-* [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
-* [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#list) - List Documents
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
+* [create_raw](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_raw) - Create Document Raw
+* [create_document_from_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
+* [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get) - Get Document
+* [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#delete) - Delete Document
+* [update_file](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#update_file) - Update Document File
+* [update_raw](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#update_raw) - Update Document Raw
+* [patch_metadata](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
+* [get_summary](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
-### [retrievals](docs/sdks/retrievals/README.md)
+### [retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
 
-* [retrieve](docs/sdks/retrievals/README.md#retrieve) - Retrieve
+* [retrieve](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md#retrieve) - Retrieve
 
-### [entities](docs/sdks/entities/README.md)
+### [entities](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md)
 
-* [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
-* [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
-* [update_instruction](docs/sdks/entities/README.md#update_instruction) - Update Instruction
-* [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
-* [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
+* [list_instructions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_instructions) - List Instructions
+* [create_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#create_instruction) - Create Instruction
+* [update_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#update_instruction) - Update Instruction
+* [list_by_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
+* [list_by_document](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Pagination [pagination] -->
@@ -507,3 +507,4 @@ While we value open-source contributions to this SDK, this library is generated 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
 ### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=<no value>&utm_campaign=python)
+# ragie-python
