@@ -3,7 +3,7 @@
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, HttpClient
 from .sdkconfiguration import SDKConfiguration
-from .utils.logger import Logger, NoOpLogger
+from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 from ragie import models, utils
@@ -14,10 +14,12 @@ from ragie.retrievals import Retrievals
 from ragie.types import OptionalNullable, UNSET
 from typing import Any, Callable, Dict, Optional, Union
 
+
 class Ragie(BaseSDK):
     documents: Documents
     retrievals: Retrievals
     entities: Entities
+
     def __init__(
         self,
         auth: Union[str, Callable[[], str]],
@@ -28,7 +30,7 @@ class Ragie(BaseSDK):
         async_client: Optional[AsyncHttpClient] = None,
         retry_config: OptionalNullable[RetryConfig] = UNSET,
         timeout_ms: Optional[int] = None,
-        debug_logger: Optional[Logger] = None
+        debug_logger: Optional[Logger] = None,
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
@@ -52,38 +54,42 @@ class Ragie(BaseSDK):
             async_client = httpx.AsyncClient()
 
         if debug_logger is None:
-            debug_logger = NoOpLogger()
+            debug_logger = get_default_logger()
 
         assert issubclass(
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
-        
+
         security: Any = None
         if callable(auth):
-            security = lambda: models.Security(auth = auth()) # pylint: disable=unnecessary-lambda-assignment
+            security = lambda: models.Security(auth=auth())  # pylint: disable=unnecessary-lambda-assignment
         else:
-            security = models.Security(auth = auth)
+            security = models.Security(auth=auth)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
-    
 
-        BaseSDK.__init__(self, SDKConfiguration(
-            client=client,
-            async_client=async_client,
-            security=security,
-            server_url=server_url,
-            server_idx=server_idx,
-            retry_config=retry_config,
-            timeout_ms=timeout_ms,
-            debug_logger=debug_logger
-        ))
+        BaseSDK.__init__(
+            self,
+            SDKConfiguration(
+                client=client,
+                async_client=async_client,
+                security=security,
+                server_url=server_url,
+                server_idx=server_idx,
+                retry_config=retry_config,
+                timeout_ms=timeout_ms,
+                debug_logger=debug_logger,
+            ),
+        )
 
         hooks = SDKHooks()
 
         current_server_url, *_ = self.sdk_configuration.get_server_details()
-        server_url, self.sdk_configuration.client = hooks.sdk_init(current_server_url, self.sdk_configuration.client)
+        server_url, self.sdk_configuration.client = hooks.sdk_init(
+            current_server_url, self.sdk_configuration.client
+        )
         if current_server_url != server_url:
             self.sdk_configuration.server_url = server_url
 
@@ -92,9 +98,7 @@ class Ragie(BaseSDK):
 
         self._init_sdks()
 
-
     def _init_sdks(self):
         self.documents = Documents(self.sdk_configuration)
         self.retrievals = Retrievals(self.sdk_configuration)
         self.entities = Entities(self.sdk_configuration)
-    

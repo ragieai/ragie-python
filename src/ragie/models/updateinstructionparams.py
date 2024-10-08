@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import TypedDict
+from typing_extensions import TypedDict
 
 
 class UpdateInstructionParamsTypedDict(TypedDict):
     active: bool
     r"""Whether the instruction is active. Active instructions are applied to documents when they're created or when their file is updated."""
-    
+
 
 class UpdateInstructionParams(BaseModel):
     active: bool
     r"""Whether the instruction is active. Active instructions are applied to documents when they're created or when their file is updated."""
-    

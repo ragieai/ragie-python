@@ -8,25 +8,26 @@ from typing import Dict, List, Union
 from typing_extensions import NotRequired, TypedDict
 
 
-DocumentMetadataTypedDict = Union[str, int, bool, List[str]]
+DocumentGetMetadataTypedDict = Union[str, int, bool, List[str]]
 
 
-DocumentMetadata = Union[str, int, bool, List[str]]
+DocumentGetMetadata = Union[str, int, bool, List[str]]
 
 
-class DocumentTypedDict(TypedDict):
+class DocumentGetTypedDict(TypedDict):
     id: str
     created_at: datetime
     updated_at: datetime
     status: str
     name: str
-    metadata: Dict[str, DocumentMetadataTypedDict]
+    metadata: Dict[str, DocumentGetMetadataTypedDict]
     partition: str
+    errors: List[str]
     chunk_count: NotRequired[Nullable[int]]
     external_id: NotRequired[Nullable[str]]
 
 
-class Document(BaseModel):
+class DocumentGet(BaseModel):
     id: str
 
     created_at: datetime
@@ -37,9 +38,11 @@ class Document(BaseModel):
 
     name: str
 
-    metadata: Dict[str, DocumentMetadata]
+    metadata: Dict[str, DocumentGetMetadata]
 
     partition: str
+
+    errors: List[str]
 
     chunk_count: OptionalNullable[int] = UNSET
 

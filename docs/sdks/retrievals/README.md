@@ -1,6 +1,8 @@
 # Retrievals
 (*retrievals*)
 
+## Overview
+
 ### Available Operations
 
 * [retrieve](#retrieve) - Retrieve
@@ -18,22 +20,20 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.retrievals.retrieve(request={
     "query": "What is the best pizza place in SF?",
     "top_k": 8,
     "filter_": {
-        "0": {
-            "department": {
-                "$in": [
-                    "sales",
-                    "marketing",
-                ],
-            },
+        "department": {
+            "$in": [
+                "sales",
+                "marketing",
+            ],
         },
     },
     "rerank": True,
-    "max_chunks_per_document": 3,
+    "max_chunks_per_document": 0,
+    "partition": "<value>",
 })
 
 if res is not None:
@@ -49,14 +49,14 @@ if res is not None:
 | `request`                                                           | [models.RetrieveParams](../../models/retrieveparams.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
-
 ### Response
 
 **[models.Retrieval](../../models/retrieval.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessageError   | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |

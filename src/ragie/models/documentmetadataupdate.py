@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import Dict, List, TypedDict, Union
+from typing import Dict, List, Union
+from typing_extensions import TypedDict
 
 
 DocumentMetadataUpdateMetadataTypedDict = Union[str, int, bool, List[str]]
@@ -14,9 +15,8 @@ DocumentMetadataUpdateMetadata = Union[str, int, bool, List[str]]
 class DocumentMetadataUpdateTypedDict(TypedDict):
     metadata: Dict[str, DocumentMetadataUpdateMetadataTypedDict]
     r"""The full document metadata inclusive of the update."""
-    
+
 
 class DocumentMetadataUpdate(BaseModel):
     metadata: Dict[str, DocumentMetadataUpdateMetadata]
     r"""The full document metadata inclusive of the update."""
-    

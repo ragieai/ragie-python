@@ -3,16 +3,16 @@
 from __future__ import annotations
 from ragie.types import BaseModel
 from ragie.utils import FieldMetadata, PathParamMetadata
-from typing import TypedDict
-from typing_extensions import Annotated
+from typing_extensions import Annotated, TypedDict
 
 
 class GetDocumentRequestTypedDict(TypedDict):
     document_id: str
     r"""The id of the document."""
-    
+
 
 class GetDocumentRequest(BaseModel):
-    document_id: Annotated[str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))]
+    document_id: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    ]
     r"""The id of the document."""
-    

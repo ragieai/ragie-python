@@ -1,6 +1,8 @@
 # Entities
 (*entities*)
 
+## Overview
+
 ### Available Operations
 
 * [list_instructions](#list_instructions) - List Instructions
@@ -22,7 +24,6 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.entities.list_instructions()
 
 if res is not None:
@@ -37,16 +38,16 @@ if res is not None:
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
-
 ### Response
 
 **[List[models.Instruction]](../../models/.md)**
+
 ### Errors
 
-| Error Object        | Status Code         | Content Type        |
-| ------------------- | ------------------- | ------------------- |
-| models.ErrorMessage | 401                 | application/json    |
-| models.SDKError     | 4xx-5xx             | */*                 |
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| models.ErrorMessageError | 401                      | application/json         |
+| models.SDKError          | 4XX, 5XX                 | \*/\*                    |
 
 ## create_instruction
 
@@ -61,7 +62,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.entities.create_instruction(request={
     "name": "Find all pizzas",
@@ -137,6 +137,7 @@ res = s.entities.create_instruction(request={
     "active": True,
     "scope": ragie.CreateInstructionParamsScope.CHUNK,
     "filter_": {},
+    "partition": "<value>",
 })
 
 if res is not None:
@@ -152,17 +153,17 @@ if res is not None:
 | `request`                                                                 | [models.CreateInstructionParams](../../models/createinstructionparams.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
-
 ### Response
 
 **[models.Instruction](../../models/instruction.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessageError   | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_instruction
 
@@ -176,7 +177,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.entities.update_instruction(instruction_id="<INSTRUCTION_ID>", update_instruction_params={
     "active": True,
@@ -196,17 +196,17 @@ if res is not None:
 | `update_instruction_params`                                               | [models.UpdateInstructionParams](../../models/updateinstructionparams.md) | :heavy_check_mark:                                                        | N/A                                                                       |                                                                           |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |                                                                           |
 
-
 ### Response
 
 **[models.Instruction](../../models/instruction.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessageError   | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list_by_instruction
 
@@ -221,7 +221,6 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.entities.list_by_instruction(request={
     "instruction_id": "<INSTRUCTION_ID>",
 })
@@ -230,10 +229,9 @@ if res is not None:
     while True:
         # handle items
 
-        res = res.Next()
+        res = res.next()
         if res is None:
             break
-
 
 ```
 
@@ -244,17 +242,17 @@ if res is not None:
 | `request`                                                                                   | [models.ListEntitiesByInstructionRequest](../../models/listentitiesbyinstructionrequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 | `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |
 
-
 ### Response
 
 **[models.ListEntitiesByInstructionResponse](../../models/listentitiesbyinstructionresponse.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessageError   | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list_by_document
 
@@ -269,7 +267,6 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.entities.list_by_document(request={
     "document_id": "<DOCUMENT_ID>",
 })
@@ -278,10 +275,9 @@ if res is not None:
     while True:
         # handle items
 
-        res = res.Next()
+        res = res.next()
         if res is None:
             break
-
 
 ```
 
@@ -292,14 +288,14 @@ if res is not None:
 | `request`                                                                             | [models.ListEntitiesByDocumentRequest](../../models/listentitiesbydocumentrequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 | `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
 
-
 ### Response
 
 **[models.ListEntitiesByDocumentResponse](../../models/listentitiesbydocumentresponse.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessageError   | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |

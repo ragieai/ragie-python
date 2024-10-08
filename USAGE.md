@@ -7,19 +7,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 ```
 
 </br>
@@ -34,16 +31,15 @@ async def main():
     s = Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     )
-    res = await s.documents.list_async(request={
-        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+    res = await s.documents.create_async(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
     })
     if res is not None:
-        while True:
-            # handle items
-    
-            res = res.Next()
-            if res is None:
-                break
+        # handle response
+        pass
 
 asyncio.run(main())
 ```

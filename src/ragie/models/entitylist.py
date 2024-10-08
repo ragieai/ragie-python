@@ -4,15 +4,16 @@ from __future__ import annotations
 from .entity import Entity, EntityTypedDict
 from .pagination import Pagination, PaginationTypedDict
 from ragie.types import BaseModel
-from typing import List, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class EntityListTypedDict(TypedDict):
     pagination: PaginationTypedDict
     entities: List[EntityTypedDict]
-    
+
 
 class EntityList(BaseModel):
     pagination: Pagination
+
     entities: List[Entity]
-    

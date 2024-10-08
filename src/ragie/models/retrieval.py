@@ -3,13 +3,13 @@
 from __future__ import annotations
 from .scoredchunk import ScoredChunk, ScoredChunkTypedDict
 from ragie.types import BaseModel
-from typing import List, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class RetrievalTypedDict(TypedDict):
     scored_chunks: List[ScoredChunkTypedDict]
-    
+
 
 class Retrieval(BaseModel):
     scored_chunks: List[ScoredChunk]
-    
