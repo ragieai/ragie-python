@@ -4,15 +4,16 @@ from __future__ import annotations
 from .document import Document, DocumentTypedDict
 from .pagination import Pagination, PaginationTypedDict
 from ragie.types import BaseModel
-from typing import List, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class DocumentListTypedDict(TypedDict):
     pagination: PaginationTypedDict
     documents: List[DocumentTypedDict]
-    
+
 
 class DocumentList(BaseModel):
     pagination: Pagination
+
     documents: List[Document]
-    

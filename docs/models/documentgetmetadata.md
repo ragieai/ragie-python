@@ -1,4 +1,4 @@
-# CreateDocumentParamsMetadata
+# DocumentGetMetadata
 
 
 ## Supported Types
@@ -9,10 +9,10 @@
 value: str = /* values here */
 ```
 
-### `float`
+### `int`
 
 ```python
-value: float = /* values here */
+value: int = /* values here */
 ```
 
 ### `bool`

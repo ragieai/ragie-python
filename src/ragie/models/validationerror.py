@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import List, TypedDict, Union
+from typing import List, Union
+from typing_extensions import TypedDict
 
 
 LocTypedDict = Union[str, int]
@@ -15,10 +16,11 @@ class ValidationErrorTypedDict(TypedDict):
     loc: List[LocTypedDict]
     msg: str
     type: str
-    
+
 
 class ValidationError(BaseModel):
     loc: List[Loc]
+
     msg: str
+
     type: str
-    

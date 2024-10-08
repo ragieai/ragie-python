@@ -4,18 +4,16 @@ from __future__ import annotations
 from ragie import utils
 from ragie.types import BaseModel
 
-class ErrorMessageData(BaseModel):
+
+class ErrorMessageErrorData(BaseModel):
     detail: str
-    
 
 
-class ErrorMessage(Exception):
-    r"""Unauthorized"""
-    data: ErrorMessageData
+class ErrorMessageError(Exception):
+    data: ErrorMessageErrorData
 
-    def __init__(self, data: ErrorMessageData):
+    def __init__(self, data: ErrorMessageErrorData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, ErrorMessageData)
-
+        return utils.marshal_json(self.data, ErrorMessageErrorData)

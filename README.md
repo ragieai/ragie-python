@@ -7,26 +7,52 @@
     </a>
 </div>
 
-<!-- Start SDK Installation [installation] -->
+<!-- Start Summary [summary] -->
+## Summary
 
+
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [IDE Support](#ide-support)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Pagination](#pagination)
+* [File uploads](#file-uploads)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Custom HTTP Client](#custom-http-client)
+* [Authentication](#authentication)
+* [Debugging](#debugging)
+<!-- End Table of Contents [toc] -->
+
+<!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-PIP
+The SDK can be installed with either *pip* or *poetry* package managers.
+
+### PIP
+
+*PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
 
 ```bash
 pip install ragie
 ```
 
-Poetry
+### Poetry
+
+*Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
 
 ```bash
 poetry add ragie
 ```
-
 <!-- End SDK Installation [installation] -->
 
 <!-- Start IDE Support [idesupport] -->
-
 ## IDE Support
 
 ### PyCharm
@@ -37,7 +63,6 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 <!-- End IDE Support [idesupport] -->
 
 <!-- Start SDK Example Usage [usage] -->
-
 ## SDK Example Usage
 
 ### Example
@@ -50,25 +75,21 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 ```
 
 </br>
 
 The same SDK client can also be used to make asychronous requests by importing asyncio.
-
 ```python
 # Asynchronous Example
 import asyncio
@@ -78,54 +99,56 @@ async def main():
     s = Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     )
-    res = await s.documents.list_async(request={
-        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+    res = await s.documents.create_async(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
     })
     if res is not None:
-        while True:
-            # handle items
-
-            res = res.Next()
-            if res is None:
-                break
+        # handle response
+        pass
 
 asyncio.run(main())
 ```
-
 <!-- End SDK Example Usage [usage] -->
 
 <!-- Start Available Resources and Operations [operations] -->
-
 ## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
 
 ### [documents](docs/sdks/documents/README.md)
 
-- [list](docs/sdks/documents/README.md#list) - List Documents
-- [create](docs/sdks/documents/README.md#create) - Create Document
-- [create_raw](docs/sdks/documents/README.md#create_raw) - Create Document Raw
-- [create_document_from_url](docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
-- [get](docs/sdks/documents/README.md#get) - Get Document
-- [delete](docs/sdks/documents/README.md#delete) - Delete Document
-- [update_file](docs/sdks/documents/README.md#update_file) - Update Document File
-- [update_raw](docs/sdks/documents/README.md#update_raw) - Update Document Raw
-- [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
-- [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
-
-### [retrievals](docs/sdks/retrievals/README.md)
-
-- [retrieve](docs/sdks/retrievals/README.md#retrieve) - Retrieve
+* [create](docs/sdks/documents/README.md#create) - Create Document
+* [list](docs/sdks/documents/README.md#list) - List Documents
+* [create_raw](docs/sdks/documents/README.md#create_raw) - Create Document Raw
+* [create_document_from_url](docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
+* [get](docs/sdks/documents/README.md#get) - Get Document
+* [delete](docs/sdks/documents/README.md#delete) - Delete Document
+* [update_file](docs/sdks/documents/README.md#update_file) - Update Document File
+* [update_raw](docs/sdks/documents/README.md#update_raw) - Update Document Raw
+* [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
+* [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
 ### [entities](docs/sdks/entities/README.md)
 
-- [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
-- [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
-- [update_instruction](docs/sdks/entities/README.md#update_instruction) - Update Instruction
-- [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
-- [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
+* [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
+* [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
+* [update_instruction](docs/sdks/entities/README.md#update_instruction) - Update Instruction
+* [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
+* [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
+
+
+### [retrievals](docs/sdks/retrievals/README.md)
+
+* [retrieve](docs/sdks/retrievals/README.md#retrieve) - Retrieve
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Pagination [pagination] -->
-
 ## Pagination
 
 Some of the endpoints in this SDK support pagination. To use pagination, you make your SDK calls as usual, but the
@@ -133,14 +156,12 @@ returned response object will have a `Next` method that can be called to pull do
 return value of `Next` is `None`, then there are no more pages to be fetched.
 
 Here's an example of one such pagination call:
-
 ```python
 from ragie import Ragie
 
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.list(request={
     "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
@@ -150,17 +171,14 @@ if res is not None:
     while True:
         # handle items
 
-        res = res.Next()
+        res = res.next()
         if res is None:
             break
 
-
 ```
-
 <!-- End Pagination [pagination] -->
 
 <!-- Start File uploads [file-upload] -->
-
 ## File uploads
 
 Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
@@ -168,6 +186,7 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 > [!TIP]
 >
 > For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
+>
 
 ```python
 from ragie import Ragie
@@ -176,11 +195,10 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.documents.create(request={
     "file": {
-        "file_name": "your_file_here",
-        "content": open("<file_path>", "rb"),
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
     },
 })
 
@@ -189,17 +207,14 @@ if res is not None:
     pass
 
 ```
-
 <!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
-
 ## Retries
 
 Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
-
 ```python
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
@@ -208,25 +223,21 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 },
     RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
-
 ```python
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
@@ -236,35 +247,41 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
-
 <!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
-
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an error. If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-| Error Object               | Status Code | Content Type     |
-| -------------------------- | ----------- | ---------------- |
-| models.ErrorMessage        | 401,404     | application/json |
-| models.HTTPValidationError | 422         | application/json |
-| models.SDKError            | 4xx-5xx     | _/_              |
+By default, an API error will raise a models.SDKError exception, which has the following properties:
+
+| Property        | Type             | Description           |
+|-----------------|------------------|-----------------------|
+| `.status_code`  | *int*            | The HTTP status code  |
+| `.message`      | *str*            | The error message     |
+| `.raw_response` | *httpx.Response* | The raw HTTP response |
+| `.body`         | *str*            | The response content  |
+
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create_async` method may raise the following exceptions:
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessageError   | 400, 401                   | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ### Example
 
@@ -277,44 +294,39 @@ s = Ragie(
 
 res = None
 try:
-    res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
-})
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-except models.ErrorMessage as e:
-    # handle exception
+    if res is not None:
+        # handle response
+        pass
+
+except models.ErrorMessageError as e:
+    # handle e.data: models.ErrorMessageErrorData
     raise(e)
 except models.HTTPValidationError as e:
-    # handle exception
+    # handle e.data: models.HTTPValidationErrorData
     raise(e)
 except models.SDKError as e:
     # handle exception
     raise(e)
-
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
-
 ```
-
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
-
 ## Server Selection
 
 ### Select Server by Index
 
 You can override the default server globally by passing a server index to the `server_idx: int` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
-| #   | Server                 | Variables |
-| --- | ---------------------- | --------- |
-| 0   | `https://api.ragie.ai` | None      |
+| # | Server | Variables |
+| - | ------ | --------- |
+| 0 | `https://api.ragie.ai` | None |
 
 #### Example
 
@@ -326,26 +338,23 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
+
 
 ### Override Server URL Per-Client
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
-
 ```python
 from ragie import Ragie
 
@@ -354,34 +363,28 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
-
 <!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
-
 ## Custom HTTP Client
 
-The Python SDK makes API calls using the [httpx](https://www.python-httpx.org/) HTTP library. In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with your own HTTP client instance.
+The Python SDK makes API calls using the [httpx](https://www.python-httpx.org/) HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with your own HTTP client instance.
 Depending on whether you are using the sync or async version of the SDK, you can pass an instance of `HttpClient` or `AsyncHttpClient` respectively, which are Protocol's ensuring that the client has the necessary methods to make API calls.
 This allows you to wrap the client with your own custom logic, such as adding custom headers, logging, or error handling, or you can just pass an instance of `httpx.Client` or `httpx.AsyncClient` directly.
 
 For example, you could specify a header for every request that this sdk makes as follows:
-
 ```python
 from ragie import Ragie
 import httpx
@@ -391,7 +394,6 @@ s = Ragie(client=http_client)
 ```
 
 or you could wrap the client with your own custom logic:
-
 ```python
 from ragie import Ragie
 from ragie.httpclient import AsyncHttpClient
@@ -454,23 +456,20 @@ class CustomClient(AsyncHttpClient):
 
 s = Ragie(async_client=CustomClient(httpx.AsyncClient()))
 ```
-
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Authentication [security] -->
-
 ## Authentication
 
 ### Per-Client Security Schemes
 
 This SDK supports the following security scheme globally:
 
-| Name   | Type | Scheme      |
-| ------ | ---- | ----------- |
-| `auth` | http | HTTP Bearer |
+| Name        | Type        | Scheme      |
+| ----------- | ----------- | ----------- |
+| `auth`      | http        | HTTP Bearer |
 
 To authenticate with the API the `auth` parameter must be set when initializing the SDK client instance. For example:
-
 ```python
 from ragie import Ragie
 
@@ -478,30 +477,26 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
-
 <!-- End Authentication [security] -->
 
 <!-- Start Debugging [debug] -->
-
 ## Debugging
 
-To emit debug logs for SDK requests and responses you can pass a logger object directly into your SDK object.
+You can setup your SDK to emit debug logs for SDK requests and responses.
 
+You can pass your own logger class directly into your SDK.
 ```python
 from ragie import Ragie
 import logging
@@ -509,7 +504,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 s = Ragie(debug_logger=logging.getLogger("ragie"))
 ```
-
 <!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

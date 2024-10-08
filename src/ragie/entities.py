@@ -7,11 +7,11 @@ from ragie._hooks import HookContext
 from ragie.types import BaseModel, OptionalNullable, UNSET
 from typing import Any, Dict, List, Optional, Union, cast
 
+
 class Entities(BaseSDK):
-    
-    
     def list_instructions(
-        self, *,
+        self,
+        *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -28,7 +28,7 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
         req = self.build_request(
@@ -45,44 +45,50 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = self.do_request(
-            hook_ctx=HookContext(operation_id="ListInstructions", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListInstructions",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[List[models.Instruction]])
+            return utils.unmarshal_json(
+                http_res.text, Optional[List[models.Instruction]]
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     async def list_instructions_async(
-        self, *,
+        self,
+        *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -99,10 +105,10 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self.build_request_async(
             method="GET",
             path="/instructions",
             base_url=base_url,
@@ -116,45 +122,53 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(operation_id="ListInstructions", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListInstructions",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[List[models.Instruction]])
+            return utils.unmarshal_json(
+                http_res.text, Optional[List[models.Instruction]]
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     def create_instruction(
-        self, *,
-        request: Union[models.CreateInstructionParams, models.CreateInstructionParamsTypedDict],
+        self,
+        *,
+        request: Union[
+            models.CreateInstructionParams, models.CreateInstructionParamsTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -172,14 +186,14 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.CreateInstructionParams)
         request = cast(models.CreateInstructionParams, request)
-        
+
         req = self.build_request(
             method="POST",
             path="/instructions",
@@ -192,51 +206,59 @@ class Entities(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(request, False, False, "json", models.CreateInstructionParams),
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.CreateInstructionParams
+            ),
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = self.do_request(
-            hook_ctx=HookContext(operation_id="CreateInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="CreateInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     async def create_instruction_async(
-        self, *,
-        request: Union[models.CreateInstructionParams, models.CreateInstructionParamsTypedDict],
+        self,
+        *,
+        request: Union[
+            models.CreateInstructionParams, models.CreateInstructionParamsTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -254,15 +276,15 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.CreateInstructionParams)
         request = cast(models.CreateInstructionParams, request)
-        
-        req = self.build_request(
+
+        req = self.build_request_async(
             method="POST",
             path="/instructions",
             base_url=base_url,
@@ -274,52 +296,60 @@ class Entities(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(request, False, False, "json", models.CreateInstructionParams),
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.CreateInstructionParams
+            ),
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(operation_id="CreateInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="CreateInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     def update_instruction(
-        self, *,
+        self,
+        *,
         instruction_id: str,
-        update_instruction_params: Union[models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict],
+        update_instruction_params: Union[
+            models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -327,7 +357,7 @@ class Entities(BaseSDK):
         r"""Update Instruction
 
         :param instruction_id: The ID of the instruction.
-        :param update_instruction_params: 
+        :param update_instruction_params:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -336,15 +366,17 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         request = models.UpdateInstructionRequest(
             instruction_id=instruction_id,
-            update_instruction_params=utils.get_pydantic_model(update_instruction_params, models.UpdateInstructionParams),
+            update_instruction_params=utils.get_pydantic_model(
+                update_instruction_params, models.UpdateInstructionParams
+            ),
         )
-        
+
         req = self.build_request(
             method="PUT",
             path="/instructions/{instruction_id}",
@@ -357,52 +389,64 @@ class Entities(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(request.update_instruction_params, False, False, "json", models.UpdateInstructionParams),
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_instruction_params,
+                False,
+                False,
+                "json",
+                models.UpdateInstructionParams,
+            ),
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = self.do_request(
-            hook_ctx=HookContext(operation_id="UpdateInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="UpdateInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     async def update_instruction_async(
-        self, *,
+        self,
+        *,
         instruction_id: str,
-        update_instruction_params: Union[models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict],
+        update_instruction_params: Union[
+            models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -410,7 +454,7 @@ class Entities(BaseSDK):
         r"""Update Instruction
 
         :param instruction_id: The ID of the instruction.
-        :param update_instruction_params: 
+        :param update_instruction_params:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -419,16 +463,18 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         request = models.UpdateInstructionRequest(
             instruction_id=instruction_id,
-            update_instruction_params=utils.get_pydantic_model(update_instruction_params, models.UpdateInstructionParams),
+            update_instruction_params=utils.get_pydantic_model(
+                update_instruction_params, models.UpdateInstructionParams
+            ),
         )
-        
-        req = self.build_request(
+
+        req = self.build_request_async(
             method="PUT",
             path="/instructions/{instruction_id}",
             base_url=base_url,
@@ -440,55 +486,68 @@ class Entities(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(request.update_instruction_params, False, False, "json", models.UpdateInstructionParams),
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_instruction_params,
+                False,
+                False,
+                "json",
+                models.UpdateInstructionParams,
+            ),
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(operation_id="UpdateInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="UpdateInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     def list_by_instruction(
-        self, *,
-        request: Union[models.ListEntitiesByInstructionRequest, models.ListEntitiesByInstructionRequestTypedDict],
+        self,
+        *,
+        request: Union[
+            models.ListEntitiesByInstructionRequest,
+            models.ListEntitiesByInstructionRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> models.ListEntitiesByInstructionResponse:
+    ) -> Optional[models.ListEntitiesByInstructionResponse]:
         r"""Get Instruction Extracted Entities
 
         :param request: The request object to send.
@@ -500,14 +559,14 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
         request = cast(models.ListEntitiesByInstructionRequest, request)
-        
+
         req = self.build_request(
             method="GET",
             path="/instructions/{instruction_id}/entities",
@@ -522,28 +581,26 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = self.do_request(
-            hook_ctx=HookContext(operation_id="ListEntitiesByInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListEntitiesByInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         def next_func() -> Optional[models.ListEntitiesByInstructionResponse]:
             body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
@@ -560,31 +617,43 @@ class Entities(BaseSDK):
                 ),
                 retries=retries,
             )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByInstructionResponse(result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]), next=next_func)
+            return models.ListEntitiesByInstructionResponse(
+                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     async def list_by_instruction_async(
-        self, *,
-        request: Union[models.ListEntitiesByInstructionRequest, models.ListEntitiesByInstructionRequestTypedDict],
+        self,
+        *,
+        request: Union[
+            models.ListEntitiesByInstructionRequest,
+            models.ListEntitiesByInstructionRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> models.ListEntitiesByInstructionResponse:
+    ) -> Optional[models.ListEntitiesByInstructionResponse]:
         r"""Get Instruction Extracted Entities
 
         :param request: The request object to send.
@@ -596,15 +665,15 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
         request = cast(models.ListEntitiesByInstructionRequest, request)
-        
-        req = self.build_request(
+
+        req = self.build_request_async(
             method="GET",
             path="/instructions/{instruction_id}/entities",
             base_url=base_url,
@@ -618,28 +687,26 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(operation_id="ListEntitiesByInstruction", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListEntitiesByInstruction",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         def next_func() -> Optional[models.ListEntitiesByInstructionResponse]:
             body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
@@ -656,31 +723,43 @@ class Entities(BaseSDK):
                 ),
                 retries=retries,
             )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByInstructionResponse(result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]), next=next_func)
+            return models.ListEntitiesByInstructionResponse(
+                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     def list_by_document(
-        self, *,
-        request: Union[models.ListEntitiesByDocumentRequest, models.ListEntitiesByDocumentRequestTypedDict],
+        self,
+        *,
+        request: Union[
+            models.ListEntitiesByDocumentRequest,
+            models.ListEntitiesByDocumentRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> models.ListEntitiesByDocumentResponse:
+    ) -> Optional[models.ListEntitiesByDocumentResponse]:
         r"""Get Document Extracted Entities
 
         :param request: The request object to send.
@@ -692,14 +771,14 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
         request = cast(models.ListEntitiesByDocumentRequest, request)
-        
+
         req = self.build_request(
             method="GET",
             path="/documents/{document_id}/entities",
@@ -714,28 +793,26 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = self.do_request(
-            hook_ctx=HookContext(operation_id="ListEntitiesByDocument", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListEntitiesByDocument",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         def next_func() -> Optional[models.ListEntitiesByDocumentResponse]:
             body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
@@ -752,31 +829,43 @@ class Entities(BaseSDK):
                 ),
                 retries=retries,
             )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByDocumentResponse(result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]), next=next_func)
+            return models.ListEntitiesByDocumentResponse(
+                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )
+
     async def list_by_document_async(
-        self, *,
-        request: Union[models.ListEntitiesByDocumentRequest, models.ListEntitiesByDocumentRequestTypedDict],
+        self,
+        *,
+        request: Union[
+            models.ListEntitiesByDocumentRequest,
+            models.ListEntitiesByDocumentRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> models.ListEntitiesByDocumentResponse:
+    ) -> Optional[models.ListEntitiesByDocumentResponse]:
         r"""Get Document Extracted Entities
 
         :param request: The request object to send.
@@ -788,15 +877,15 @@ class Entities(BaseSDK):
         url_variables = None
         if timeout_ms is None:
             timeout_ms = self.sdk_configuration.timeout_ms
-        
+
         if server_url is not None:
             base_url = server_url
-        
+
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
         request = cast(models.ListEntitiesByDocumentRequest, request)
-        
-        req = self.build_request(
+
+        req = self.build_request_async(
             method="GET",
             path="/documents/{document_id}/entities",
             base_url=base_url,
@@ -810,28 +899,26 @@ class Entities(BaseSDK):
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
-        
+
         if retries == UNSET:
             if self.sdk_configuration.retry_config is not UNSET:
                 retries = self.sdk_configuration.retry_config
 
         retry_config = None
         if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, [
-                "429",
-                "500",
-                "502",
-                "503",
-                "504"
-            ])                
-        
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
         http_res = await self.do_request_async(
-            hook_ctx=HookContext(operation_id="ListEntitiesByDocument", oauth2_scopes=[], security_source=self.sdk_configuration.security),
+            hook_ctx=HookContext(
+                operation_id="ListEntitiesByDocument",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
             request=req,
-            error_status_codes=["401","422","4XX","5XX"],
-            retry_config=retry_config
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
         )
-        
+
         def next_func() -> Optional[models.ListEntitiesByDocumentResponse]:
             body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
@@ -848,20 +935,28 @@ class Entities(BaseSDK):
                 ),
                 retries=retries,
             )
-        
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByDocumentResponse(result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]), next=next_func)
+            return models.ListEntitiesByDocumentResponse(
+                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
+            raise models.ErrorMessageError(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
-        if utils.match_response(http_res, ["4XX","5XX"], "*"):
-            raise models.SDKError("API error occurred", http_res.status_code, http_res.text, http_res)
-        
-        content_type = http_res.headers.get("Content-Type")
-        raise models.SDKError(f"Unexpected response received (code: {http_res.status_code}, type: {content_type})", http_res.status_code, http_res.text, http_res)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res.text, http_res
+            )
 
-    
+        content_type = http_res.headers.get("Content-Type")
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res.text,
+            http_res,
+        )

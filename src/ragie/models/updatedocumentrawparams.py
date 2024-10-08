@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import TypedDict, Union
+from typing import Union
+from typing_extensions import TypedDict
 
 
 class Data2TypedDict(TypedDict):
     pass
-    
+
 
 class Data2(BaseModel):
     pass
-    
+
 
 UpdateDocumentRawParamsDataTypedDict = Union[Data2TypedDict, str]
 r"""Document data in a text or JSON format."""
@@ -24,9 +25,8 @@ r"""Document data in a text or JSON format."""
 class UpdateDocumentRawParamsTypedDict(TypedDict):
     data: UpdateDocumentRawParamsDataTypedDict
     r"""Document data in a text or JSON format."""
-    
+
 
 class UpdateDocumentRawParams(BaseModel):
     data: UpdateDocumentRawParamsData
     r"""Document data in a text or JSON format."""
-    

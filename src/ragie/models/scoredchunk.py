@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import Any, Dict, TypedDict
+from typing import Any, Dict
+from typing_extensions import TypedDict
 
 
 class ScoredChunkTypedDict(TypedDict):
@@ -10,11 +11,13 @@ class ScoredChunkTypedDict(TypedDict):
     score: float
     document_id: str
     document_metadata: Dict[str, Any]
-    
+
 
 class ScoredChunk(BaseModel):
     text: str
+
     score: float
+
     document_id: str
+
     document_metadata: Dict[str, Any]
-    

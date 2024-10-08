@@ -1,44 +1,114 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 2ac0bff46bb24c68933544dce1449c91
+  docChecksum: af5e947f8ef234eb92faf756a1a97812
   docVersion: 1.0.0
-  speakeasyVersion: 1.358.0
-  generationVersion: 2.390.6
-  releaseVersion: 0.0.3
-  configChecksum: c517199efeda1f91dbea8e5cf0508d32
+  speakeasyVersion: 1.412.5
+  generationVersion: 2.436.3
+  releaseVersion: 0.1.0
+  configChecksum: 969e051a7cf0490c372b5d21c59074fb
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
 features:
   python:
     additionalDependencies: 1.0.0
-    constsAndDefaults: 1.0.2
-    core: 5.3.7
+    constsAndDefaults: 1.0.4
+    core: 5.6.0
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
+    enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.1
-    flattening: 3.0.0
+    flattening: 3.1.0
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.0.0
+    methodArguments: 1.0.2
     multipartFileContentType: 1.0.0
     nameOverrides: 3.0.0
     nullables: 1.0.0
     pagination: 3.0.1
-    responseFormat: 1.0.0
-    retries: 3.0.0
+    responseFormat: 1.0.1
+    retries: 3.0.2
     sdkHooks: 1.0.0
-    unions: 3.0.1
+    unions: 3.0.2
     uploadStreams: 1.0.0
 generatedFiles:
-  - src/ragie/sdkconfiguration.py
-  - src/ragie/documents.py
-  - src/ragie/retrievals.py
-  - src/ragie/entities.py
-  - src/ragie/sdk.py
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .python-version
   - .vscode/settings.json
+  - CONTRIBUTING.md
+  - USAGE.md
+  - docs/models/createdocumentfromurlparams.md
+  - docs/models/createdocumentfromurlparamsmetadata.md
+  - docs/models/createdocumentfromurlparamsmode.md
+  - docs/models/createdocumentparams.md
+  - docs/models/createdocumentrawparams.md
+  - docs/models/createdocumentrawparamsmetadata.md
+  - docs/models/createinstructionparams.md
+  - docs/models/createinstructionparamsfilter.md
+  - docs/models/createinstructionparamsscope.md
+  - docs/models/data.md
+  - docs/models/data2.md
+  - docs/models/deletedocumentrequest.md
+  - docs/models/document.md
+  - docs/models/documentdelete.md
+  - docs/models/documentfileupdate.md
+  - docs/models/documentget.md
+  - docs/models/documentgetmetadata.md
+  - docs/models/documentlist.md
+  - docs/models/documentmetadata.md
+  - docs/models/documentmetadataupdate.md
+  - docs/models/documentmetadataupdatemetadata.md
+  - docs/models/documentrawupdate.md
+  - docs/models/documentsummary.md
+  - docs/models/entity.md
+  - docs/models/entitylist.md
+  - docs/models/errormessageerror.md
+  - docs/models/file.md
+  - docs/models/filter_.md
+  - docs/models/getdocumentrequest.md
+  - docs/models/getdocumentsummaryrequest.md
+  - docs/models/httpvalidationerror.md
+  - docs/models/instruction.md
+  - docs/models/listdocumentsrequest.md
+  - docs/models/listdocumentsresponse.md
+  - docs/models/listentitiesbydocumentrequest.md
+  - docs/models/listentitiesbydocumentresponse.md
+  - docs/models/listentitiesbyinstructionrequest.md
+  - docs/models/listentitiesbyinstructionresponse.md
+  - docs/models/loc.md
+  - docs/models/metadata.md
+  - docs/models/mode.md
+  - docs/models/pagination.md
+  - docs/models/patchdocumentmetadataparams.md
+  - docs/models/patchdocumentmetadataparamsmetadata.md
+  - docs/models/patchdocumentmetadatarequest.md
+  - docs/models/retrieval.md
+  - docs/models/retrieveparams.md
+  - docs/models/scope.md
+  - docs/models/scoredchunk.md
+  - docs/models/security.md
+  - docs/models/two.md
+  - docs/models/updatedocumentfileparams.md
+  - docs/models/updatedocumentfileparamsfile.md
+  - docs/models/updatedocumentfileparamsmode.md
+  - docs/models/updatedocumentfilerequest.md
+  - docs/models/updatedocumentrawparams.md
+  - docs/models/updatedocumentrawparamsdata.md
+  - docs/models/updatedocumentrawrequest.md
+  - docs/models/updateinstructionparams.md
+  - docs/models/updateinstructionrequest.md
+  - docs/models/utils/retryconfig.md
+  - docs/models/validationerror.md
+  - docs/sdks/documents/README.md
+  - docs/sdks/entities/README.md
+  - docs/sdks/ragie/README.md
+  - docs/sdks/retrievals/README.md
   - poetry.toml
   - py.typed
   - pylintrc
@@ -47,9 +117,57 @@ generatedFiles:
   - scripts/prepare-readme.py
   - scripts/publish.sh
   - src/ragie/__init__.py
+  - src/ragie/_hooks/__init__.py
+  - src/ragie/_hooks/sdkhooks.py
+  - src/ragie/_hooks/types.py
+  - src/ragie/_version.py
   - src/ragie/basesdk.py
+  - src/ragie/documents.py
+  - src/ragie/entities.py
   - src/ragie/httpclient.py
+  - src/ragie/models/__init__.py
+  - src/ragie/models/createdocumentfromurlparams.py
+  - src/ragie/models/createdocumentparams.py
+  - src/ragie/models/createdocumentrawparams.py
+  - src/ragie/models/createinstructionparams.py
+  - src/ragie/models/deletedocumentop.py
+  - src/ragie/models/document.py
+  - src/ragie/models/documentdelete.py
+  - src/ragie/models/documentfileupdate.py
+  - src/ragie/models/documentget.py
+  - src/ragie/models/documentlist.py
+  - src/ragie/models/documentmetadataupdate.py
+  - src/ragie/models/documentrawupdate.py
+  - src/ragie/models/documentsummary.py
+  - src/ragie/models/entity.py
+  - src/ragie/models/entitylist.py
+  - src/ragie/models/errormessage_error.py
+  - src/ragie/models/getdocumentop.py
+  - src/ragie/models/getdocumentsummaryop.py
+  - src/ragie/models/httpvalidationerror.py
+  - src/ragie/models/instruction.py
+  - src/ragie/models/listdocumentsop.py
+  - src/ragie/models/listentitiesbydocumentop.py
+  - src/ragie/models/listentitiesbyinstructionop.py
+  - src/ragie/models/pagination.py
+  - src/ragie/models/patchdocumentmetadataop.py
+  - src/ragie/models/patchdocumentmetadataparams.py
+  - src/ragie/models/retrieval.py
+  - src/ragie/models/retrieveparams.py
+  - src/ragie/models/scoredchunk.py
+  - src/ragie/models/sdkerror.py
+  - src/ragie/models/security.py
+  - src/ragie/models/updatedocumentfileop.py
+  - src/ragie/models/updatedocumentfileparams.py
+  - src/ragie/models/updatedocumentrawop.py
+  - src/ragie/models/updatedocumentrawparams.py
+  - src/ragie/models/updateinstructionop.py
+  - src/ragie/models/updateinstructionparams.py
+  - src/ragie/models/validationerror.py
   - src/ragie/py.typed
+  - src/ragie/retrievals.py
+  - src/ragie/sdk.py
+  - src/ragie/sdkconfiguration.py
   - src/ragie/types/__init__.py
   - src/ragie/types/basemodel.py
   - src/ragie/utils/__init__.py
@@ -67,114 +185,181 @@ generatedFiles:
   - src/ragie/utils/serializers.py
   - src/ragie/utils/url.py
   - src/ragie/utils/values.py
-  - src/ragie/models/sdkerror.py
-  - src/ragie/models/listdocumentsop.py
-  - src/ragie/models/documentlist.py
-  - src/ragie/models/document.py
-  - src/ragie/models/pagination.py
-  - src/ragie/models/errormessage.py
-  - src/ragie/models/httpvalidationerror.py
-  - src/ragie/models/validationerror.py
-  - src/ragie/models/createdocumentparams.py
-  - src/ragie/models/createdocumentrawparams.py
-  - src/ragie/models/createdocumentfromurlparams.py
-  - src/ragie/models/getdocumentop.py
-  - src/ragie/models/documentdelete.py
-  - src/ragie/models/deletedocumentop.py
-  - src/ragie/models/documentfileupdate.py
-  - src/ragie/models/updatedocumentfileop.py
-  - src/ragie/models/updatedocumentfileparams.py
-  - src/ragie/models/documentrawupdate.py
-  - src/ragie/models/updatedocumentrawop.py
-  - src/ragie/models/updatedocumentrawparams.py
-  - src/ragie/models/documentmetadataupdate.py
-  - src/ragie/models/patchdocumentmetadataop.py
-  - src/ragie/models/patchdocumentmetadataparams.py
-  - src/ragie/models/documentsummary.py
-  - src/ragie/models/getdocumentsummaryop.py
-  - src/ragie/models/retrieval.py
-  - src/ragie/models/scoredchunk.py
-  - src/ragie/models/retrieveparams.py
-  - src/ragie/models/instruction.py
-  - src/ragie/models/createinstructionparams.py
-  - src/ragie/models/updateinstructionop.py
-  - src/ragie/models/updateinstructionparams.py
-  - src/ragie/models/listentitiesbyinstructionop.py
-  - src/ragie/models/entitylist.py
-  - src/ragie/models/entity.py
-  - src/ragie/models/listentitiesbydocumentop.py
-  - src/ragie/models/security.py
-  - src/ragie/models/__init__.py
-  - docs/models/listdocumentsrequest.md
-  - docs/models/listdocumentsresponse.md
-  - docs/models/documentlist.md
-  - docs/models/metadata.md
-  - docs/models/document.md
-  - docs/models/pagination.md
-  - docs/models/errormessage.md
-  - docs/models/httpvalidationerror.md
-  - docs/models/loc.md
-  - docs/models/validationerror.md
-  - docs/models/mode.md
-  - docs/models/createdocumentparamsmetadata.md
-  - docs/models/file.md
-  - docs/models/createdocumentparams.md
-  - docs/models/createdocumentrawparamsmetadata.md
-  - docs/models/two.md
-  - docs/models/data.md
-  - docs/models/createdocumentrawparams.md
-  - docs/models/createdocumentfromurlparamsmetadata.md
-  - docs/models/createdocumentfromurlparamsmode.md
-  - docs/models/createdocumentfromurlparams.md
-  - docs/models/getdocumentrequest.md
-  - docs/models/documentdelete.md
-  - docs/models/deletedocumentrequest.md
-  - docs/models/documentfileupdate.md
-  - docs/models/updatedocumentfilerequest.md
-  - docs/models/updatedocumentfileparamsmode.md
-  - docs/models/updatedocumentfileparamsfile.md
-  - docs/models/updatedocumentfileparams.md
-  - docs/models/documentrawupdate.md
-  - docs/models/updatedocumentrawrequest.md
-  - docs/models/data2.md
-  - docs/models/updatedocumentrawparamsdata.md
-  - docs/models/updatedocumentrawparams.md
-  - docs/models/documentmetadataupdatemetadata.md
-  - docs/models/documentmetadataupdate.md
-  - docs/models/patchdocumentmetadatarequest.md
-  - docs/models/patchdocumentmetadataparamsmetadata.md
-  - docs/models/patchdocumentmetadataparams.md
-  - docs/models/documentsummary.md
-  - docs/models/getdocumentsummaryrequest.md
-  - docs/models/retrieval.md
-  - docs/models/scoredchunk.md
-  - docs/models/retrieveparams.md
-  - docs/models/scope.md
-  - docs/models/filter_.md
-  - docs/models/instruction.md
-  - docs/models/createinstructionparamsscope.md
-  - docs/models/createinstructionparamsfilter.md
-  - docs/models/createinstructionparams.md
-  - docs/models/updateinstructionrequest.md
-  - docs/models/updateinstructionparams.md
-  - docs/models/listentitiesbyinstructionrequest.md
-  - docs/models/listentitiesbyinstructionresponse.md
-  - docs/models/entitylist.md
-  - docs/models/entity.md
-  - docs/models/listentitiesbydocumentrequest.md
-  - docs/models/listentitiesbydocumentresponse.md
-  - docs/models/security.md
-  - docs/sdks/ragie/README.md
-  - docs/models/utils/retryconfig.md
-  - docs/sdks/documents/README.md
-  - docs/sdks/retrievals/README.md
-  - docs/sdks/entities/README.md
-  - USAGE.md
-  - .gitattributes
-  - .devcontainer/README.md
-  - .devcontainer/devcontainer.json
-  - .devcontainer/setup.sh
-  - src/ragie/_hooks/sdkhooks.py
-  - src/ragie/_hooks/types.py
-  - src/ragie/_hooks/__init__.py
-  - CONTRIBUTING.md
+examples:
+  CreateDocument:
+    speakeasy-default-create-document:
+      requestBody:
+        multipart/form-data: {"file": {}}
+      responses:
+        "201":
+          application/json: {"id": "7a621cf0-21cd-49cf-8540-3315211a509a", "created_at": "2022-01-18T01:06:03.366Z", "updated_at": "2023-07-28T18:44:31.482Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
+        "400":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  ListDocuments:
+    speakeasy-default-list-documents:
+      parameters:
+        query:
+          filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
+      responses:
+        "200":
+          application/json: {"documents": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "status": "<value>", "name": "<value>", "metadata": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2022-05-09T15:43:49.850Z", "updated_at": "2024-10-31T06:20:54.910Z", "status": "<value>", "name": "<value>", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "partition": "<value>"}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  CreateDocumentRaw:
+    speakeasy-default-create-document-raw:
+      requestBody:
+        application/json: {"data": "<value>", "partition": "<value>"}
+      responses:
+        "201":
+          application/json: {"id": "f32d8f20-2af5-4fe3-9301-884a461abb5d", "created_at": "2024-10-07T02:25:22.865Z", "updated_at": "2024-07-13T21:12:32.248Z", "status": "<value>", "name": "<value>", "metadata": {"key": 391493, "key1": 816075, "key2": true}, "partition": "<value>"}
+        "400":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  CreateDocumentFromUrl:
+    speakeasy-default-create-document-from-url:
+      requestBody:
+        application/json: {"url": "https://scientific-plain.biz/", "partition": "<value>"}
+      responses:
+        "201":
+          application/json: {"id": "0adf151b-6a78-4e39-a7b3-465615a95443", "created_at": "2022-07-13T10:16:17.094Z", "updated_at": "2024-05-24T16:33:21.360Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
+        "400":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  GetDocument:
+    speakeasy-default-get-document:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      responses:
+        "200":
+          application/json: {"id": "b888f774-3e7c-4135-a18c-6b985523c4bc", "created_at": "2024-09-23T09:26:26.647Z", "updated_at": "2022-12-22T20:41:29.028Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "errors": ["<value>", "<value>", "<value>"]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  DeleteDocument:
+    speakeasy-default-delete-document:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      responses:
+        "200":
+          application/json: {"status": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  UpdateDocumentFile:
+    speakeasy-default-update-document-file:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      requestBody:
+        multipart/form-data: {"file": {}}
+      responses:
+        "200":
+          application/json: {"status": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  UpdateDocumentRaw:
+    speakeasy-default-update-document-raw:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"status": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  PatchDocumentMetadata:
+    speakeasy-default-patch-document-metadata:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      requestBody:
+        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "title": "declassified report", "updated_at": 1714491736216}}
+      responses:
+        "200":
+          application/json: {"metadata": {"editors": ["Alice", "Bob"], "title": "declassified report", "unchanged_key": "unchanged_value", "updated_at": 1714491736216}}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  GetDocumentSummary:
+    speakeasy-default-get-document-summary:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+      responses:
+        "200":
+          application/json: {"document_id": "<id>", "summary": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  Retrieve:
+    speakeasy-default-retrieve:
+      requestBody:
+        application/json: {"query": "What is the best pizza place in SF?", "top_k": 8, "filter": {"department": {"$in": ["sales", "marketing"]}}, "rerank": true, "max_chunks_per_document": 0, "partition": "<value>"}
+      responses:
+        "200":
+          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "document_id": "<id>", "document_metadata": {"key": "<value>"}}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  ListInstructions:
+    speakeasy-default-list-instructions:
+      responses:
+        "200":
+          application/json: [{"id": "07948203-9687-472b-addd-d152fe0e4b0c", "created_at": "2023-07-16T13:45:54.250Z", "updated_at": "2023-06-27T05:32:29.020Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}]
+        "401":
+          application/json: {"detail": "<value>"}
+  CreateInstruction:
+    speakeasy-default-create-instruction:
+      requestBody:
+        application/json: {"name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+      responses:
+        "200":
+          application/json: {"id": "7a4c4504-3a1d-446a-b2d3-54e705734d3b", "created_at": "2024-07-30T12:44:16.443Z", "updated_at": "2023-09-24T03:06:52.578Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  UpdateInstruction:
+    speakeasy-default-update-instruction:
+      parameters:
+        path:
+          instruction_id: "<INSTRUCTION_ID>"
+      requestBody:
+        application/json: {"active": true}
+      responses:
+        "200":
+          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2023-01-22T23:04:46.512Z", "updated_at": "2023-05-30T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  ListEntitiesByInstruction:
+    speakeasy-default-list-entities-by-instruction:
+      parameters:
+        path:
+          instruction_id: "<INSTRUCTION_ID>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"entities": []}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  ListEntitiesByDocument:
+    speakeasy-default-list-entities-by-document:
+      parameters:
+        path:
+          document_id: "<DOCUMENT_ID>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2024-05-24T20:59:27.681Z", "updated_at": "2022-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}

@@ -3,8 +3,8 @@
 from __future__ import annotations
 from enum import Enum
 from ragie.types import BaseModel
-from typing import Dict, List, Optional, TypedDict, Union
-from typing_extensions import NotRequired
+from typing import Dict, List, Optional, Union
+from typing_extensions import NotRequired, TypedDict
 
 
 CreateDocumentFromURLParamsMetadataTypedDict = Union[str, int, bool, List[str]]
@@ -15,8 +15,10 @@ CreateDocumentFromURLParamsMetadata = Union[str, int, bool, List[str]]
 
 class CreateDocumentFromURLParamsMode(str, Enum):
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+
     HI_RES = "hi_res"
     FAST = "fast"
+
 
 class CreateDocumentFromURLParamsTypedDict(TypedDict):
     url: str
@@ -27,15 +29,25 @@ class CreateDocumentFromURLParamsTypedDict(TypedDict):
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
     name: NotRequired[str]
     external_id: NotRequired[str]
-    
+    partition: NotRequired[str]
+    r"""An optional partition identifier. Documents can be scoped to a partition. A partition is created any time a document is created or moved to a new partition."""
+
 
 class CreateDocumentFromURLParams(BaseModel):
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme"""
+
     metadata: Optional[Dict[str, CreateDocumentFromURLParamsMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
-    mode: Optional[CreateDocumentFromURLParamsMode] = CreateDocumentFromURLParamsMode.FAST
+
+    mode: Optional[CreateDocumentFromURLParamsMode] = (
+        CreateDocumentFromURLParamsMode.FAST
+    )
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+
     name: Optional[str] = None
+
     external_id: Optional[str] = None
-    
+
+    partition: Optional[str] = None
+    r"""An optional partition identifier. Documents can be scoped to a partition. A partition is created any time a document is created or moved to a new partition."""

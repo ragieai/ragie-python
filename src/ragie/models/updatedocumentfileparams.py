@@ -6,43 +6,63 @@ import io
 import pydantic
 from ragie.types import BaseModel
 from ragie.utils import FieldMetadata, MultipartFormMetadata
-from typing import IO, Optional, TypedDict, Union
-from typing_extensions import Annotated, NotRequired
+from typing import IO, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class UpdateDocumentFileParamsMode(str, Enum):
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+
     HI_RES = "hi_res"
     FAST = "fast"
+
 
 class UpdateDocumentFileParamsFileTypedDict(TypedDict):
     file_name: str
     content: Union[bytes, IO[bytes], io.BufferedReader]
     content_type: NotRequired[str]
-    
+
 
 class UpdateDocumentFileParamsFile(BaseModel):
-    file_name: Annotated[str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)]
-    content: Annotated[Union[bytes, IO[bytes], io.BufferedReader], pydantic.Field(alias=""), FieldMetadata(multipart=MultipartFormMetadata(content=True))]
-    content_type: Annotated[Optional[str], pydantic.Field(alias="Content-Type"), FieldMetadata(multipart=True)] = None
-    
+    file_name: Annotated[
+        str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)
+    ]
+
+    content: Annotated[
+        Union[bytes, IO[bytes], io.BufferedReader],
+        pydantic.Field(alias=""),
+        FieldMetadata(multipart=MultipartFormMetadata(content=True)),
+    ]
+
+    content_type: Annotated[
+        Optional[str],
+        pydantic.Field(alias="Content-Type"),
+        FieldMetadata(multipart=True),
+    ] = None
+
 
 class UpdateDocumentFileParamsTypedDict(TypedDict):
     file: UpdateDocumentFileParamsFileTypedDict
     r"""The binary file to upload, extract, and index for retrieval. The following file types are supported: Plain Text: `.eml` `.html` `.json` `.md` `.msg` `.rst` `.rtf` `.txt` `.xml`
     Images: `.png` `.webp` `.jpg` `.jpeg` `.tiff` `.bmp` `.heic`
-    Documents: `.csv` `.doc` `.docx` `.epub` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx`.
+    Documents: `.csv` `.doc` `.docx` `.epub` `.epub+zip` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx` `.xls`.
     """
     mode: NotRequired[UpdateDocumentFileParamsMode]
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
-    
+
 
 class UpdateDocumentFileParams(BaseModel):
-    file: Annotated[UpdateDocumentFileParamsFile, pydantic.Field(alias=""), FieldMetadata(multipart=MultipartFormMetadata(file=True))]
+    file: Annotated[
+        UpdateDocumentFileParamsFile,
+        pydantic.Field(alias=""),
+        FieldMetadata(multipart=MultipartFormMetadata(file=True)),
+    ]
     r"""The binary file to upload, extract, and index for retrieval. The following file types are supported: Plain Text: `.eml` `.html` `.json` `.md` `.msg` `.rst` `.rtf` `.txt` `.xml`
     Images: `.png` `.webp` `.jpg` `.jpeg` `.tiff` `.bmp` `.heic`
-    Documents: `.csv` `.doc` `.docx` `.epub` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx`.
+    Documents: `.csv` `.doc` `.docx` `.epub` `.epub+zip` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx` `.xls`.
     """
-    mode: Annotated[Optional[UpdateDocumentFileParamsMode], FieldMetadata(multipart=True)] = UpdateDocumentFileParamsMode.FAST
+
+    mode: Annotated[
+        Optional[UpdateDocumentFileParamsMode], FieldMetadata(multipart=True)
+    ] = UpdateDocumentFileParamsMode.FAST
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
-    

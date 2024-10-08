@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import TypedDict
+from typing_extensions import TypedDict
 
 
 class DocumentDeleteTypedDict(TypedDict):
     status: str
-    
+
 
 class DocumentDelete(BaseModel):
     status: str
-    

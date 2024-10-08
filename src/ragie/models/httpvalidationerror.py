@@ -6,13 +6,12 @@ from ragie import utils
 from ragie.types import BaseModel
 from typing import List, Optional
 
+
 class HTTPValidationErrorData(BaseModel):
     detail: Optional[List[ValidationError]] = None
-    
 
 
 class HTTPValidationError(Exception):
-    r"""Validation Error"""
     data: HTTPValidationErrorData
 
     def __init__(self, data: HTTPValidationErrorData):
@@ -20,4 +19,3 @@ class HTTPValidationError(Exception):
 
     def __str__(self) -> str:
         return utils.marshal_json(self.data, HTTPValidationErrorData)
-

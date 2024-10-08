@@ -1,19 +1,17 @@
-speakeasyVersion: 1.358.0
+speakeasyVersion: 1.412.5
 sources:
     Ragie-OAS:
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:81bc2f7d3e90be5141dc391d6548f267850ade94b7ce3fd422ab9d2f3c0ac408
-        sourceBlobDigest: sha256:050497eb3e77884cc1ba62a6bbdd8c49e7d86051332ac4ffe0c9d436dd3ab749
+        sourceRevisionDigest: sha256:7f2736d4b60b98aaef44ac0a91fe02d7669a197493f55259148dc72a9aecbf28
+        sourceBlobDigest: sha256:ea57d1b3954ef18bb61deb220d10c061b9c08beb6dd5d077ba0c7b46a54360df
         tags:
             - latest
-            - main
 targets:
     ragie:
         source: Ragie-OAS
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:81bc2f7d3e90be5141dc391d6548f267850ade94b7ce3fd422ab9d2f3c0ac408
-        sourceBlobDigest: sha256:050497eb3e77884cc1ba62a6bbdd8c49e7d86051332ac4ffe0c9d436dd3ab749
-        outLocation: /github/workspace/repo
+        sourceRevisionDigest: sha256:7f2736d4b60b98aaef44ac0a91fe02d7669a197493f55259148dc72a9aecbf28
+        sourceBlobDigest: sha256:ea57d1b3954ef18bb61deb220d10c061b9c08beb6dd5d077ba0c7b46a54360df
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

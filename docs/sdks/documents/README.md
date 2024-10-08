@@ -1,10 +1,12 @@
 # Documents
 (*documents*)
 
+## Overview
+
 ### Available Operations
 
-* [list](#list) - List Documents
 * [create](#create) - Create Document
+* [list](#list) - List Documents
 * [create_raw](#create_raw) - Create Document Raw
 * [create_document_from_url](#create_document_from_url) - Create Document From Url
 * [get](#get) - Get Document
@@ -14,57 +16,9 @@
 * [patch_metadata](#patch_metadata) - Patch Document Metadata
 * [get_summary](#get_summary) - Get Document Summary
 
-## list
-
-List all documents sorted by created_at in descending order. Results are paginated with a max limit of 100. When more documents are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
-
-### Example Usage
-
-```python
-from ragie import Ragie
-
-s = Ragie(
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-)
-
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
-})
-
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.ListDocumentsRequest](../../models/listdocumentsrequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-
-### Response
-
-**[models.ListDocumentsResponse](../../models/listdocumentsresponse.md)**
-### Errors
-
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
-| models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
-
 ## create
 
-Create Document
+On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
 
 ### Example Usage
 
@@ -74,12 +28,11 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.create(request={
     "file": {
-        "file_name": "your_file_here",
-        "content": open("<file_path>", "rb"),
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
     },
 })
 
@@ -96,21 +49,21 @@ if res is not None:
 | `request`                                                           | [models.CreateDocumentParams](../../models/createdocumentparams.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
-
 ### Response
 
 **[models.Document](../../models/document.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400,401                    | application/json           |
+| models.ErrorMessageError   | 400, 401                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
-## create_raw
+## list
 
-Ingest a document as raw text
+List all documents sorted by created_at in descending order. Results are paginated with a max limit of 100. When more documents are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
 
 ### Example Usage
 
@@ -121,9 +74,55 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
+res = s.documents.list(request={
+    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+})
+
+if res is not None:
+    while True:
+        # handle items
+
+        res = res.next()
+        if res is None:
+            break
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.ListDocumentsRequest](../../models/listdocumentsrequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListDocumentsResponse](../../models/listdocumentsresponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## create_raw
+
+Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+s = Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+)
 
 res = s.documents.create_raw(request={
     "data": "<value>",
+    "partition": "<value>",
 })
 
 if res is not None:
@@ -139,17 +138,17 @@ if res is not None:
 | `request`                                                                 | [models.CreateDocumentRawParams](../../models/createdocumentrawparams.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
-
 ### Response
 
 **[models.Document](../../models/document.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400,401                    | application/json           |
+| models.ErrorMessageError   | 400, 401                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## create_document_from_url
 
@@ -164,9 +163,9 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.documents.create_document_from_url(request={
-    "url": "http://frightening-quartz.name",
+    "url": "https://scientific-plain.biz/",
+    "partition": "<value>",
 })
 
 if res is not None:
@@ -182,17 +181,17 @@ if res is not None:
 | `request`                                                                         | [models.CreateDocumentFromURLParams](../../models/createdocumentfromurlparams.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 | `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
 
-
 ### Response
 
 **[models.Document](../../models/document.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400,401                    | application/json           |
+| models.ErrorMessageError   | 400, 401                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get
 
@@ -206,7 +205,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.get(document_id="<DOCUMENT_ID>")
 
@@ -223,17 +221,17 @@ if res is not None:
 | `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
-
 ### Response
 
-**[models.Document](../../models/document.md)**
+**[models.DocumentGet](../../models/documentget.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## delete
 
@@ -247,7 +245,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.delete(document_id="<DOCUMENT_ID>")
 
@@ -264,17 +261,17 @@ if res is not None:
 | `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
-
 ### Response
 
 **[models.DocumentDelete](../../models/documentdelete.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_file
 
@@ -289,11 +286,10 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.documents.update_file(document_id="<DOCUMENT_ID>", update_document_file_params={
     "file": {
-        "file_name": "your_file_here",
-        "content": open("<file_path>", "rb"),
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
     },
 })
 
@@ -311,17 +307,17 @@ if res is not None:
 | `update_document_file_params`                                               | [models.UpdateDocumentFileParams](../../models/updatedocumentfileparams.md) | :heavy_check_mark:                                                          | N/A                                                                         |                                                                             |
 | `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |                                                                             |
 
-
 ### Response
 
 **[models.DocumentFileUpdate](../../models/documentfileupdate.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_raw
 
@@ -335,7 +331,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.update_raw(document_id="<DOCUMENT_ID>", update_document_raw_params={
     "data": {},
@@ -355,17 +350,17 @@ if res is not None:
 | `update_document_raw_params`                                              | [models.UpdateDocumentRawParams](../../models/updatedocumentrawparams.md) | :heavy_check_mark:                                                        | N/A                                                                       |                                                                           |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |                                                                           |
 
-
 ### Response
 
 **[models.DocumentRawUpdate](../../models/documentrawupdate.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## patch_metadata
 
@@ -379,7 +374,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.patch_metadata(document_id="<DOCUMENT_ID>", patch_document_metadata_params={
     "metadata": {
@@ -407,21 +401,21 @@ if res is not None:
 | `patch_document_metadata_params`                                                  | [models.PatchDocumentMetadataParams](../../models/patchdocumentmetadataparams.md) | :heavy_check_mark:                                                                | N/A                                                                               |                                                                                   |
 | `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |                                                                                   |
 
-
 ### Response
 
 **[models.DocumentMetadataUpdate](../../models/documentmetadataupdate.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_summary
 
-Get a LLM generated summary of the document. The summary is created when the document is first created or updated. Documents of types ['xlsx', 'csv', 'json'] are not supported for summarization. This feature is in beta and may change in the future.
+Get a LLM generated summary of the document. The summary is created when the document is first created or updated. Documents of types ['xls', 'xlsx', 'csv', 'json'] are not supported for summarization. Documents greater than 1M in token length are not supported. This feature is in beta and may change in the future.
 
 ### Example Usage
 
@@ -431,7 +425,6 @@ from ragie import Ragie
 s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
-
 
 res = s.documents.get_summary(document_id="<DOCUMENT_ID>")
 
@@ -448,14 +441,14 @@ if res is not None:
 | `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
-
 ### Response
 
 **[models.DocumentSummary](../../models/documentsummary.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 401, 404                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
