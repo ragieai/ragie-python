@@ -7,24 +7,46 @@
     </a>
 </div>
 
+<!-- Start Summary [summary] -->
+## Summary
 
-## 🏗 **Welcome to your new SDK!** 🏗
 
-It has been generated successfully based on your OpenAPI spec. However, it is not yet ready for production use. Here are some next steps:
-- [ ] 🛠 Make your SDK feel handcrafted by [customizing it](https://www.speakeasy.com/docs/customize-sdks)
-- [ ] ♻️ Refine your SDK quickly by iterating locally with the [Speakeasy CLI](https://github.com/speakeasy-api/speakeasy)
-- [ ] 🎁 Publish your SDK to package managers by [configuring automatic publishing](https://www.speakeasy.com/docs/advanced-setup/publish-sdks)
-- [ ] ✨ When ready to productionize, delete this section from the README
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](https://github.com/ragieai/ragie-python/blob/master/#sdk-installation)
+* [IDE Support](https://github.com/ragieai/ragie-python/blob/master/#ide-support)
+* [SDK Example Usage](https://github.com/ragieai/ragie-python/blob/master/#sdk-example-usage)
+* [Available Resources and Operations](https://github.com/ragieai/ragie-python/blob/master/#available-resources-and-operations)
+* [Pagination](https://github.com/ragieai/ragie-python/blob/master/#pagination)
+* [File uploads](https://github.com/ragieai/ragie-python/blob/master/#file-uploads)
+* [Retries](https://github.com/ragieai/ragie-python/blob/master/#retries)
+* [Error Handling](https://github.com/ragieai/ragie-python/blob/master/#error-handling)
+* [Server Selection](https://github.com/ragieai/ragie-python/blob/master/#server-selection)
+* [Custom HTTP Client](https://github.com/ragieai/ragie-python/blob/master/#custom-http-client)
+* [Authentication](https://github.com/ragieai/ragie-python/blob/master/#authentication)
+* [Debugging](https://github.com/ragieai/ragie-python/blob/master/#debugging)
+<!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-PIP
+The SDK can be installed with either *pip* or *poetry* package managers.
+
+### PIP
+
+*PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
+
 ```bash
 pip install ragie
 ```
 
-Poetry
+### Poetry
+
+*Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
+
 ```bash
 poetry add ragie
 ```
@@ -53,19 +75,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 ```
 
 </br>
@@ -80,16 +99,15 @@ async def main():
     s = Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     )
-    res = await s.documents.list_async(request={
-        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+    res = await s.documents.create_async(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
     })
     if res is not None:
-        while True:
-            # handle items
-    
-            res = res.Next()
-            if res is None:
-                break
+        # handle response
+        pass
 
 asyncio.run(main())
 ```
@@ -98,10 +116,13 @@ asyncio.run(main())
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
+<details open>
+<summary>Available methods</summary>
+
 ### [documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
 
-* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#list) - List Documents
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#list) - List Documents
 * [create_raw](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_raw) - Create Document Raw
 * [create_document_from_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get) - Get Document
@@ -111,10 +132,6 @@ asyncio.run(main())
 * [patch_metadata](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
 * [get_summary](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
-### [retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
-
-* [retrieve](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md#retrieve) - Retrieve
-
 ### [entities](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md)
 
 * [list_instructions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_instructions) - List Instructions
@@ -122,6 +139,13 @@ asyncio.run(main())
 * [update_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#update_instruction) - Update Instruction
 * [list_by_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
+
+
+### [retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
+
+* [retrieve](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md#retrieve) - Retrieve
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Pagination [pagination] -->
@@ -139,7 +163,6 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.documents.list(request={
     "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
 })
@@ -148,10 +171,9 @@ if res is not None:
     while True:
         # handle items
 
-        res = res.Next()
+        res = res.next()
         if res is None:
             break
-
 
 ```
 <!-- End Pagination [pagination] -->
@@ -173,11 +195,10 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
 res = s.documents.create(request={
     "file": {
-        "file_name": "your_file_here",
-        "content": open("<file_path>", "rb"),
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
     },
 })
 
@@ -202,20 +223,17 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 },
     RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 
@@ -229,19 +247,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 <!-- End Retries [retries] -->
@@ -249,13 +264,24 @@ if res is not None:
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-| Error Object               | Status Code                | Content Type               |
+By default, an API error will raise a models.SDKError exception, which has the following properties:
+
+| Property        | Type             | Description           |
+|-----------------|------------------|-----------------------|
+| `.status_code`  | *int*            | The HTTP status code  |
+| `.message`      | *str*            | The error message     |
+| `.raw_response` | *httpx.Response* | The raw HTTP response |
+| `.body`         | *str*            | The response content  |
+
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create_async` method may raise the following exceptions:
+
+| Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401,404                    | application/json           |
+| models.ErrorMessageError   | 400, 401                   | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4xx-5xx                    | */*                        |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ### Example
 
@@ -268,29 +294,26 @@ s = Ragie(
 
 res = None
 try:
-    res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
-})
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-except models.ErrorMessage as e:
-    # handle exception
+    if res is not None:
+        # handle response
+        pass
+
+except models.ErrorMessageError as e:
+    # handle e.data: models.ErrorMessageErrorData
     raise(e)
 except models.HTTPValidationError as e:
-    # handle exception
+    # handle e.data: models.HTTPValidationErrorData
     raise(e)
 except models.SDKError as e:
     # handle exception
     raise(e)
-
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
-
 ```
 <!-- End Error Handling [errors] -->
 
@@ -315,19 +338,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 
@@ -343,19 +363,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 <!-- End Server Selection [server] -->
@@ -460,19 +477,16 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+res = s.documents.create(request={
+    "file": {
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    },
 })
 
 if res is not None:
-    while True:
-        # handle items
-
-        res = res.Next()
-        if res is None:
-            break
-
+    # handle response
+    pass
 
 ```
 <!-- End Authentication [security] -->
@@ -480,8 +494,9 @@ if res is not None:
 <!-- Start Debugging [debug] -->
 ## Debugging
 
-To emit debug logs for SDK requests and responses you can pass a logger object directly into your SDK object.
+You can setup your SDK to emit debug logs for SDK requests and responses.
 
+You can pass your own logger class directly into your SDK.
 ```python
 from ragie import Ragie
 import logging
@@ -503,8 +518,9 @@ looking for the latest version.
 
 ## Contributions
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
-We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
+While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation.
+We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release.
 
 ### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=<no value>&utm_campaign=python)
+
 # ragie-python
