@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.412.5
   generationVersion: 2.436.3
-  releaseVersion: 0.1.0
-  configChecksum: 969e051a7cf0490c372b5d21c59074fb
+  releaseVersion: 0.1.1
+  configChecksum: a371c1ff2810eb35ea0179c1a96aaa43
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -335,7 +335,7 @@ examples:
         application/json: {"active": true}
       responses:
         "200":
-          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2023-01-22T23:04:46.512Z", "updated_at": "2023-05-30T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2023-01-22T23:04:46.512Z", "updated_at": "2023-05-30T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422": {}
