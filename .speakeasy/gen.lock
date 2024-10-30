@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: af5e947f8ef234eb92faf756a1a97812
+  docChecksum: acc4c90fc4b614946193b46937ffde52
   docVersion: 1.0.0
-  speakeasyVersion: 1.412.5
-  generationVersion: 2.436.3
-  releaseVersion: 1.1.0
-  configChecksum: 64fed658547377e7719af35b243eee7f
+  speakeasyVersion: 1.423.4
+  generationVersion: 2.445.1
+  releaseVersion: 1.2.0
+  configChecksum: f5ac5f71458ec1f676413896ba769429
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.4
-    core: 5.6.0
+    core: 5.6.1
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
@@ -34,6 +34,7 @@ features:
     sdkHooks: 1.0.0
     unions: 3.0.2
     uploadStreams: 1.0.0
+    webhooks: 2.0.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -57,6 +58,10 @@ generatedFiles:
   - docs/models/deletedocumentrequest.md
   - docs/models/document.md
   - docs/models/documentdelete.md
+  - docs/models/documentdeletewebhook.md
+  - docs/models/documentdeletewebhookpayload.md
+  - docs/models/documentdeletewebhookpayloadmetadata.md
+  - docs/models/documentdeletewebhooktype.md
   - docs/models/documentfileupdate.md
   - docs/models/documentget.md
   - docs/models/documentgetmetadata.md
@@ -66,9 +71,18 @@ generatedFiles:
   - docs/models/documentmetadataupdatemetadata.md
   - docs/models/documentrawupdate.md
   - docs/models/documentsummary.md
+  - docs/models/documentupdatewebhook.md
+  - docs/models/documentupdatewebhookpayload.md
+  - docs/models/documentupdatewebhookpayloadmetadata.md
   - docs/models/entity.md
+  - docs/models/entityextractedwebhook.md
+  - docs/models/entityextractedwebhookpayload.md
+  - docs/models/entityextractedwebhookpayloaddata.md
+  - docs/models/entityextractedwebhookpayloaddocumentmetadata.md
+  - docs/models/entityextractedwebhooktype.md
   - docs/models/entitylist.md
   - docs/models/errormessageerror.md
+  - docs/models/eventeventpostbody.md
   - docs/models/file.md
   - docs/models/filter_.md
   - docs/models/getdocumentrequest.md
@@ -84,6 +98,7 @@ generatedFiles:
   - docs/models/loc.md
   - docs/models/metadata.md
   - docs/models/mode.md
+  - docs/models/one.md
   - docs/models/pagination.md
   - docs/models/patchdocumentmetadataparams.md
   - docs/models/patchdocumentmetadataparamsmetadata.md
@@ -93,7 +108,10 @@ generatedFiles:
   - docs/models/scope.md
   - docs/models/scoredchunk.md
   - docs/models/security.md
+  - docs/models/status.md
+  - docs/models/status2.md
   - docs/models/two.md
+  - docs/models/type.md
   - docs/models/updatedocumentfileparams.md
   - docs/models/updatedocumentfileparamsfile.md
   - docs/models/updatedocumentfileparamsmode.md
@@ -133,15 +151,22 @@ generatedFiles:
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/document.py
   - src/ragie/models/documentdelete.py
+  - src/ragie/models/documentdeletewebhook.py
+  - src/ragie/models/documentdeletewebhookpayload.py
   - src/ragie/models/documentfileupdate.py
   - src/ragie/models/documentget.py
   - src/ragie/models/documentlist.py
   - src/ragie/models/documentmetadataupdate.py
   - src/ragie/models/documentrawupdate.py
   - src/ragie/models/documentsummary.py
+  - src/ragie/models/documentupdatewebhook.py
+  - src/ragie/models/documentupdatewebhookpayload.py
   - src/ragie/models/entity.py
+  - src/ragie/models/entityextractedwebhook.py
+  - src/ragie/models/entityextractedwebhookpayload.py
   - src/ragie/models/entitylist.py
   - src/ragie/models/errormessage_error.py
+  - src/ragie/models/eventevent_post.py
   - src/ragie/models/getdocumentop.py
   - src/ragie/models/getdocumentsummaryop.py
   - src/ragie/models/httpvalidationerror.py
@@ -201,6 +226,7 @@ examples:
       parameters:
         query:
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
+        header: {}
       responses:
         "200":
           application/json: {"documents": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "status": "<value>", "name": "<value>", "metadata": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2022-05-09T15:43:49.850Z", "updated_at": "2024-10-31T06:20:54.910Z", "status": "<value>", "name": "<value>", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "partition": "<value>"}]}
@@ -305,7 +331,7 @@ examples:
         application/json: {"query": "What is the best pizza place in SF?", "top_k": 8, "filter": {"department": {"$in": ["sales", "marketing"]}}, "rerank": true, "max_chunks_per_document": 0, "partition": "<value>"}
       responses:
         "200":
-          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "document_id": "<id>", "document_metadata": {"key": "<value>"}}]}
+          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "document_id": "<id>", "document_name": "<value>", "document_metadata": {"key": "<value>"}}]}
         "401":
           application/json: {"detail": "<value>"}
         "422": {}
