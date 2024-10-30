@@ -10,6 +10,7 @@ class ScoredChunkTypedDict(TypedDict):
     text: str
     score: float
     document_id: str
+    document_name: str
     document_metadata: Dict[str, Any]
 
 
@@ -19,5 +20,7 @@ class ScoredChunk(BaseModel):
     score: float
 
     document_id: str
+
+    document_name: str
 
     document_metadata: Dict[str, Any]

@@ -34,7 +34,7 @@ class CreateDocumentRawParamsTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, CreateDocumentRawParamsMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     partition: NotRequired[str]
-    r"""An optional partition identifier. Documents can be scoped to a partition. A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
 
 
 class CreateDocumentRawParams(BaseModel):
@@ -45,4 +45,4 @@ class CreateDocumentRawParams(BaseModel):
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
 
     partition: Optional[str] = None
-    r"""An optional partition identifier. Documents can be scoped to a partition. A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""

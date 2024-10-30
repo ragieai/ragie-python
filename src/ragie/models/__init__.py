@@ -41,6 +41,17 @@ from .document import (
     DocumentTypedDict,
 )
 from .documentdelete import DocumentDelete, DocumentDeleteTypedDict
+from .documentdeletewebhook import (
+    DocumentDeleteWebhook,
+    DocumentDeleteWebhookType,
+    DocumentDeleteWebhookTypedDict,
+)
+from .documentdeletewebhookpayload import (
+    DocumentDeleteWebhookPayload,
+    DocumentDeleteWebhookPayloadMetadata,
+    DocumentDeleteWebhookPayloadMetadataTypedDict,
+    DocumentDeleteWebhookPayloadTypedDict,
+)
 from .documentfileupdate import DocumentFileUpdate, DocumentFileUpdateTypedDict
 from .documentget import (
     DocumentGet,
@@ -57,9 +68,38 @@ from .documentmetadataupdate import (
 )
 from .documentrawupdate import DocumentRawUpdate, DocumentRawUpdateTypedDict
 from .documentsummary import DocumentSummary, DocumentSummaryTypedDict
+from .documentupdatewebhook import (
+    DocumentUpdateWebhook,
+    DocumentUpdateWebhookTypedDict,
+    Type,
+)
+from .documentupdatewebhookpayload import (
+    DocumentUpdateWebhookPayload,
+    DocumentUpdateWebhookPayloadMetadata,
+    DocumentUpdateWebhookPayloadMetadataTypedDict,
+    DocumentUpdateWebhookPayloadTypedDict,
+    One,
+    Status,
+    Status2,
+    StatusTypedDict,
+)
 from .entity import Entity, EntityTypedDict
+from .entityextractedwebhook import (
+    EntityExtractedWebhook,
+    EntityExtractedWebhookType,
+    EntityExtractedWebhookTypedDict,
+)
+from .entityextractedwebhookpayload import (
+    EntityExtractedWebhookPayload,
+    EntityExtractedWebhookPayloadData,
+    EntityExtractedWebhookPayloadDataTypedDict,
+    EntityExtractedWebhookPayloadDocumentMetadata,
+    EntityExtractedWebhookPayloadDocumentMetadataTypedDict,
+    EntityExtractedWebhookPayloadTypedDict,
+)
 from .entitylist import EntityList, EntityListTypedDict
 from .errormessage_error import ErrorMessageError, ErrorMessageErrorData
+from .eventevent_post import EventeventPostBody, EventeventPostBodyTypedDict
 from .getdocumentop import GetDocumentRequest, GetDocumentRequestTypedDict
 from .getdocumentsummaryop import (
     GetDocumentSummaryRequest,
@@ -171,6 +211,13 @@ __all__ = [
     "Document",
     "DocumentDelete",
     "DocumentDeleteTypedDict",
+    "DocumentDeleteWebhook",
+    "DocumentDeleteWebhookPayload",
+    "DocumentDeleteWebhookPayloadMetadata",
+    "DocumentDeleteWebhookPayloadMetadataTypedDict",
+    "DocumentDeleteWebhookPayloadTypedDict",
+    "DocumentDeleteWebhookType",
+    "DocumentDeleteWebhookTypedDict",
     "DocumentFileUpdate",
     "DocumentFileUpdateTypedDict",
     "DocumentGet",
@@ -190,12 +237,29 @@ __all__ = [
     "DocumentSummary",
     "DocumentSummaryTypedDict",
     "DocumentTypedDict",
+    "DocumentUpdateWebhook",
+    "DocumentUpdateWebhookPayload",
+    "DocumentUpdateWebhookPayloadMetadata",
+    "DocumentUpdateWebhookPayloadMetadataTypedDict",
+    "DocumentUpdateWebhookPayloadTypedDict",
+    "DocumentUpdateWebhookTypedDict",
     "Entity",
+    "EntityExtractedWebhook",
+    "EntityExtractedWebhookPayload",
+    "EntityExtractedWebhookPayloadData",
+    "EntityExtractedWebhookPayloadDataTypedDict",
+    "EntityExtractedWebhookPayloadDocumentMetadata",
+    "EntityExtractedWebhookPayloadDocumentMetadataTypedDict",
+    "EntityExtractedWebhookPayloadTypedDict",
+    "EntityExtractedWebhookType",
+    "EntityExtractedWebhookTypedDict",
     "EntityList",
     "EntityListTypedDict",
     "EntityTypedDict",
     "ErrorMessageError",
     "ErrorMessageErrorData",
+    "EventeventPostBody",
+    "EventeventPostBodyTypedDict",
     "File",
     "FileTypedDict",
     "Filter",
@@ -225,6 +289,7 @@ __all__ = [
     "Metadata",
     "MetadataTypedDict",
     "Mode",
+    "One",
     "Pagination",
     "PaginationTypedDict",
     "PatchDocumentMetadataParams",
@@ -243,8 +308,12 @@ __all__ = [
     "ScoredChunkTypedDict",
     "Security",
     "SecurityTypedDict",
+    "Status",
+    "Status2",
+    "StatusTypedDict",
     "Two",
     "TwoTypedDict",
+    "Type",
     "UpdateDocumentFileParams",
     "UpdateDocumentFileParamsFile",
     "UpdateDocumentFileParamsFileTypedDict",
