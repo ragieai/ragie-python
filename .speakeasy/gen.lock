@@ -3,10 +3,10 @@ id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
   docChecksum: acc4c90fc4b614946193b46937ffde52
   docVersion: 1.0.0
-  speakeasyVersion: 1.423.4
+  speakeasyVersion: 1.423.5
   generationVersion: 2.445.1
-  releaseVersion: 1.2.0
-  configChecksum: f5ac5f71458ec1f676413896ba769429
+  releaseVersion: 1.2.1
+  configChecksum: 67b58dfdcb2880a057412594fef8571b
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
