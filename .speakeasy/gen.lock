@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: acc4c90fc4b614946193b46937ffde52
+  docChecksum: d0dbbf45529aa5442a2c489d23e56ee3
   docVersion: 1.0.0
-  speakeasyVersion: 1.423.5
+  speakeasyVersion: 1.424.0
   generationVersion: 2.445.1
-  releaseVersion: 1.2.1
-  configChecksum: 67b58dfdcb2880a057412594fef8571b
+  releaseVersion: 1.2.2
+  configChecksum: 081a1791aadb89c2ae731a636ba382b3
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
