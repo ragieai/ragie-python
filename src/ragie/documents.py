@@ -21,7 +21,7 @@ class Documents(BaseSDK):
     ) -> Optional[models.Document]:
         r"""Create Document
 
-        On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
+        On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -113,7 +113,7 @@ class Documents(BaseSDK):
     ) -> Optional[models.Document]:
         r"""Create Document
 
-        On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
+        On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -429,7 +429,7 @@ class Documents(BaseSDK):
     ) -> Optional[models.Document]:
         r"""Create Document Raw
 
-        Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
+        Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -521,7 +521,7 @@ class Documents(BaseSDK):
     ) -> Optional[models.Document]:
         r"""Create Document Raw
 
-        Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [pending, partitioned, refined, extracted, chunked, indexed, summary_indexed, keyword_indexed, ready, failed]. The document is available for retreival once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in indexed state. However the summary will only be available once the state has changed to summary_indexed or ready.
+        Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
