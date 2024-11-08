@@ -119,6 +119,14 @@ asyncio.run(main())
 <details open>
 <summary>Available methods</summary>
 
+### [connections](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md)
+
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list) - List Connections
+* [set_connection_enabled](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#set_connection_enabled) - Set Connection Enabled
+* [update_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#update_connection) - Update Connection
+* [get_connection_stats](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get_connection_stats) - Get Connection Stats
+* [delete_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#delete_connection) - Delete Connection
+
 ### [documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
 
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
@@ -277,11 +285,11 @@ By default, an API error will raise a models.SDKError exception, which has the f
 
 When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create_async` method may raise the following exceptions:
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessageError   | 400, 401                   | application/json           |
-| models.HTTPValidationError | 422                        | application/json           |
-| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+| Error Type                 | Status Code | Content Type     |
+| -------------------------- | ----------- | ---------------- |
+| models.ErrorMessage        | 400, 401    | application/json |
+| models.HTTPValidationError | 422         | application/json |
+| models.SDKError            | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -305,8 +313,8 @@ try:
         # handle response
         pass
 
-except models.ErrorMessageError as e:
-    # handle e.data: models.ErrorMessageErrorData
+except models.ErrorMessage as e:
+    # handle e.data: models.ErrorMessageData
     raise(e)
 except models.HTTPValidationError as e:
     # handle e.data: models.HTTPValidationErrorData
@@ -319,38 +327,6 @@ except models.SDKError as e:
 
 <!-- Start Server Selection [server] -->
 ## Server Selection
-
-### Select Server by Index
-
-You can override the default server globally by passing a server index to the `server_idx: int` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.ragie.ai` | None |
-
-#### Example
-
-```python
-from ragie import Ragie
-
-s = Ragie(
-    server_idx=0,
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-)
-
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
-
-```
-
 
 ### Override Server URL Per-Client
 
@@ -465,9 +441,9 @@ s = Ragie(async_client=CustomClient(httpx.AsyncClient()))
 
 This SDK supports the following security scheme globally:
 
-| Name        | Type        | Scheme      |
-| ----------- | ----------- | ----------- |
-| `auth`      | http        | HTTP Bearer |
+| Name   | Type | Scheme      |
+| ------ | ---- | ----------- |
+| `auth` | http | HTTP Bearer |
 
 To authenticate with the API the `auth` parameter must be set when initializing the SDK client instance. For example:
 ```python
