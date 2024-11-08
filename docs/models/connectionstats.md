@@ -1,8 +1,8 @@
-# ErrorMessageError
+# ConnectionStats
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `detail`           | *str*              | :heavy_check_mark: | N/A                |
+| `document_count`   | *int*              | :heavy_check_mark: | N/A                |

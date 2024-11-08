@@ -8,6 +8,7 @@ from .utils.retries import RetryConfig
 import httpx
 from ragie import models, utils
 from ragie._hooks import SDKHooks
+from ragie.connections import Connections
 from ragie.documents import Documents
 from ragie.entities import Entities
 from ragie.retrievals import Retrievals
@@ -19,6 +20,7 @@ class Ragie(BaseSDK):
     documents: Documents
     retrievals: Retrievals
     entities: Entities
+    connections: Connections
 
     def __init__(
         self,
@@ -102,3 +104,4 @@ class Ragie(BaseSDK):
         self.documents = Documents(self.sdk_configuration)
         self.retrievals = Retrievals(self.sdk_configuration)
         self.entities = Entities(self.sdk_configuration)
+        self.connections = Connections(self.sdk_configuration)

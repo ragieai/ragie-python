@@ -21,3 +21,21 @@ value: models.DocumentDeleteWebhook = /* values here */
 value: models.EntityExtractedWebhook = /* values here */
 ```
 
+### `models.ConnectionSyncStartedWebhook`
+
+```python
+value: models.ConnectionSyncStartedWebhook = /* values here */
+```
+
+### `models.ConnectionSyncProgressWebhook`
+
+```python
+value: models.ConnectionSyncProgressWebhook = /* values here */
+```
+
+### `models.ConnectionSyncFinishedWebhook`
+
+```python
+value: models.ConnectionSyncFinishedWebhook = /* values here */
+```
+

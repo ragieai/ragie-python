@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: acc4c90fc4b614946193b46937ffde52
+  docChecksum: fe3961f172253a55f30120e15b744532
   docVersion: 1.0.0
-  speakeasyVersion: 1.423.5
-  generationVersion: 2.445.1
-  releaseVersion: 1.2.1
-  configChecksum: 67b58dfdcb2880a057412594fef8571b
+  speakeasyVersion: 1.436.0
+  generationVersion: 2.455.2
+  releaseVersion: 1.2.2
+  configChecksum: fde611aea668afad1a8553d8926db2fb
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,11 +14,11 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.4
-    core: 5.6.1
+    core: 5.6.4
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
-    envVarSecurityUsage: 0.3.1
+    envVarSecurityUsage: 0.3.2
     flattening: 3.1.0
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
-    unions: 3.0.2
+    unions: 3.0.3
     uploadStreams: 1.0.0
     webhooks: 2.0.0
 generatedFiles:
@@ -44,6 +44,24 @@ generatedFiles:
   - .vscode/settings.json
   - CONTRIBUTING.md
   - USAGE.md
+  - docs/models/connection.md
+  - docs/models/connectionbase.md
+  - docs/models/connectionbasemetadata.md
+  - docs/models/connectionlist.md
+  - docs/models/connectionmetadata.md
+  - docs/models/connectionmetadatametadata.md
+  - docs/models/connectionstats.md
+  - docs/models/connectionsyncfinishedwebhook.md
+  - docs/models/connectionsyncfinishedwebhookpayload.md
+  - docs/models/connectionsyncfinishedwebhookpayloadconnectionmetadata.md
+  - docs/models/connectionsyncfinishedwebhooktype.md
+  - docs/models/connectionsyncprogresswebhook.md
+  - docs/models/connectionsyncprogresswebhookpayload.md
+  - docs/models/connectionsyncprogresswebhookpayloadconnectionmetadata.md
+  - docs/models/connectionsyncprogresswebhooktype.md
+  - docs/models/connectionsyncstartedwebhook.md
+  - docs/models/connectionsyncstartedwebhookpayload.md
+  - docs/models/connectionsyncstartedwebhooktype.md
   - docs/models/createdocumentfromurlparams.md
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
@@ -55,6 +73,8 @@ generatedFiles:
   - docs/models/createinstructionparamsscope.md
   - docs/models/data.md
   - docs/models/data2.md
+  - docs/models/deleteconnectionconnectionsconnectioniddeletepostrequest.md
+  - docs/models/deleteconnectionpayload.md
   - docs/models/deletedocumentrequest.md
   - docs/models/document.md
   - docs/models/documentdelete.md
@@ -81,14 +101,17 @@ generatedFiles:
   - docs/models/entityextractedwebhookpayloaddocumentmetadata.md
   - docs/models/entityextractedwebhooktype.md
   - docs/models/entitylist.md
-  - docs/models/errormessageerror.md
+  - docs/models/errormessage.md
   - docs/models/eventeventpostbody.md
   - docs/models/file.md
   - docs/models/filter_.md
+  - docs/models/getconnectionstatsconnectionsconnectionidstatsgetrequest.md
   - docs/models/getdocumentrequest.md
   - docs/models/getdocumentsummaryrequest.md
   - docs/models/httpvalidationerror.md
   - docs/models/instruction.md
+  - docs/models/listconnectionsconnectionsgetrequest.md
+  - docs/models/listconnectionsconnectionsgetresponse.md
   - docs/models/listdocumentsrequest.md
   - docs/models/listdocumentsresponse.md
   - docs/models/listentitiesbydocumentrequest.md
@@ -100,6 +123,7 @@ generatedFiles:
   - docs/models/mode.md
   - docs/models/one.md
   - docs/models/pagination.md
+  - docs/models/partitionstrategy.md
   - docs/models/patchdocumentmetadataparams.md
   - docs/models/patchdocumentmetadataparamsmetadata.md
   - docs/models/patchdocumentmetadatarequest.md
@@ -108,10 +132,13 @@ generatedFiles:
   - docs/models/scope.md
   - docs/models/scoredchunk.md
   - docs/models/security.md
+  - docs/models/setconnectionenabledconnectionsconnectionidenabledputrequest.md
+  - docs/models/setconnectionenabledpayload.md
   - docs/models/status.md
   - docs/models/status2.md
   - docs/models/two.md
   - docs/models/type.md
+  - docs/models/updateconnectionconnectionsconnectionidputrequest.md
   - docs/models/updatedocumentfileparams.md
   - docs/models/updatedocumentfileparamsfile.md
   - docs/models/updatedocumentfileparamsmode.md
@@ -123,6 +150,7 @@ generatedFiles:
   - docs/models/updateinstructionrequest.md
   - docs/models/utils/retryconfig.md
   - docs/models/validationerror.md
+  - docs/sdks/connections/README.md
   - docs/sdks/documents/README.md
   - docs/sdks/entities/README.md
   - docs/sdks/ragie/README.md
@@ -131,7 +159,6 @@ generatedFiles:
   - py.typed
   - pylintrc
   - pyproject.toml
-  - scripts/compile.sh
   - scripts/prepare-readme.py
   - scripts/publish.sh
   - src/ragie/__init__.py
@@ -140,14 +167,27 @@ generatedFiles:
   - src/ragie/_hooks/types.py
   - src/ragie/_version.py
   - src/ragie/basesdk.py
+  - src/ragie/connections.py
   - src/ragie/documents.py
   - src/ragie/entities.py
   - src/ragie/httpclient.py
   - src/ragie/models/__init__.py
+  - src/ragie/models/connection.py
+  - src/ragie/models/connectionbase.py
+  - src/ragie/models/connectionlist.py
+  - src/ragie/models/connectionstats.py
+  - src/ragie/models/connectionsyncfinishedwebhook.py
+  - src/ragie/models/connectionsyncfinishedwebhookpayload.py
+  - src/ragie/models/connectionsyncprogresswebhook.py
+  - src/ragie/models/connectionsyncprogresswebhookpayload.py
+  - src/ragie/models/connectionsyncstartedwebhook.py
+  - src/ragie/models/connectionsyncstartedwebhookpayload.py
   - src/ragie/models/createdocumentfromurlparams.py
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
   - src/ragie/models/createinstructionparams.py
+  - src/ragie/models/delete_connection_connections_connection_id_delete_postop.py
+  - src/ragie/models/deleteconnectionpayload.py
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/document.py
   - src/ragie/models/documentdelete.py
@@ -165,12 +205,14 @@ generatedFiles:
   - src/ragie/models/entityextractedwebhook.py
   - src/ragie/models/entityextractedwebhookpayload.py
   - src/ragie/models/entitylist.py
-  - src/ragie/models/errormessage_error.py
+  - src/ragie/models/errormessage.py
   - src/ragie/models/eventevent_post.py
+  - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
   - src/ragie/models/getdocumentop.py
   - src/ragie/models/getdocumentsummaryop.py
   - src/ragie/models/httpvalidationerror.py
   - src/ragie/models/instruction.py
+  - src/ragie/models/list_connections_connections_getop.py
   - src/ragie/models/listdocumentsop.py
   - src/ragie/models/listentitiesbydocumentop.py
   - src/ragie/models/listentitiesbyinstructionop.py
@@ -182,6 +224,9 @@ generatedFiles:
   - src/ragie/models/scoredchunk.py
   - src/ragie/models/sdkerror.py
   - src/ragie/models/security.py
+  - src/ragie/models/set_connection_enabled_connections_connection_id_enabled_putop.py
+  - src/ragie/models/setconnectionenabledpayload.py
+  - src/ragie/models/update_connection_connections_connection_id_putop.py
   - src/ragie/models/updatedocumentfileop.py
   - src/ragie/models/updatedocumentfileparams.py
   - src/ragie/models/updatedocumentrawop.py
@@ -386,6 +431,64 @@ examples:
       responses:
         "200":
           application/json: {"entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2024-05-24T20:59:27.681Z", "updated_at": "2022-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  list_connections_connections_get:
+    speakeasy-default-list-connections-connections-get:
+      responses:
+        "200":
+          application/json: {"connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "type": "<value>", "name": "<value>", "enabled": true}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "type": "<value>", "name": "<value>", "enabled": false}, {"id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "created_at": "2023-03-22T09:41:56.524Z", "updated_at": "2022-03-28T18:28:26.777Z", "type": "<value>", "name": "<value>", "enabled": true}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  set_connection_enabled_connections__connection_id__enabled_put:
+    speakeasy-default-set-connection-enabled-connections-connection-id-enabled-put:
+      parameters:
+        path:
+          connection_id: "bf0424b5-8be9-4a67-a8ca-6ab0e9e89780"
+      requestBody:
+        application/json: {"enabled": true}
+      responses:
+        "200":
+          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2024-10-14T19:56:20.471Z", "updated_at": "2022-04-26T16:53:39.637Z", "type": "<value>", "name": "<value>", "enabled": false}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  update_connection_connections__connection_id__put:
+    speakeasy-default-update-connection-connections-connection-id-put:
+      parameters:
+        path:
+          connection_id: "60a91616-1376-4585-82c8-85b663abc0c8"
+      requestBody:
+        application/json: {"partition_strategy": "fast"}
+      responses:
+        "200":
+          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2022-04-30T21:32:17.394Z", "updated_at": "2024-08-07T23:17:45.906Z", "type": "<value>", "name": "<value>", "enabled": true}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  get_connection_stats_connections__connection_id__stats_get:
+    speakeasy-default-get-connection-stats-connections-connection-id-stats-get:
+      parameters:
+        path:
+          connection_id: "1f4a1403-1d6d-4b6c-b869-7469eff2dd5e"
+      responses:
+        "200":
+          application/json: {"document_count": 687553}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  delete_connection_connections__connection_id__delete_post:
+    speakeasy-default-delete-connection-connections-connection-id-delete-post:
+      parameters:
+        path:
+          connection_id: "5922bdb9-d99a-4e03-8cb8-05fcacce856d"
+      requestBody:
+        application/json: {"keep_files": true}
+      responses:
+        "200":
+          application/json: {}
         "401":
           application/json: {"detail": "<value>"}
         "422": {}

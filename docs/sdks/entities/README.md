@@ -44,10 +44,10 @@ if res is not None:
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| models.ErrorMessageError | 401                      | application/json         |
-| models.SDKError          | 4XX, 5XX                 | \*/\*                    |
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.ErrorMessage | 401                 | application/json    |
+| models.SDKError     | 4XX, 5XX            | \*/\*               |
 
 ## create_instruction
 
@@ -161,7 +161,7 @@ if res is not None:
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessageError   | 401                        | application/json           |
+| models.ErrorMessage        | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -204,7 +204,7 @@ if res is not None:
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessageError   | 401                        | application/json           |
+| models.ErrorMessage        | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -250,7 +250,7 @@ if res is not None:
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessageError   | 401                        | application/json           |
+| models.ErrorMessage        | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -296,6 +296,6 @@ if res is not None:
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessageError   | 401                        | application/json           |
+| models.ErrorMessage        | 401                        | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

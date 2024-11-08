@@ -33,6 +33,8 @@ class CreateDocumentRawParamsTypedDict(TypedDict):
     r"""Document data in a text or JSON format."""
     metadata: NotRequired[Dict[str, CreateDocumentRawParamsMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    name: NotRequired[str]
+    r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
     partition: NotRequired[str]
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
 
@@ -43,6 +45,9 @@ class CreateDocumentRawParams(BaseModel):
 
     metadata: Optional[Dict[str, CreateDocumentRawParamsMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+
+    name: Optional[str] = None
+    r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
 
     partition: Optional[str] = None
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
