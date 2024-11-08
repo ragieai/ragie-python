@@ -4,22 +4,26 @@ from .basesdk import BaseSDK
 from jsonpath import JSONPath
 from ragie import models, utils
 from ragie._hooks import HookContext
-from ragie.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, Dict, List, Optional, Union, cast
+from ragie.types import OptionalNullable, UNSET
+from typing import Any, Dict, Optional, Union
 
 
-class Entities(BaseSDK):
-    def list_instructions(
+class Connections(BaseSDK):
+    def list(
         self,
         *,
+        cursor: OptionalNullable[str] = UNSET,
+        page_size: Optional[int] = 10,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[List[models.Instruction]]:
-        r"""List Instructions
+    ) -> Optional[models.ListConnectionsConnectionsGetResponse]:
+        r"""List Connections
 
-        List all instructions.
+        List all connections sorted by created_at in descending order. Results are paginated with a max limit of 100. When more documents are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
 
+        :param cursor: An opaque cursor for pagination
+        :param page_size: The number of items per page (must be greater than 0 and less than or equal to 100)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -31,188 +35,24 @@ class Entities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+
+        request = models.ListConnectionsConnectionsGetRequest(
+            cursor=cursor,
+            page_size=page_size,
+        )
+
         req = self.build_request(
             method="GET",
-            path="/instructions",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            security=self.sdk_configuration.security,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                operation_id="ListInstructions",
-                oauth2_scopes=[],
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            error_status_codes=["401", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, Optional[List[models.Instruction]]
-            )
-        if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise models.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def list_instructions_async(
-        self,
-        *,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-    ) -> Optional[List[models.Instruction]]:
-        r"""List Instructions
-
-        List all instructions.
-
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        req = self.build_request_async(
-            method="GET",
-            path="/instructions",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            security=self.sdk_configuration.security,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                operation_id="ListInstructions",
-                oauth2_scopes=[],
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            error_status_codes=["401", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, Optional[List[models.Instruction]]
-            )
-        if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def create_instruction(
-        self,
-        *,
-        request: Union[
-            models.CreateInstructionParams, models.CreateInstructionParamsTypedDict
-        ],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-    ) -> Optional[models.Instruction]:
-        r"""Create Instruction
-
-        Create a new instruction. Instructions are applied to documents as they are created or updated. The results of the instruction are stored as structured data in the schema defined by the `entity_schema` parameter. The `prompt` parameter is a natural language instruction which will be applied to documents. This feature is in beta and may change in the future.
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateInstructionParams)
-        request = cast(models.CreateInstructionParams, request)
-
-        req = self.build_request(
-            method="POST",
-            path="/instructions",
+            path="/connections",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateInstructionParams
-            ),
             timeout_ms=timeout_ms,
         )
 
@@ -226,7 +66,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="CreateInstruction",
+                operation_id="list_connections_connections_get",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -235,9 +75,28 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
+        def next_func() -> Optional[models.ListConnectionsConnectionsGetResponse]:
+            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
+            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
+
+            if len(next_cursor) == 0:
+                return None
+            next_cursor = next_cursor[0]
+
+            return self.list(
+                cursor=next_cursor,
+                page_size=page_size,
+                retries=retries,
+            )
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
+            return models.ListConnectionsConnectionsGetResponse(
+                result=utils.unmarshal_json(
+                    http_res.text, Optional[models.ConnectionList]
+                ),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -259,21 +118,21 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    async def create_instruction_async(
+    async def list_async(
         self,
         *,
-        request: Union[
-            models.CreateInstructionParams, models.CreateInstructionParamsTypedDict
-        ],
+        cursor: OptionalNullable[str] = UNSET,
+        page_size: Optional[int] = 10,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.Instruction]:
-        r"""Create Instruction
+    ) -> Optional[models.ListConnectionsConnectionsGetResponse]:
+        r"""List Connections
 
-        Create a new instruction. Instructions are applied to documents as they are created or updated. The results of the instruction are stored as structured data in the schema defined by the `entity_schema` parameter. The `prompt` parameter is a natural language instruction which will be applied to documents. This feature is in beta and may change in the future.
+        List all connections sorted by created_at in descending order. Results are paginated with a max limit of 100. When more documents are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
 
-        :param request: The request object to send.
+        :param cursor: An opaque cursor for pagination
+        :param page_size: The number of items per page (must be greater than 0 and less than or equal to 100)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -286,25 +145,23 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateInstructionParams)
-        request = cast(models.CreateInstructionParams, request)
+        request = models.ListConnectionsConnectionsGetRequest(
+            cursor=cursor,
+            page_size=page_size,
+        )
 
         req = self.build_request_async(
-            method="POST",
-            path="/instructions",
+            method="GET",
+            path="/connections",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateInstructionParams
-            ),
             timeout_ms=timeout_ms,
         )
 
@@ -318,7 +175,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="CreateInstruction",
+                operation_id="list_connections_connections_get",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -327,9 +184,28 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
+        def next_func() -> Optional[models.ListConnectionsConnectionsGetResponse]:
+            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
+            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
+
+            if len(next_cursor) == 0:
+                return None
+            next_cursor = next_cursor[0]
+
+            return self.list(
+                cursor=next_cursor,
+                page_size=page_size,
+                retries=retries,
+            )
+
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
+            return models.ListConnectionsConnectionsGetResponse(
+                result=utils.unmarshal_json(
+                    http_res.text, Optional[models.ConnectionList]
+                ),
+                next=next_func,
+            )
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -351,21 +227,24 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    def update_instruction(
+    def set_connection_enabled(
         self,
         *,
-        instruction_id: str,
-        update_instruction_params: Union[
-            models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict
+        connection_id: str,
+        set_connection_enabled_payload: Union[
+            models.SetConnectionEnabledPayload,
+            models.SetConnectionEnabledPayloadTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.Instruction]:
-        r"""Update Instruction
+    ) -> Optional[models.Connection]:
+        r"""Set Connection Enabled
 
-        :param instruction_id: The ID of the instruction.
-        :param update_instruction_params:
+        Enable or disable the connection. A disabled connection won't sync.
+
+        :param connection_id:
+        :param set_connection_enabled_payload:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -378,16 +257,16 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.UpdateInstructionRequest(
-            instruction_id=instruction_id,
-            update_instruction_params=utils.get_pydantic_model(
-                update_instruction_params, models.UpdateInstructionParams
+        request = models.SetConnectionEnabledConnectionsConnectionIDEnabledPutRequest(
+            connection_id=connection_id,
+            set_connection_enabled_payload=utils.get_pydantic_model(
+                set_connection_enabled_payload, models.SetConnectionEnabledPayload
             ),
         )
 
         req = self.build_request(
             method="PUT",
-            path="/instructions/{instruction_id}",
+            path="/connections/{connection_id}/enabled",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -398,11 +277,11 @@ class Entities(BaseSDK):
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_instruction_params,
+                request.set_connection_enabled_payload,
                 False,
                 False,
                 "json",
-                models.UpdateInstructionParams,
+                models.SetConnectionEnabledPayload,
             ),
             timeout_ms=timeout_ms,
         )
@@ -417,7 +296,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="UpdateInstruction",
+                operation_id="set_connection_enabled_connections__connection_id__enabled_put",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -428,7 +307,7 @@ class Entities(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -450,21 +329,24 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    async def update_instruction_async(
+    async def set_connection_enabled_async(
         self,
         *,
-        instruction_id: str,
-        update_instruction_params: Union[
-            models.UpdateInstructionParams, models.UpdateInstructionParamsTypedDict
+        connection_id: str,
+        set_connection_enabled_payload: Union[
+            models.SetConnectionEnabledPayload,
+            models.SetConnectionEnabledPayloadTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.Instruction]:
-        r"""Update Instruction
+    ) -> Optional[models.Connection]:
+        r"""Set Connection Enabled
 
-        :param instruction_id: The ID of the instruction.
-        :param update_instruction_params:
+        Enable or disable the connection. A disabled connection won't sync.
+
+        :param connection_id:
+        :param set_connection_enabled_payload:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -477,16 +359,16 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.UpdateInstructionRequest(
-            instruction_id=instruction_id,
-            update_instruction_params=utils.get_pydantic_model(
-                update_instruction_params, models.UpdateInstructionParams
+        request = models.SetConnectionEnabledConnectionsConnectionIDEnabledPutRequest(
+            connection_id=connection_id,
+            set_connection_enabled_payload=utils.get_pydantic_model(
+                set_connection_enabled_payload, models.SetConnectionEnabledPayload
             ),
         )
 
         req = self.build_request_async(
             method="PUT",
-            path="/instructions/{instruction_id}",
+            path="/connections/{connection_id}/enabled",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -497,11 +379,11 @@ class Entities(BaseSDK):
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_instruction_params,
+                request.set_connection_enabled_payload,
                 False,
                 False,
                 "json",
-                models.UpdateInstructionParams,
+                models.SetConnectionEnabledPayload,
             ),
             timeout_ms=timeout_ms,
         )
@@ -516,7 +398,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="UpdateInstruction",
+                operation_id="set_connection_enabled_connections__connection_id__enabled_put",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -527,7 +409,7 @@ class Entities(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -549,20 +431,21 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    def list_by_instruction(
+    def update_connection(
         self,
         *,
-        request: Union[
-            models.ListEntitiesByInstructionRequest,
-            models.ListEntitiesByInstructionRequestTypedDict,
-        ],
+        connection_id: str,
+        connection_base: Union[models.ConnectionBase, models.ConnectionBaseTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.ListEntitiesByInstructionResponse]:
-        r"""Get Instruction Extracted Entities
+    ) -> Optional[models.Connection]:
+        r"""Update Connection
 
-        :param request: The request object to send.
+        Updates a connections metadata or mode. These changes will be seen after the next sync.
+
+        :param connection_id:
+        :param connection_base:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -575,13 +458,201 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
-        request = cast(models.ListEntitiesByInstructionRequest, request)
+        request = models.UpdateConnectionConnectionsConnectionIDPutRequest(
+            connection_id=connection_id,
+            connection_base=utils.get_pydantic_model(
+                connection_base, models.ConnectionBase
+            ),
+        )
+
+        req = self.build_request(
+            method="PUT",
+            path="/connections/{connection_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.connection_base, False, False, "json", models.ConnectionBase
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="update_connection_connections__connection_id__put",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
+        if utils.match_response(http_res, "401", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
+        if utils.match_response(http_res, "422", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
+            raise models.HTTPValidationError(data=data)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def update_connection_async(
+        self,
+        *,
+        connection_id: str,
+        connection_base: Union[models.ConnectionBase, models.ConnectionBaseTypedDict],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> Optional[models.Connection]:
+        r"""Update Connection
+
+        Updates a connections metadata or mode. These changes will be seen after the next sync.
+
+        :param connection_id:
+        :param connection_base:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.UpdateConnectionConnectionsConnectionIDPutRequest(
+            connection_id=connection_id,
+            connection_base=utils.get_pydantic_model(
+                connection_base, models.ConnectionBase
+            ),
+        )
+
+        req = self.build_request_async(
+            method="PUT",
+            path="/connections/{connection_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.connection_base, False, False, "json", models.ConnectionBase
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="update_connection_connections__connection_id__put",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["401", "422", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
+        if utils.match_response(http_res, "401", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
+        if utils.match_response(http_res, "422", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
+            raise models.HTTPValidationError(data=data)
+        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def get_connection_stats(
+        self,
+        *,
+        connection_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+    ) -> Optional[models.ConnectionStats]:
+        r"""Get Connection Stats
+
+        Lists connection stats: total documents synced.
+
+        :param connection_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.GetConnectionStatsConnectionsConnectionIDStatsGetRequest(
+            connection_id=connection_id,
+        )
 
         req = self.build_request(
             method="GET",
-            path="/instructions/{instruction_id}/entities",
+            path="/connections/{connection_id}/stats",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -604,7 +675,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="ListEntitiesByInstruction",
+                operation_id="get_connection_stats_connections__connection_id__stats_get",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -613,29 +684,9 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
-        def next_func() -> Optional[models.ListEntitiesByInstructionResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
-            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
-
-            if len(next_cursor) == 0:
-                return None
-            next_cursor = next_cursor[0]
-
-            return self.list_by_instruction(
-                request=models.ListEntitiesByInstructionRequest(
-                    instruction_id=request.instruction_id,
-                    cursor=next_cursor,
-                    page_size=request.page_size,
-                ),
-                retries=retries,
-            )
-
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByInstructionResponse(
-                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
-                next=next_func,
-            )
+            return utils.unmarshal_json(http_res.text, Optional[models.ConnectionStats])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -657,20 +708,19 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    async def list_by_instruction_async(
+    async def get_connection_stats_async(
         self,
         *,
-        request: Union[
-            models.ListEntitiesByInstructionRequest,
-            models.ListEntitiesByInstructionRequestTypedDict,
-        ],
+        connection_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.ListEntitiesByInstructionResponse]:
-        r"""Get Instruction Extracted Entities
+    ) -> Optional[models.ConnectionStats]:
+        r"""Get Connection Stats
 
-        :param request: The request object to send.
+        Lists connection stats: total documents synced.
+
+        :param connection_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -683,13 +733,13 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
-        request = cast(models.ListEntitiesByInstructionRequest, request)
+        request = models.GetConnectionStatsConnectionsConnectionIDStatsGetRequest(
+            connection_id=connection_id,
+        )
 
         req = self.build_request_async(
             method="GET",
-            path="/instructions/{instruction_id}/entities",
+            path="/connections/{connection_id}/stats",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -712,7 +762,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="ListEntitiesByInstruction",
+                operation_id="get_connection_stats_connections__connection_id__stats_get",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -721,29 +771,9 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
-        def next_func() -> Optional[models.ListEntitiesByInstructionResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
-            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
-
-            if len(next_cursor) == 0:
-                return None
-            next_cursor = next_cursor[0]
-
-            return self.list_by_instruction(
-                request=models.ListEntitiesByInstructionRequest(
-                    instruction_id=request.instruction_id,
-                    cursor=next_cursor,
-                    page_size=request.page_size,
-                ),
-                retries=retries,
-            )
-
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByInstructionResponse(
-                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
-                next=next_func,
-            )
+            return utils.unmarshal_json(http_res.text, Optional[models.ConnectionStats])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -765,20 +795,23 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    def list_by_document(
+    def delete_connection(
         self,
         *,
-        request: Union[
-            models.ListEntitiesByDocumentRequest,
-            models.ListEntitiesByDocumentRequestTypedDict,
+        connection_id: str,
+        delete_connection_payload: Union[
+            models.DeleteConnectionPayload, models.DeleteConnectionPayloadTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.ListEntitiesByDocumentResponse]:
-        r"""Get Document Extracted Entities
+    ) -> Optional[Dict[str, str]]:
+        r"""Delete Connection
 
-        :param request: The request object to send.
+        Schedules a connection to be deleted. You can choose to keep the files from the connection or delete them all. If you keep the files, they will no longer be associated to the connection. Deleting can take some time, so you will still see files for a bit after this is called.
+
+        :param connection_id:
+        :param delete_connection_payload:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -791,22 +824,32 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
-        request = cast(models.ListEntitiesByDocumentRequest, request)
+        request = models.DeleteConnectionConnectionsConnectionIDDeletePostRequest(
+            connection_id=connection_id,
+            delete_connection_payload=utils.get_pydantic_model(
+                delete_connection_payload, models.DeleteConnectionPayload
+            ),
+        )
 
         req = self.build_request(
-            method="GET",
-            path="/documents/{document_id}/entities",
+            method="POST",
+            path="/connections/{connection_id}/delete",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.delete_connection_payload,
+                False,
+                False,
+                "json",
+                models.DeleteConnectionPayload,
+            ),
             timeout_ms=timeout_ms,
         )
 
@@ -820,7 +863,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="ListEntitiesByDocument",
+                operation_id="delete_connection_connections__connection_id__delete_post",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -829,29 +872,9 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
-        def next_func() -> Optional[models.ListEntitiesByDocumentResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
-            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
-
-            if len(next_cursor) == 0:
-                return None
-            next_cursor = next_cursor[0]
-
-            return self.list_by_document(
-                request=models.ListEntitiesByDocumentRequest(
-                    document_id=request.document_id,
-                    cursor=next_cursor,
-                    page_size=request.page_size,
-                ),
-                retries=retries,
-            )
-
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByDocumentResponse(
-                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
-                next=next_func,
-            )
+            return utils.unmarshal_json(http_res.text, Optional[Dict[str, str]])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
@@ -873,20 +896,23 @@ class Entities(BaseSDK):
             http_res,
         )
 
-    async def list_by_document_async(
+    async def delete_connection_async(
         self,
         *,
-        request: Union[
-            models.ListEntitiesByDocumentRequest,
-            models.ListEntitiesByDocumentRequestTypedDict,
+        connection_id: str,
+        delete_connection_payload: Union[
+            models.DeleteConnectionPayload, models.DeleteConnectionPayloadTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> Optional[models.ListEntitiesByDocumentResponse]:
-        r"""Get Document Extracted Entities
+    ) -> Optional[Dict[str, str]]:
+        r"""Delete Connection
 
-        :param request: The request object to send.
+        Schedules a connection to be deleted. You can choose to keep the files from the connection or delete them all. If you keep the files, they will no longer be associated to the connection. Deleting can take some time, so you will still see files for a bit after this is called.
+
+        :param connection_id:
+        :param delete_connection_payload:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -899,22 +925,32 @@ class Entities(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
-        request = cast(models.ListEntitiesByDocumentRequest, request)
+        request = models.DeleteConnectionConnectionsConnectionIDDeletePostRequest(
+            connection_id=connection_id,
+            delete_connection_payload=utils.get_pydantic_model(
+                delete_connection_payload, models.DeleteConnectionPayload
+            ),
+        )
 
         req = self.build_request_async(
-            method="GET",
-            path="/documents/{document_id}/entities",
+            method="POST",
+            path="/connections/{connection_id}/delete",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.delete_connection_payload,
+                False,
+                False,
+                "json",
+                models.DeleteConnectionPayload,
+            ),
             timeout_ms=timeout_ms,
         )
 
@@ -928,7 +964,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="ListEntitiesByDocument",
+                operation_id="delete_connection_connections__connection_id__delete_post",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -937,29 +973,9 @@ class Entities(BaseSDK):
             retry_config=retry_config,
         )
 
-        def next_func() -> Optional[models.ListEntitiesByDocumentResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
-            next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
-
-            if len(next_cursor) == 0:
-                return None
-            next_cursor = next_cursor[0]
-
-            return self.list_by_document(
-                request=models.ListEntitiesByDocumentRequest(
-                    document_id=request.document_id,
-                    cursor=next_cursor,
-                    page_size=request.page_size,
-                ),
-                retries=retries,
-            )
-
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return models.ListEntitiesByDocumentResponse(
-                result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
-                next=next_func,
-            )
+            return utils.unmarshal_json(http_res.text, Optional[Dict[str, str]])
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)

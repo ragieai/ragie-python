@@ -5,15 +5,15 @@ from ragie import utils
 from ragie.types import BaseModel
 
 
-class ErrorMessageErrorData(BaseModel):
+class ErrorMessageData(BaseModel):
     detail: str
 
 
-class ErrorMessageError(Exception):
-    data: ErrorMessageErrorData
+class ErrorMessage(Exception):
+    data: ErrorMessageData
 
-    def __init__(self, data: ErrorMessageErrorData):
+    def __init__(self, data: ErrorMessageData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, ErrorMessageErrorData)
+        return utils.marshal_json(self.data, ErrorMessageData)

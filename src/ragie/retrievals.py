@@ -76,8 +76,8 @@ class Retrievals(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Retrieval])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
-            raise models.ErrorMessageError(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
@@ -164,8 +164,8 @@ class Retrievals(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Retrieval])
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageErrorData)
-            raise models.ErrorMessageError(data=data)
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
             raise models.HTTPValidationError(data=data)
