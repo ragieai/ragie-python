@@ -121,6 +121,11 @@ s = Ragie(
 )
 
 res = s.documents.create_raw(request={
+    "metadata": {
+        "key": [
+            "<value>",
+        ],
+    },
     "data": "<value>",
     "partition": "<value>",
 })
@@ -164,6 +169,9 @@ s = Ragie(
 )
 
 res = s.documents.create_document_from_url(request={
+    "metadata": {
+
+    },
     "url": "https://scientific-plain.biz/",
     "partition": "<value>",
 })

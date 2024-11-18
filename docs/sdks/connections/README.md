@@ -6,6 +6,7 @@
 ### Available Operations
 
 * [list](#list) - List Connections
+* [create_oauth_redirect_url_connections_oauth_post](#create_oauth_redirect_url_connections_oauth_post) - Create Oauth Redirect Url
 * [set_connection_enabled](#set_connection_enabled) - Set Connection Enabled
 * [update_connection](#update_connection) - Update Connection
 * [get_connection_stats](#get_connection_stats) - Get Connection Stats
@@ -47,6 +48,49 @@ if res is not None:
 ### Response
 
 **[models.ListConnectionsConnectionsGetResponse](../../models/listconnectionsconnectionsgetresponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401                        | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## create_oauth_redirect_url_connections_oauth_post
+
+Creates a redirect url to redirect the user to when initializing an embedded connector.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+s = Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+)
+
+res = s.connections.create_oauth_redirect_url_connections_oauth_post(request={
+    "redirect_uri": "https://lumbering-sundae.net",
+    "source_type": "<value>",
+})
+
+if res is not None:
+    # handle response
+    pass
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.OAuthURLCreate](../../models/oauthurlcreate.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.OAuthURLResponse](../../models/oauthurlresponse.md)**
 
 ### Errors
 

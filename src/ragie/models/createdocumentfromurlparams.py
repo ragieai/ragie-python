@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from enum import Enum
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Dict, List, Optional, Union
 from typing_extensions import NotRequired, TypedDict
 
@@ -21,33 +22,65 @@ class CreateDocumentFromURLParamsMode(str, Enum):
 
 
 class CreateDocumentFromURLParamsTypedDict(TypedDict):
+    metadata: Dict[str, CreateDocumentFromURLParamsMetadataTypedDict]
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme"""
-    metadata: NotRequired[Dict[str, CreateDocumentFromURLParamsMetadataTypedDict]]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    name: NotRequired[str]
     mode: NotRequired[CreateDocumentFromURLParamsMode]
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
-    name: NotRequired[str]
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
+    r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
     partition: NotRequired[str]
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
 
 
 class CreateDocumentFromURLParams(BaseModel):
+    metadata: Dict[str, CreateDocumentFromURLParamsMetadata]
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme"""
 
-    metadata: Optional[Dict[str, CreateDocumentFromURLParamsMetadata]] = None
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    name: Optional[str] = None
 
     mode: Optional[CreateDocumentFromURLParamsMode] = (
         CreateDocumentFromURLParamsMode.FAST
     )
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
 
-    name: Optional[str] = None
-
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
+    r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
 
     partition: Optional[str] = None
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["name", "mode", "external_id", "partition"]
+        nullable_fields = ["external_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

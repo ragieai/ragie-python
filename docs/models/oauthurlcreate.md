@@ -1,0 +1,12 @@
+# OAuthURLCreate
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `redirect_uri`                                                                         | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `source_type`                                                                          | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `metadata`                                                                             | [OptionalNullable[models.OAuthURLCreateMetadata]](../models/oauthurlcreatemetadata.md) | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `mode`                                                                                 | [OptionalNullable[models.Mode]](../models/mode.md)                                     | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `partition`                                                                            | *OptionalNullable[str]*                                                                | :heavy_minus_sign:                                                                     | N/A                                                                                    |
