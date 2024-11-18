@@ -2,18 +2,19 @@ speakeasyVersion: 1.441.0
 sources:
     Ragie-OAS:
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:aa66ea3c7d8813a0444d8395881442d53961bd4b50a1597cfba60578f8bcde94
-        sourceBlobDigest: sha256:10ccbb0f694dab6ae779bd6fb34037eeee646d8a92a4500f199d02782f1e280e
+        sourceRevisionDigest: sha256:f375f8dccffb65ab93d0169e88008feea475524050541b47fb8ceb9775567589
+        sourceBlobDigest: sha256:2a652a6e32822a927763e20a18d9004b02f332dce9fc4880c28ca5c180cfcdf5
         tags:
             - latest
+            - speakeasy-sdk-regen-1731456396
 targets:
     ragie:
         source: Ragie-OAS
         sourceNamespace: ragie-oas
-        sourceRevisionDigest: sha256:aa66ea3c7d8813a0444d8395881442d53961bd4b50a1597cfba60578f8bcde94
-        sourceBlobDigest: sha256:10ccbb0f694dab6ae779bd6fb34037eeee646d8a92a4500f199d02782f1e280e
+        sourceRevisionDigest: sha256:f375f8dccffb65ab93d0169e88008feea475524050541b47fb8ceb9775567589
+        sourceBlobDigest: sha256:2a652a6e32822a927763e20a18d9004b02f332dce9fc4880c28ca5c180cfcdf5
         codeSamplesNamespace: ragie-oas-code-samples
-        codeSamplesRevisionDigest: sha256:53b4779841992b29d6716764440fdd48b0c15998d52e44024c88e8298b5cbb72
+        codeSamplesRevisionDigest: sha256:46d8291160efa06d0fcc96371ac5c0b41fa26a17120f0f43c59e4ed7d845bc94
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
