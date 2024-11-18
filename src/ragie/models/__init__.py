@@ -57,12 +57,12 @@ from .createdocumentfromurlparams import (
 )
 from .createdocumentparams import (
     CreateDocumentParams,
+    CreateDocumentParamsMode,
     CreateDocumentParamsTypedDict,
     File,
     FileTypedDict,
     Metadata,
     MetadataTypedDict,
-    Mode,
 )
 from .createdocumentrawparams import (
     CreateDocumentRawParams,
@@ -197,6 +197,14 @@ from .listentitiesbyinstructionop import (
     ListEntitiesByInstructionResponse,
     ListEntitiesByInstructionResponseTypedDict,
 )
+from .oauthurlcreate import (
+    Mode,
+    OAuthURLCreate,
+    OAuthURLCreateMetadata,
+    OAuthURLCreateMetadataTypedDict,
+    OAuthURLCreateTypedDict,
+)
+from .oauthurlresponse import OAuthURLResponse, OAuthURLResponseTypedDict
 from .pagination import Pagination, PaginationTypedDict
 from .patchdocumentmetadataop import (
     PatchDocumentMetadataRequest,
@@ -303,6 +311,7 @@ __all__ = [
     "CreateDocumentFromURLParamsMode",
     "CreateDocumentFromURLParamsTypedDict",
     "CreateDocumentParams",
+    "CreateDocumentParamsMode",
     "CreateDocumentParamsTypedDict",
     "CreateDocumentRawParams",
     "CreateDocumentRawParamsMetadata",
@@ -410,6 +419,12 @@ __all__ = [
     "Metadata",
     "MetadataTypedDict",
     "Mode",
+    "OAuthURLCreate",
+    "OAuthURLCreateMetadata",
+    "OAuthURLCreateMetadataTypedDict",
+    "OAuthURLCreateTypedDict",
+    "OAuthURLResponse",
+    "OAuthURLResponseTypedDict",
     "One",
     "Pagination",
     "PaginationTypedDict",

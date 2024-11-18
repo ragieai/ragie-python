@@ -1,20 +1,20 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: fe3961f172253a55f30120e15b744532
+  docChecksum: 55d13ae2eb97a4b170381dbec716063c
   docVersion: 1.0.0
-  speakeasyVersion: 1.436.0
-  generationVersion: 2.455.2
-  releaseVersion: 1.3.1
-  configChecksum: ac303995b429745e53e2f8f377fa360b
+  speakeasyVersion: 1.441.0
+  generationVersion: 2.460.1
+  releaseVersion: 1.3.2
+  configChecksum: 9767393151ba4c647229a1104f582b90
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
 features:
   python:
     additionalDependencies: 1.0.0
-    constsAndDefaults: 1.0.4
-    core: 5.6.4
+    constsAndDefaults: 1.0.5
+    core: 5.6.5
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
@@ -66,6 +66,7 @@ generatedFiles:
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
   - docs/models/createdocumentparams.md
+  - docs/models/createdocumentparamsmode.md
   - docs/models/createdocumentrawparams.md
   - docs/models/createdocumentrawparamsmetadata.md
   - docs/models/createinstructionparams.md
@@ -121,6 +122,9 @@ generatedFiles:
   - docs/models/loc.md
   - docs/models/metadata.md
   - docs/models/mode.md
+  - docs/models/oauthurlcreate.md
+  - docs/models/oauthurlcreatemetadata.md
+  - docs/models/oauthurlresponse.md
   - docs/models/one.md
   - docs/models/pagination.md
   - docs/models/partitionstrategy.md
@@ -216,6 +220,8 @@ generatedFiles:
   - src/ragie/models/listdocumentsop.py
   - src/ragie/models/listentitiesbydocumentop.py
   - src/ragie/models/listentitiesbyinstructionop.py
+  - src/ragie/models/oauthurlcreate.py
+  - src/ragie/models/oauthurlresponse.py
   - src/ragie/models/pagination.py
   - src/ragie/models/patchdocumentmetadataop.py
   - src/ragie/models/patchdocumentmetadataparams.py
@@ -281,7 +287,7 @@ examples:
   CreateDocumentRaw:
     speakeasy-default-create-document-raw:
       requestBody:
-        application/json: {"data": "<value>", "partition": "<value>"}
+        application/json: {"metadata": {"key": []}, "partition": "<value>", "data": "<value>"}
       responses:
         "201":
           application/json: {"id": "f32d8f20-2af5-4fe3-9301-884a461abb5d", "created_at": "2024-10-07T02:25:22.865Z", "updated_at": "2024-07-13T21:12:32.248Z", "status": "<value>", "name": "<value>", "metadata": {"key": 391493, "key1": 816075, "key2": true}, "partition": "<value>"}
@@ -291,7 +297,7 @@ examples:
   CreateDocumentFromUrl:
     speakeasy-default-create-document-from-url:
       requestBody:
-        application/json: {"url": "https://scientific-plain.biz/", "partition": "<value>"}
+        application/json: {"metadata": {}, "partition": "<value>", "url": "https://scientific-plain.biz/"}
       responses:
         "201":
           application/json: {"id": "0adf151b-6a78-4e39-a7b3-465615a95443", "created_at": "2022-07-13T10:16:17.094Z", "updated_at": "2024-05-24T16:33:21.360Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
@@ -489,6 +495,16 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+  create_oauth_redirect_url_connections_oauth_post:
+    speakeasy-default-create-oauth-redirect-url-connections-oauth-post:
+      requestBody:
+        application/json: {"redirect_uri": "https://lumbering-sundae.net", "source_type": "<value>"}
+      responses:
+        "200":
+          application/json: {"url": "https://caring-peony.org"}
         "401":
           application/json: {"detail": "<value>"}
         "422": {}
