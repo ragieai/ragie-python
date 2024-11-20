@@ -22,11 +22,11 @@ class CreateDocumentFromURLParamsMode(str, Enum):
 
 
 class CreateDocumentFromURLParamsTypedDict(TypedDict):
-    metadata: Dict[str, CreateDocumentFromURLParamsMetadataTypedDict]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme"""
     name: NotRequired[str]
+    metadata: NotRequired[Dict[str, CreateDocumentFromURLParamsMetadataTypedDict]]
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     mode: NotRequired[CreateDocumentFromURLParamsMode]
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
     external_id: NotRequired[Nullable[str]]
@@ -36,13 +36,13 @@ class CreateDocumentFromURLParamsTypedDict(TypedDict):
 
 
 class CreateDocumentFromURLParams(BaseModel):
-    metadata: Dict[str, CreateDocumentFromURLParamsMetadata]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
-
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme"""
 
     name: Optional[str] = None
+
+    metadata: Optional[Dict[str, CreateDocumentFromURLParamsMetadata]] = None
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
 
     mode: Optional[CreateDocumentFromURLParamsMode] = (
         CreateDocumentFromURLParamsMode.FAST
@@ -57,7 +57,7 @@ class CreateDocumentFromURLParams(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["name", "mode", "external_id", "partition"]
+        optional_fields = ["name", "metadata", "mode", "external_id", "partition"]
         nullable_fields = ["external_id"]
         null_default_fields = []
 
