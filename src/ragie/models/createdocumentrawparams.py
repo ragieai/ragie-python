@@ -30,12 +30,12 @@ r"""Document data in a text or JSON format."""
 
 
 class CreateDocumentRawParamsTypedDict(TypedDict):
-    metadata: Dict[str, CreateDocumentRawParamsMetadataTypedDict]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     data: DataTypedDict
     r"""Document data in a text or JSON format."""
     name: NotRequired[str]
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
+    metadata: NotRequired[Dict[str, CreateDocumentRawParamsMetadataTypedDict]]
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     external_id: NotRequired[Nullable[str]]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
     partition: NotRequired[str]
@@ -43,14 +43,14 @@ class CreateDocumentRawParamsTypedDict(TypedDict):
 
 
 class CreateDocumentRawParams(BaseModel):
-    metadata: Dict[str, CreateDocumentRawParamsMetadata]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
-
     data: Data
     r"""Document data in a text or JSON format."""
 
     name: Optional[str] = None
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
+
+    metadata: Optional[Dict[str, CreateDocumentRawParamsMetadata]] = None
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
 
     external_id: OptionalNullable[str] = UNSET
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
@@ -60,7 +60,7 @@ class CreateDocumentRawParams(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["name", "external_id", "partition"]
+        optional_fields = ["name", "metadata", "external_id", "partition"]
         nullable_fields = ["external_id"]
         null_default_fields = []
 
