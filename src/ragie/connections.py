@@ -227,7 +227,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def create_oauth_redirect_url_connections_oauth_post(
+    def create_o_auth_redirect_url(
         self,
         *,
         request: Union[models.OAuthURLCreate, models.OAuthURLCreateTypedDict],
@@ -319,7 +319,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def create_oauth_redirect_url_connections_oauth_post_async(
+    async def create_o_auth_redirect_url_async(
         self,
         *,
         request: Union[models.OAuthURLCreate, models.OAuthURLCreateTypedDict],

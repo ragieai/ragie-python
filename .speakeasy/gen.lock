@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: cce9fce20ecfb7ee667f56b8330039c8
+  docChecksum: f0328b0a61a15bf19bed18dc0b5c4450
   docVersion: 1.0.0
-  speakeasyVersion: 1.441.1
-  generationVersion: 2.461.2
-  releaseVersion: 1.3.5
-  configChecksum: f5677d951be655c6668d44bbb9f53f6e
+  speakeasyVersion: 1.443.0
+  generationVersion: 2.461.4
+  releaseVersion: 1.3.6
+  configChecksum: 01af9bb326f1326fcedf4e75f6889d49
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.6.5
+    core: 5.6.6
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
