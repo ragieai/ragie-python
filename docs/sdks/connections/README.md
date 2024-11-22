@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [list](#list) - List Connections
-* [create_oauth_redirect_url_connections_oauth_post](#create_oauth_redirect_url_connections_oauth_post) - Create Oauth Redirect Url
+* [create_o_auth_redirect_url](#create_o_auth_redirect_url) - Create Oauth Redirect Url
 * [set_connection_enabled](#set_connection_enabled) - Set Connection Enabled
 * [update_connection](#update_connection) - Update Connection
 * [get_connection_stats](#get_connection_stats) - Get Connection Stats
@@ -57,7 +57,7 @@ if res is not None:
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
-## create_oauth_redirect_url_connections_oauth_post
+## create_o_auth_redirect_url
 
 Creates a redirect url to redirect the user to when initializing an embedded connector.
 
@@ -70,7 +70,7 @@ s = Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-res = s.connections.create_oauth_redirect_url_connections_oauth_post(request={
+res = s.connections.create_o_auth_redirect_url(request={
     "redirect_uri": "https://lumbering-sundae.net",
     "source_type": "<value>",
 })
