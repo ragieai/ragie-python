@@ -15,19 +15,25 @@
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [ragie](https://github.com/ragieai/ragie-python/blob/master/#ragie)
+  * [SDK Installation](https://github.com/ragieai/ragie-python/blob/master/#sdk-installation)
+  * [IDE Support](https://github.com/ragieai/ragie-python/blob/master/#ide-support)
+  * [SDK Example Usage](https://github.com/ragieai/ragie-python/blob/master/#sdk-example-usage)
+  * [Available Resources and Operations](https://github.com/ragieai/ragie-python/blob/master/#available-resources-and-operations)
+  * [Pagination](https://github.com/ragieai/ragie-python/blob/master/#pagination)
+  * [File uploads](https://github.com/ragieai/ragie-python/blob/master/#file-uploads)
+  * [Retries](https://github.com/ragieai/ragie-python/blob/master/#retries)
+  * [Error Handling](https://github.com/ragieai/ragie-python/blob/master/#error-handling)
+  * [Server Selection](https://github.com/ragieai/ragie-python/blob/master/#server-selection)
+  * [Custom HTTP Client](https://github.com/ragieai/ragie-python/blob/master/#custom-http-client)
+  * [Authentication](https://github.com/ragieai/ragie-python/blob/master/#authentication)
+  * [Debugging](https://github.com/ragieai/ragie-python/blob/master/#debugging)
+* [Development](https://github.com/ragieai/ragie-python/blob/master/#development)
+  * [Maturity](https://github.com/ragieai/ragie-python/blob/master/#maturity)
+  * [Contributions](https://github.com/ragieai/ragie-python/blob/master/#contributions)
+* [ragie-python](https://github.com/ragieai/ragie-python/blob/master/#ragie-python)
 
-* [SDK Installation](https://github.com/ragieai/ragie-python/blob/master/#sdk-installation)
-* [IDE Support](https://github.com/ragieai/ragie-python/blob/master/#ide-support)
-* [SDK Example Usage](https://github.com/ragieai/ragie-python/blob/master/#sdk-example-usage)
-* [Available Resources and Operations](https://github.com/ragieai/ragie-python/blob/master/#available-resources-and-operations)
-* [Pagination](https://github.com/ragieai/ragie-python/blob/master/#pagination)
-* [File uploads](https://github.com/ragieai/ragie-python/blob/master/#file-uploads)
-* [Retries](https://github.com/ragieai/ragie-python/blob/master/#retries)
-* [Error Handling](https://github.com/ragieai/ragie-python/blob/master/#error-handling)
-* [Server Selection](https://github.com/ragieai/ragie-python/blob/master/#server-selection)
-* [Custom HTTP Client](https://github.com/ragieai/ragie-python/blob/master/#custom-http-client)
-* [Authentication](https://github.com/ragieai/ragie-python/blob/master/#authentication)
-* [Debugging](https://github.com/ragieai/ragie-python/blob/master/#debugging)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -71,20 +77,19 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 # Synchronous Example
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 ```
 
 </br>
@@ -96,18 +101,19 @@ import asyncio
 from ragie import Ragie
 
 async def main():
-    s = Ragie(
+    async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    )
-    res = await s.documents.create_async(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
-    })
-    if res is not None:
-        # handle response
-        pass
+    ) as s:
+        res = await s.documents.create_async(request={
+            "file": {
+                "file_name": "example.file",
+                "content": open("example.file", "rb"),
+            },
+        })
+
+        if res is not None:
+            # handle response
+            pass
 
 asyncio.run(main())
 ```
@@ -125,6 +131,7 @@ asyncio.run(main())
 * [create_o_auth_redirect_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_o_auth_redirect_url) - Create Oauth Redirect Url
 * [set_connection_enabled](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#set_connection_enabled) - Set Connection Enabled
 * [update_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#update_connection) - Update Connection
+* [get_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get_connection) - Get Connection
 * [get_connection_stats](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get_connection_stats) - Get Connection Stats
 * [delete_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#delete_connection) - Delete Connection
 
@@ -168,21 +175,20 @@ Here's an example of one such pagination call:
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+    })
 
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
-})
+    if res is not None:
+        while True:
+            # handle items
 
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.next()
-        if res is None:
-            break
+            res = res.next()
+            if res is None:
+                break
 
 ```
 <!-- End Pagination [pagination] -->
@@ -200,20 +206,19 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 <!-- End File uploads [file-upload] -->
@@ -228,21 +233,20 @@ To change the default retry strategy for a single API call, simply provide a `Re
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
-
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
     },
-},
-    RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
+        RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -251,21 +255,20 @@ If you'd like to override the default retry strategy for all operations that sup
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
-s = Ragie(
+with Ragie(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 <!-- End Retries [retries] -->
@@ -297,32 +300,31 @@ When custom error responses are specified for an operation, the SDK may also rai
 ```python
 from ragie import Ragie, models
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = None
+    try:
+        res = s.documents.create(request={
+            "file": {
+                "file_name": "example.file",
+                "content": open("example.file", "rb"),
+            },
+        })
 
-res = None
-try:
-    res = s.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
-    })
+        if res is not None:
+            # handle response
+            pass
 
-    if res is not None:
-        # handle response
-        pass
-
-except models.ErrorMessage as e:
-    # handle e.data: models.ErrorMessageData
-    raise(e)
-except models.HTTPValidationError as e:
-    # handle e.data: models.HTTPValidationErrorData
-    raise(e)
-except models.SDKError as e:
-    # handle exception
-    raise(e)
+    except models.ErrorMessage as e:
+        # handle e.data: models.ErrorMessageData
+        raise(e)
+    except models.HTTPValidationError as e:
+        # handle e.data: models.HTTPValidationErrorData
+        raise(e)
+    except models.SDKError as e:
+        # handle exception
+        raise(e)
 ```
 <!-- End Error Handling [errors] -->
 
@@ -335,21 +337,20 @@ The default server can also be overridden globally by passing a URL to the `serv
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     server_url="https://api.ragie.ai",
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 <!-- End Server Selection [server] -->
@@ -450,20 +451,19 @@ To authenticate with the API the `auth` parameter must be set when initializing 
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 <!-- End Authentication [security] -->
