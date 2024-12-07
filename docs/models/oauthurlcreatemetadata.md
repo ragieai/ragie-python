@@ -1,7 +1,29 @@
 # OAuthURLCreateMetadata
 
 
-## Fields
+## Supported Types
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+### `str`
+
+```python
+value: str = /* values here */
+```
+
+### `int`
+
+```python
+value: int = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+
+### `List[str]`
+
+```python
+value: List[str] = /* values here */
+```
+

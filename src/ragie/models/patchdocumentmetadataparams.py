@@ -2,21 +2,15 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import Dict, List, Union
+from typing import Any, Dict
 from typing_extensions import TypedDict
 
 
-PatchDocumentMetadataParamsMetadataTypedDict = Union[str, int, bool, List[str]]
-
-
-PatchDocumentMetadataParamsMetadata = Union[str, int, bool, List[str]]
-
-
 class PatchDocumentMetadataParamsTypedDict(TypedDict):
-    metadata: Dict[str, PatchDocumentMetadataParamsMetadataTypedDict]
+    metadata: Dict[str, Any]
     r"""The metadata to update on the document. Performs a partial update of the document's metadata. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. Keys set to `null` are deleted. 1000 total values are allowed, inclusive of existing metadata. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`. If the document is managed by a connection, this operation will extend a metadata overlay which is applied to the document any time the connection syncs the document."""
 
 
 class PatchDocumentMetadataParams(BaseModel):
-    metadata: Dict[str, PatchDocumentMetadataParamsMetadata]
+    metadata: Dict[str, Any]
     r"""The metadata to update on the document. Performs a partial update of the document's metadata. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. Keys set to `null` are deleted. 1000 total values are allowed, inclusive of existing metadata. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`. If the document is managed by a connection, this operation will extend a metadata overlay which is applied to the document any time the connection syncs the document."""

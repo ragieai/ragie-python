@@ -5,13 +5,17 @@ from enum import Enum
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Dict, List, Optional, Union
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-CreateDocumentFromURLParamsMetadataTypedDict = Union[str, int, bool, List[str]]
+CreateDocumentFromURLParamsMetadataTypedDict = TypeAliasType(
+    "CreateDocumentFromURLParamsMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-CreateDocumentFromURLParamsMetadata = Union[str, int, bool, List[str]]
+CreateDocumentFromURLParamsMetadata = TypeAliasType(
+    "CreateDocumentFromURLParamsMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class CreateDocumentFromURLParamsMode(str, Enum):

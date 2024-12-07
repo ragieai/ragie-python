@@ -3,20 +3,19 @@
 # Synchronous Example
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 ```
 
 </br>
@@ -28,18 +27,19 @@ import asyncio
 from ragie import Ragie
 
 async def main():
-    s = Ragie(
+    async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    )
-    res = await s.documents.create_async(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
-    })
-    if res is not None:
-        # handle response
-        pass
+    ) as s:
+        res = await s.documents.create_async(request={
+            "file": {
+                "file_name": "example.file",
+                "content": open("example.file", "rb"),
+            },
+        })
+
+        if res is not None:
+            # handle response
+            pass
 
 asyncio.run(main())
 ```

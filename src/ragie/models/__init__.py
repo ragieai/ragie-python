@@ -15,39 +15,6 @@ from .connectionbase import (
 )
 from .connectionlist import ConnectionList, ConnectionListTypedDict
 from .connectionstats import ConnectionStats, ConnectionStatsTypedDict
-from .connectionsyncfinishedwebhook import (
-    ConnectionSyncFinishedWebhook,
-    ConnectionSyncFinishedWebhookType,
-    ConnectionSyncFinishedWebhookTypedDict,
-)
-from .connectionsyncfinishedwebhookpayload import (
-    ConnectionSyncFinishedWebhookPayload,
-    ConnectionSyncFinishedWebhookPayloadConnectionMetadata,
-    ConnectionSyncFinishedWebhookPayloadConnectionMetadataTypedDict,
-    ConnectionSyncFinishedWebhookPayloadTypedDict,
-)
-from .connectionsyncprogresswebhook import (
-    ConnectionSyncProgressWebhook,
-    ConnectionSyncProgressWebhookType,
-    ConnectionSyncProgressWebhookTypedDict,
-)
-from .connectionsyncprogresswebhookpayload import (
-    ConnectionSyncProgressWebhookPayload,
-    ConnectionSyncProgressWebhookPayloadConnectionMetadata,
-    ConnectionSyncProgressWebhookPayloadConnectionMetadataTypedDict,
-    ConnectionSyncProgressWebhookPayloadTypedDict,
-)
-from .connectionsyncstartedwebhook import (
-    ConnectionSyncStartedWebhook,
-    ConnectionSyncStartedWebhookType,
-    ConnectionSyncStartedWebhookTypedDict,
-)
-from .connectionsyncstartedwebhookpayload import (
-    ConnectionMetadata,
-    ConnectionMetadataTypedDict,
-    ConnectionSyncStartedWebhookPayload,
-    ConnectionSyncStartedWebhookPayloadTypedDict,
-)
 from .createdocumentfromurlparams import (
     CreateDocumentFromURLParams,
     CreateDocumentFromURLParamsMetadata,
@@ -97,17 +64,6 @@ from .document import (
     DocumentTypedDict,
 )
 from .documentdelete import DocumentDelete, DocumentDeleteTypedDict
-from .documentdeletewebhook import (
-    DocumentDeleteWebhook,
-    DocumentDeleteWebhookType,
-    DocumentDeleteWebhookTypedDict,
-)
-from .documentdeletewebhookpayload import (
-    DocumentDeleteWebhookPayload,
-    DocumentDeleteWebhookPayloadMetadata,
-    DocumentDeleteWebhookPayloadMetadataTypedDict,
-    DocumentDeleteWebhookPayloadTypedDict,
-)
 from .documentfileupdate import DocumentFileUpdate, DocumentFileUpdateTypedDict
 from .documentget import (
     DocumentGet,
@@ -124,38 +80,13 @@ from .documentmetadataupdate import (
 )
 from .documentrawupdate import DocumentRawUpdate, DocumentRawUpdateTypedDict
 from .documentsummary import DocumentSummary, DocumentSummaryTypedDict
-from .documentupdatewebhook import (
-    DocumentUpdateWebhook,
-    DocumentUpdateWebhookTypedDict,
-    Type,
-)
-from .documentupdatewebhookpayload import (
-    DocumentUpdateWebhookPayload,
-    DocumentUpdateWebhookPayloadMetadata,
-    DocumentUpdateWebhookPayloadMetadataTypedDict,
-    DocumentUpdateWebhookPayloadTypedDict,
-    One,
-    Status,
-    Status2,
-    StatusTypedDict,
-)
 from .entity import Entity, EntityTypedDict
-from .entityextractedwebhook import (
-    EntityExtractedWebhook,
-    EntityExtractedWebhookType,
-    EntityExtractedWebhookTypedDict,
-)
-from .entityextractedwebhookpayload import (
-    EntityExtractedWebhookPayload,
-    EntityExtractedWebhookPayloadData,
-    EntityExtractedWebhookPayloadDataTypedDict,
-    EntityExtractedWebhookPayloadDocumentMetadata,
-    EntityExtractedWebhookPayloadDocumentMetadataTypedDict,
-    EntityExtractedWebhookPayloadTypedDict,
-)
 from .entitylist import EntityList, EntityListTypedDict
 from .errormessage import ErrorMessage, ErrorMessageData
-from .eventevent_post import EventeventPostBody, EventeventPostBodyTypedDict
+from .get_connection_connections_connection_id_getop import (
+    GetConnectionConnectionsConnectionIDGetRequest,
+    GetConnectionConnectionsConnectionIDGetRequestTypedDict,
+)
 from .get_connection_stats_connections_connection_id_stats_getop import (
     GetConnectionStatsConnectionsConnectionIDStatsGetRequest,
     GetConnectionStatsConnectionsConnectionIDStatsGetRequestTypedDict,
@@ -203,6 +134,7 @@ from .oauthurlcreate import (
     OAuthURLCreateMetadata,
     OAuthURLCreateMetadataTypedDict,
     OAuthURLCreateTypedDict,
+    Theme,
 )
 from .oauthurlresponse import OAuthURLResponse, OAuthURLResponseTypedDict
 from .pagination import Pagination, PaginationTypedDict
@@ -212,8 +144,6 @@ from .patchdocumentmetadataop import (
 )
 from .patchdocumentmetadataparams import (
     PatchDocumentMetadataParams,
-    PatchDocumentMetadataParamsMetadata,
-    PatchDocumentMetadataParamsMetadataTypedDict,
     PatchDocumentMetadataParamsTypedDict,
 )
 from .retrieval import Retrieval, RetrievalTypedDict
@@ -279,31 +209,10 @@ __all__ = [
     "ConnectionBaseTypedDict",
     "ConnectionList",
     "ConnectionListTypedDict",
-    "ConnectionMetadata",
     "ConnectionMetadataMetadata",
     "ConnectionMetadataMetadataTypedDict",
-    "ConnectionMetadataTypedDict",
     "ConnectionStats",
     "ConnectionStatsTypedDict",
-    "ConnectionSyncFinishedWebhook",
-    "ConnectionSyncFinishedWebhookPayload",
-    "ConnectionSyncFinishedWebhookPayloadConnectionMetadata",
-    "ConnectionSyncFinishedWebhookPayloadConnectionMetadataTypedDict",
-    "ConnectionSyncFinishedWebhookPayloadTypedDict",
-    "ConnectionSyncFinishedWebhookType",
-    "ConnectionSyncFinishedWebhookTypedDict",
-    "ConnectionSyncProgressWebhook",
-    "ConnectionSyncProgressWebhookPayload",
-    "ConnectionSyncProgressWebhookPayloadConnectionMetadata",
-    "ConnectionSyncProgressWebhookPayloadConnectionMetadataTypedDict",
-    "ConnectionSyncProgressWebhookPayloadTypedDict",
-    "ConnectionSyncProgressWebhookType",
-    "ConnectionSyncProgressWebhookTypedDict",
-    "ConnectionSyncStartedWebhook",
-    "ConnectionSyncStartedWebhookPayload",
-    "ConnectionSyncStartedWebhookPayloadTypedDict",
-    "ConnectionSyncStartedWebhookType",
-    "ConnectionSyncStartedWebhookTypedDict",
     "ConnectionTypedDict",
     "CreateDocumentFromURLParams",
     "CreateDocumentFromURLParamsMetadata",
@@ -335,13 +244,6 @@ __all__ = [
     "Document",
     "DocumentDelete",
     "DocumentDeleteTypedDict",
-    "DocumentDeleteWebhook",
-    "DocumentDeleteWebhookPayload",
-    "DocumentDeleteWebhookPayloadMetadata",
-    "DocumentDeleteWebhookPayloadMetadataTypedDict",
-    "DocumentDeleteWebhookPayloadTypedDict",
-    "DocumentDeleteWebhookType",
-    "DocumentDeleteWebhookTypedDict",
     "DocumentFileUpdate",
     "DocumentFileUpdateTypedDict",
     "DocumentGet",
@@ -361,33 +263,18 @@ __all__ = [
     "DocumentSummary",
     "DocumentSummaryTypedDict",
     "DocumentTypedDict",
-    "DocumentUpdateWebhook",
-    "DocumentUpdateWebhookPayload",
-    "DocumentUpdateWebhookPayloadMetadata",
-    "DocumentUpdateWebhookPayloadMetadataTypedDict",
-    "DocumentUpdateWebhookPayloadTypedDict",
-    "DocumentUpdateWebhookTypedDict",
     "Entity",
-    "EntityExtractedWebhook",
-    "EntityExtractedWebhookPayload",
-    "EntityExtractedWebhookPayloadData",
-    "EntityExtractedWebhookPayloadDataTypedDict",
-    "EntityExtractedWebhookPayloadDocumentMetadata",
-    "EntityExtractedWebhookPayloadDocumentMetadataTypedDict",
-    "EntityExtractedWebhookPayloadTypedDict",
-    "EntityExtractedWebhookType",
-    "EntityExtractedWebhookTypedDict",
     "EntityList",
     "EntityListTypedDict",
     "EntityTypedDict",
     "ErrorMessage",
     "ErrorMessageData",
-    "EventeventPostBody",
-    "EventeventPostBodyTypedDict",
     "File",
     "FileTypedDict",
     "Filter",
     "FilterTypedDict",
+    "GetConnectionConnectionsConnectionIDGetRequest",
+    "GetConnectionConnectionsConnectionIDGetRequestTypedDict",
     "GetConnectionStatsConnectionsConnectionIDStatsGetRequest",
     "GetConnectionStatsConnectionsConnectionIDStatsGetRequestTypedDict",
     "GetDocumentRequest",
@@ -425,13 +312,10 @@ __all__ = [
     "OAuthURLCreateTypedDict",
     "OAuthURLResponse",
     "OAuthURLResponseTypedDict",
-    "One",
     "Pagination",
     "PaginationTypedDict",
     "PartitionStrategy",
     "PatchDocumentMetadataParams",
-    "PatchDocumentMetadataParamsMetadata",
-    "PatchDocumentMetadataParamsMetadataTypedDict",
     "PatchDocumentMetadataParamsTypedDict",
     "PatchDocumentMetadataRequest",
     "PatchDocumentMetadataRequestTypedDict",
@@ -449,12 +333,9 @@ __all__ = [
     "SetConnectionEnabledConnectionsConnectionIDEnabledPutRequestTypedDict",
     "SetConnectionEnabledPayload",
     "SetConnectionEnabledPayloadTypedDict",
-    "Status",
-    "Status2",
-    "StatusTypedDict",
+    "Theme",
     "Two",
     "TwoTypedDict",
-    "Type",
     "UpdateConnectionConnectionsConnectionIDPutRequest",
     "UpdateConnectionConnectionsConnectionIDPutRequestTypedDict",
     "UpdateDocumentFileParams",

@@ -5,13 +5,17 @@ from datetime import datetime
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Dict, List, Union
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-DocumentGetMetadataTypedDict = Union[str, int, bool, List[str]]
+DocumentGetMetadataTypedDict = TypeAliasType(
+    "DocumentGetMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-DocumentGetMetadata = Union[str, int, bool, List[str]]
+DocumentGetMetadata = TypeAliasType(
+    "DocumentGetMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class DocumentGetTypedDict(TypedDict):

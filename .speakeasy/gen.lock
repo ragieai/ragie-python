@@ -1,10 +1,10 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: f0328b0a61a15bf19bed18dc0b5c4450
+  docChecksum: 2fb4db2ace25a076c75874acd27a88b8
   docVersion: 1.0.0
-  speakeasyVersion: 1.443.0
-  generationVersion: 2.461.4
+  speakeasyVersion: 1.453.2
+  generationVersion: 2.474.5
   releaseVersion: 1.3.7
   configChecksum: ffe01c9761402bc5e225d35ae6932e5b
   repoURL: https://github.com/ragieai/ragie-python.git
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.6.6
+    core: 5.6.9
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
@@ -32,9 +32,8 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
-    unions: 3.0.3
+    unions: 3.0.4
     uploadStreams: 1.0.0
-    webhooks: 2.0.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -48,20 +47,8 @@ generatedFiles:
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
   - docs/models/connectionlist.md
-  - docs/models/connectionmetadata.md
   - docs/models/connectionmetadatametadata.md
   - docs/models/connectionstats.md
-  - docs/models/connectionsyncfinishedwebhook.md
-  - docs/models/connectionsyncfinishedwebhookpayload.md
-  - docs/models/connectionsyncfinishedwebhookpayloadconnectionmetadata.md
-  - docs/models/connectionsyncfinishedwebhooktype.md
-  - docs/models/connectionsyncprogresswebhook.md
-  - docs/models/connectionsyncprogresswebhookpayload.md
-  - docs/models/connectionsyncprogresswebhookpayloadconnectionmetadata.md
-  - docs/models/connectionsyncprogresswebhooktype.md
-  - docs/models/connectionsyncstartedwebhook.md
-  - docs/models/connectionsyncstartedwebhookpayload.md
-  - docs/models/connectionsyncstartedwebhooktype.md
   - docs/models/createdocumentfromurlparams.md
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
@@ -79,10 +66,6 @@ generatedFiles:
   - docs/models/deletedocumentrequest.md
   - docs/models/document.md
   - docs/models/documentdelete.md
-  - docs/models/documentdeletewebhook.md
-  - docs/models/documentdeletewebhookpayload.md
-  - docs/models/documentdeletewebhookpayloadmetadata.md
-  - docs/models/documentdeletewebhooktype.md
   - docs/models/documentfileupdate.md
   - docs/models/documentget.md
   - docs/models/documentgetmetadata.md
@@ -92,20 +75,12 @@ generatedFiles:
   - docs/models/documentmetadataupdatemetadata.md
   - docs/models/documentrawupdate.md
   - docs/models/documentsummary.md
-  - docs/models/documentupdatewebhook.md
-  - docs/models/documentupdatewebhookpayload.md
-  - docs/models/documentupdatewebhookpayloadmetadata.md
   - docs/models/entity.md
-  - docs/models/entityextractedwebhook.md
-  - docs/models/entityextractedwebhookpayload.md
-  - docs/models/entityextractedwebhookpayloaddata.md
-  - docs/models/entityextractedwebhookpayloaddocumentmetadata.md
-  - docs/models/entityextractedwebhooktype.md
   - docs/models/entitylist.md
   - docs/models/errormessage.md
-  - docs/models/eventeventpostbody.md
   - docs/models/file.md
   - docs/models/filter_.md
+  - docs/models/getconnectionconnectionsconnectionidgetrequest.md
   - docs/models/getconnectionstatsconnectionsconnectionidstatsgetrequest.md
   - docs/models/getdocumentrequest.md
   - docs/models/getdocumentsummaryrequest.md
@@ -125,11 +100,9 @@ generatedFiles:
   - docs/models/oauthurlcreate.md
   - docs/models/oauthurlcreatemetadata.md
   - docs/models/oauthurlresponse.md
-  - docs/models/one.md
   - docs/models/pagination.md
   - docs/models/partitionstrategy.md
   - docs/models/patchdocumentmetadataparams.md
-  - docs/models/patchdocumentmetadataparamsmetadata.md
   - docs/models/patchdocumentmetadatarequest.md
   - docs/models/retrieval.md
   - docs/models/retrieveparams.md
@@ -138,10 +111,8 @@ generatedFiles:
   - docs/models/security.md
   - docs/models/setconnectionenabledconnectionsconnectionidenabledputrequest.md
   - docs/models/setconnectionenabledpayload.md
-  - docs/models/status.md
-  - docs/models/status2.md
+  - docs/models/theme.md
   - docs/models/two.md
-  - docs/models/type.md
   - docs/models/updateconnectionconnectionsconnectionidputrequest.md
   - docs/models/updatedocumentfileparams.md
   - docs/models/updatedocumentfileparamsfile.md
@@ -180,12 +151,6 @@ generatedFiles:
   - src/ragie/models/connectionbase.py
   - src/ragie/models/connectionlist.py
   - src/ragie/models/connectionstats.py
-  - src/ragie/models/connectionsyncfinishedwebhook.py
-  - src/ragie/models/connectionsyncfinishedwebhookpayload.py
-  - src/ragie/models/connectionsyncprogresswebhook.py
-  - src/ragie/models/connectionsyncprogresswebhookpayload.py
-  - src/ragie/models/connectionsyncstartedwebhook.py
-  - src/ragie/models/connectionsyncstartedwebhookpayload.py
   - src/ragie/models/createdocumentfromurlparams.py
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
@@ -195,22 +160,16 @@ generatedFiles:
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/document.py
   - src/ragie/models/documentdelete.py
-  - src/ragie/models/documentdeletewebhook.py
-  - src/ragie/models/documentdeletewebhookpayload.py
   - src/ragie/models/documentfileupdate.py
   - src/ragie/models/documentget.py
   - src/ragie/models/documentlist.py
   - src/ragie/models/documentmetadataupdate.py
   - src/ragie/models/documentrawupdate.py
   - src/ragie/models/documentsummary.py
-  - src/ragie/models/documentupdatewebhook.py
-  - src/ragie/models/documentupdatewebhookpayload.py
   - src/ragie/models/entity.py
-  - src/ragie/models/entityextractedwebhook.py
-  - src/ragie/models/entityextractedwebhookpayload.py
   - src/ragie/models/entitylist.py
   - src/ragie/models/errormessage.py
-  - src/ragie/models/eventevent_post.py
+  - src/ragie/models/get_connection_connections_connection_id_getop.py
   - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
   - src/ragie/models/getdocumentop.py
   - src/ragie/models/getdocumentsummaryop.py
@@ -508,3 +467,15 @@ examples:
         "401":
           application/json: {"detail": "<value>"}
         "422": {}
+  get_connection_connections__connection_id__get:
+    speakeasy-default-get-connection-connections-connection-id-get:
+      parameters:
+        path:
+          connection_id: "ee666f79-dcc9-4015-9e13-63993816d536"
+      responses:
+        "200":
+          application/json: "<value>"
+        "401":
+          application/json: {"detail": "<value>"}
+        "422": {}
+generatedTests: {}

@@ -3,13 +3,17 @@
 from __future__ import annotations
 from ragie.types import BaseModel
 from typing import Dict, List, Union
-from typing_extensions import TypedDict
+from typing_extensions import TypeAliasType, TypedDict
 
 
-DocumentMetadataUpdateMetadataTypedDict = Union[str, int, bool, List[str]]
+DocumentMetadataUpdateMetadataTypedDict = TypeAliasType(
+    "DocumentMetadataUpdateMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-DocumentMetadataUpdateMetadata = Union[str, int, bool, List[str]]
+DocumentMetadataUpdateMetadata = TypeAliasType(
+    "DocumentMetadataUpdateMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class DocumentMetadataUpdateTypedDict(TypedDict):

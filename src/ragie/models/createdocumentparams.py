@@ -7,7 +7,7 @@ import pydantic
 from ragie.types import BaseModel
 from ragie.utils import FieldMetadata, MultipartFormMetadata
 from typing import Dict, IO, List, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class CreateDocumentParamsMode(str, Enum):
@@ -17,10 +17,12 @@ class CreateDocumentParamsMode(str, Enum):
     FAST = "fast"
 
 
-MetadataTypedDict = Union[str, float, bool, List[str]]
+MetadataTypedDict = TypeAliasType(
+    "MetadataTypedDict", Union[str, float, bool, List[str]]
+)
 
 
-Metadata = Union[str, float, bool, List[str]]
+Metadata = TypeAliasType("Metadata", Union[str, float, bool, List[str]])
 
 
 class FileTypedDict(TypedDict):
@@ -59,6 +61,8 @@ class CreateDocumentParamsTypedDict(TypedDict):
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
     external_id: NotRequired[str]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
+    name: NotRequired[str]
+    r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the file's name."""
     partition: NotRequired[str]
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
 
@@ -87,6 +91,9 @@ class CreateDocumentParams(BaseModel):
 
     external_id: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
+
+    name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
+    r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the file's name."""
 
     partition: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
