@@ -20,15 +20,14 @@ List all instructions.
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.entities.list_instructions()
 
-res = s.entities.list_instructions()
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -59,90 +58,88 @@ Create a new instruction. Instructions are applied to documents as they are crea
 import ragie
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
-
-res = s.entities.create_instruction(request={
-    "name": "Find all pizzas",
-    "prompt": "Find all pizzas described in the text.",
-    "entity_schema": {
-        "additionalProperties": False,
-        "properties": {
-            "size": {
-                "enum": [
-                    "small",
-                    "medium",
-                    "large",
-                ],
-                "type": "string",
-            },
-            "crust": {
-                "enum": [
-                    "thin",
-                    "thick",
-                    "stuffed",
-                ],
-                "type": "string",
-            },
-            "sauce": {
-                "enum": [
-                    "tomato",
-                    "alfredo",
-                    "pesto",
-                ],
-                "type": "string",
-            },
-            "cheese": {
-                "enum": [
-                    "mozzarella",
-                    "cheddar",
-                    "parmesan",
-                    "vegan",
-                ],
-                "type": "string",
-            },
-            "toppings": {
-                "items": {
+) as s:
+    res = s.entities.create_instruction(request={
+        "name": "Find all pizzas",
+        "prompt": "Find all pizzas described in the text.",
+        "entity_schema": {
+            "additionalProperties": False,
+            "properties": {
+                "size": {
                     "enum": [
-                        "pepperoni",
-                        "mushrooms",
-                        "onions",
-                        "sausage",
-                        "bacon",
-                        "extra cheese",
-                        "black olives",
-                        "green peppers",
-                        "pineapple",
-                        "spinach",
+                        "small",
+                        "medium",
+                        "large",
                     ],
                     "type": "string",
                 },
-                "type": "array",
-                "uniqueItems": True,
+                "crust": {
+                    "enum": [
+                        "thin",
+                        "thick",
+                        "stuffed",
+                    ],
+                    "type": "string",
+                },
+                "sauce": {
+                    "enum": [
+                        "tomato",
+                        "alfredo",
+                        "pesto",
+                    ],
+                    "type": "string",
+                },
+                "cheese": {
+                    "enum": [
+                        "mozzarella",
+                        "cheddar",
+                        "parmesan",
+                        "vegan",
+                    ],
+                    "type": "string",
+                },
+                "toppings": {
+                    "items": {
+                        "enum": [
+                            "pepperoni",
+                            "mushrooms",
+                            "onions",
+                            "sausage",
+                            "bacon",
+                            "extra cheese",
+                            "black olives",
+                            "green peppers",
+                            "pineapple",
+                            "spinach",
+                        ],
+                        "type": "string",
+                    },
+                    "type": "array",
+                    "uniqueItems": True,
+                },
+                "extraInstructions": {
+                    "type": "string",
+                },
             },
-            "extraInstructions": {
-                "type": "string",
-            },
+            "required": [
+                "size",
+                "crust",
+                "sauce",
+                "cheese",
+            ],
+            "title": "Pizza",
+            "type": "object",
         },
-        "required": [
-            "size",
-            "crust",
-            "sauce",
-            "cheese",
-        ],
-        "title": "Pizza",
-        "type": "object",
-    },
-    "active": True,
-    "scope": ragie.CreateInstructionParamsScope.CHUNK,
-    "filter_": {},
-    "partition": "<value>",
-})
+        "active": True,
+        "scope": ragie.CreateInstructionParamsScope.CHUNK,
+        "partition": "<value>",
+    })
 
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -174,17 +171,16 @@ Update Instruction
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.entities.update_instruction(instruction_id="<INSTRUCTION_ID>", update_instruction_params={
+        "active": True,
+    })
 
-res = s.entities.update_instruction(instruction_id="<INSTRUCTION_ID>", update_instruction_params={
-    "active": True,
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -217,21 +213,20 @@ Get Instruction Extracted Entities
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.entities.list_by_instruction(request={
+        "instruction_id": "<INSTRUCTION_ID>",
+    })
 
-res = s.entities.list_by_instruction(request={
-    "instruction_id": "<INSTRUCTION_ID>",
-})
+    if res is not None:
+        while True:
+            # handle items
 
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.next()
-        if res is None:
-            break
+            res = res.next()
+            if res is None:
+                break
 
 ```
 
@@ -263,21 +258,20 @@ Get Document Extracted Entities
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.entities.list_by_document(request={
+        "document_id": "<DOCUMENT_ID>",
+    })
 
-res = s.entities.list_by_document(request={
-    "document_id": "<DOCUMENT_ID>",
-})
+    if res is not None:
+        while True:
+            # handle items
 
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.next()
-        if res is None:
-            break
+            res = res.next()
+            if res is None:
+                break
 
 ```
 

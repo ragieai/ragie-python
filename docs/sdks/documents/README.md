@@ -25,20 +25,19 @@ On ingest, the document goes through a series of steps before it is ready for re
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.create(request={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -70,21 +69,20 @@ List all documents sorted by created_at in descending order. Results are paginat
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+    })
 
-res = s.documents.list(request={
-    "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
-})
+    if res is not None:
+        while True:
+            # handle items
 
-if res is not None:
-    while True:
-        # handle items
-
-        res = res.next()
-        if res is None:
-            break
+            res = res.next()
+            if res is None:
+                break
 
 ```
 
@@ -116,23 +114,22 @@ Ingest a document as raw text. On ingest, the document goes through a series of 
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create_raw(request={
+        "data": "<value>",
+        "metadata": {
+            "key": [
+                "<value>",
+            ],
+        },
+        "partition": "<value>",
+    })
 
-res = s.documents.create_raw(request={
-    "data": "<value>",
-    "metadata": {
-        "key": [
-            "<value>",
-        ],
-    },
-    "partition": "<value>",
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -164,21 +161,20 @@ Create Document From Url
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.create_document_from_url(request={
+        "url": "https://scientific-plain.biz/",
+        "metadata": {
 
-res = s.documents.create_document_from_url(request={
-    "url": "https://scientific-plain.biz/",
-    "metadata": {
+        },
+        "partition": "<value>",
+    })
 
-    },
-    "partition": "<value>",
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -210,15 +206,14 @@ Get Document
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.get(document_id="<DOCUMENT_ID>")
 
-res = s.documents.get(document_id="<DOCUMENT_ID>")
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -250,15 +245,14 @@ Delete Document
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.delete(document_id="<DOCUMENT_ID>")
 
-res = s.documents.delete(document_id="<DOCUMENT_ID>")
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -290,20 +284,19 @@ Update Document File
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.update_file(document_id="<DOCUMENT_ID>", update_document_file_params={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
 
-res = s.documents.update_file(document_id="<DOCUMENT_ID>", update_document_file_params={
-    "file": {
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -336,17 +329,16 @@ Update Document Raw
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.update_raw(document_id="<DOCUMENT_ID>", update_document_raw_params={
+        "data": {},
+    })
 
-res = s.documents.update_raw(document_id="<DOCUMENT_ID>", update_document_raw_params={
-    "data": {},
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -379,25 +371,24 @@ Patch Document Metadata
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.patch_metadata(document_id="<DOCUMENT_ID>", patch_document_metadata_params={
+        "metadata": {
+            "classified": "null (setting null deletes key from metadata)",
+            "editors": [
+                "Alice",
+                "Bob",
+            ],
+            "title": "declassified report",
+            "updated_at": 1714491736216,
+        },
+    })
 
-res = s.documents.patch_metadata(document_id="<DOCUMENT_ID>", patch_document_metadata_params={
-    "metadata": {
-        "classified": "null (setting null deletes key from metadata)",
-        "editors": [
-            "Alice",
-            "Bob",
-        ],
-        "title": "declassified report",
-        "updated_at": 1714491736216,
-    },
-})
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 
@@ -430,15 +421,14 @@ Get a LLM generated summary of the document. The summary is created when the doc
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
+) as s:
+    res = s.documents.get_summary(document_id="<DOCUMENT_ID>")
 
-res = s.documents.get_summary(document_id="<DOCUMENT_ID>")
-
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 

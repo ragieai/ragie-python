@@ -4,13 +4,17 @@ from __future__ import annotations
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Dict, List, Optional, Union
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-CreateDocumentRawParamsMetadataTypedDict = Union[str, int, bool, List[str]]
+CreateDocumentRawParamsMetadataTypedDict = TypeAliasType(
+    "CreateDocumentRawParamsMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-CreateDocumentRawParamsMetadata = Union[str, int, bool, List[str]]
+CreateDocumentRawParamsMetadata = TypeAliasType(
+    "CreateDocumentRawParamsMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class TwoTypedDict(TypedDict):
@@ -21,11 +25,11 @@ class Two(BaseModel):
     pass
 
 
-DataTypedDict = Union[TwoTypedDict, str]
+DataTypedDict = TypeAliasType("DataTypedDict", Union[TwoTypedDict, str])
 r"""Document data in a text or JSON format."""
 
 
-Data = Union[Two, str]
+Data = TypeAliasType("Data", Union[Two, str])
 r"""Document data in a text or JSON format."""
 
 

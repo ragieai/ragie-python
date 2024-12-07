@@ -15,5 +15,5 @@ targets:
                 token: $pypi_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/ragie-ai/ragie-ai/ragie-oas-code-samples
+                location: registry.speakeasyapi.dev/ragie-ai/ragie-ai/ragie-oas-python-code-samples
             blocking: false

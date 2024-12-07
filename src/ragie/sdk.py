@@ -105,3 +105,17 @@ class Ragie(BaseSDK):
         self.retrievals = Retrievals(self.sdk_configuration)
         self.entities = Entities(self.sdk_configuration)
         self.connections = Connections(self.sdk_configuration)
+
+    def __enter__(self):
+        return self
+
+    async def __aenter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.sdk_configuration.client is not None:
+            self.sdk_configuration.client.close()
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.sdk_configuration.async_client is not None:
+            await self.sdk_configuration.async_client.aclose()

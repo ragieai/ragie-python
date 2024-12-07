@@ -16,29 +16,28 @@ Retrieve
 ```python
 from ragie import Ragie
 
-s = Ragie(
+with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-)
-
-res = s.retrievals.retrieve(request={
-    "query": "What is the best pizza place in SF?",
-    "top_k": 8,
-    "filter_": {
-        "department": {
-            "$in": [
-                "sales",
-                "marketing",
-            ],
+) as s:
+    res = s.retrievals.retrieve(request={
+        "query": "What is the best pizza place in SF?",
+        "top_k": 8,
+        "filter_": {
+            "department": {
+                "$in": [
+                    "sales",
+                    "marketing",
+                ],
+            },
         },
-    },
-    "rerank": True,
-    "max_chunks_per_document": 0,
-    "partition": "<value>",
-})
+        "rerank": True,
+        "max_chunks_per_document": 0,
+        "partition": "<value>",
+    })
 
-if res is not None:
-    # handle response
-    pass
+    if res is not None:
+        # handle response
+        pass
 
 ```
 

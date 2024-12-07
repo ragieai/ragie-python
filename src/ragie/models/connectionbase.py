@@ -4,7 +4,7 @@ from __future__ import annotations
 from enum import Enum
 from ragie.types import BaseModel
 from typing import Dict, List, Optional, Union
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class PartitionStrategy(str, Enum):
@@ -12,10 +12,14 @@ class PartitionStrategy(str, Enum):
     FAST = "fast"
 
 
-ConnectionBaseMetadataTypedDict = Union[str, int, bool, List[str]]
+ConnectionBaseMetadataTypedDict = TypeAliasType(
+    "ConnectionBaseMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-ConnectionBaseMetadata = Union[str, int, bool, List[str]]
+ConnectionBaseMetadata = TypeAliasType(
+    "ConnectionBaseMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class ConnectionBaseTypedDict(TypedDict):
