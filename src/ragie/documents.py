@@ -5,7 +5,7 @@ from jsonpath import JSONPath
 from ragie import models, utils
 from ragie._hooks import HookContext
 from ragie.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, Mapping, Optional, Union, cast
 
 
 class Documents(BaseSDK):
@@ -18,6 +18,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document
 
@@ -27,6 +28,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -51,6 +53,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "multipart", models.CreateDocumentParams
@@ -73,14 +76,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -110,6 +115,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document
 
@@ -119,6 +125,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -143,6 +150,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "multipart", models.CreateDocumentParams
@@ -165,14 +173,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -202,6 +212,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListDocumentsResponse]:
         r"""List Documents
 
@@ -211,6 +222,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -235,6 +247,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -254,7 +267,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -284,7 +297,9 @@ class Documents(BaseSDK):
                 ),
                 next=next_func,
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -314,6 +329,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListDocumentsResponse]:
         r"""List Documents
 
@@ -323,6 +339,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -347,6 +364,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -366,7 +384,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -396,7 +414,9 @@ class Documents(BaseSDK):
                 ),
                 next=next_func,
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -426,6 +446,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document Raw
 
@@ -435,6 +456,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -459,6 +481,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateDocumentRawParams
@@ -481,14 +504,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -518,6 +543,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document Raw
 
@@ -527,6 +553,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -551,6 +578,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateDocumentRawParams
@@ -573,14 +601,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -611,6 +641,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document From Url
 
@@ -618,6 +649,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -642,6 +674,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateDocumentFromURLParams
@@ -664,14 +697,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -702,6 +737,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Document]:
         r"""Create Document From Url
 
@@ -709,6 +745,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -733,6 +770,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateDocumentFromURLParams
@@ -755,14 +793,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "5XX"],
+            error_status_codes=["400", "401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "402", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -790,6 +830,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentGet]:
         r"""Get Document
 
@@ -797,6 +838,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -821,6 +863,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -840,14 +883,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentGet])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -875,6 +920,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentGet]:
         r"""Get Document
 
@@ -882,6 +928,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -906,6 +953,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -925,14 +973,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentGet])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -960,6 +1010,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentDelete]:
         r"""Delete Document
 
@@ -967,6 +1018,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -991,6 +1043,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -1010,14 +1063,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentDelete])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1045,6 +1100,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentDelete]:
         r"""Delete Document
 
@@ -1052,6 +1108,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1076,6 +1133,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -1095,14 +1153,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentDelete])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1133,6 +1193,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentFileUpdate]:
         r"""Update Document File
 
@@ -1141,6 +1202,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1168,6 +1230,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_document_file_params,
@@ -1194,7 +1257,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1203,7 +1266,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentFileUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1234,6 +1299,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentFileUpdate]:
         r"""Update Document File
 
@@ -1242,6 +1308,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1269,6 +1336,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_document_file_params,
@@ -1295,7 +1363,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1304,7 +1372,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentFileUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1335,6 +1405,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentRawUpdate]:
         r"""Update Document Raw
 
@@ -1343,6 +1414,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1370,6 +1442,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_document_raw_params,
@@ -1396,7 +1469,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1405,7 +1478,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentRawUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1436,6 +1511,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentRawUpdate]:
         r"""Update Document Raw
 
@@ -1444,6 +1520,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1471,6 +1548,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_document_raw_params,
@@ -1497,7 +1575,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1506,7 +1584,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentRawUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1538,6 +1618,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentMetadataUpdate]:
         r"""Patch Document Metadata
 
@@ -1546,6 +1627,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1573,6 +1655,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.patch_document_metadata_params,
@@ -1599,7 +1682,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1608,7 +1691,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentMetadataUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1640,6 +1725,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentMetadataUpdate]:
         r"""Patch Document Metadata
 
@@ -1648,6 +1734,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1675,6 +1762,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.patch_document_metadata_params,
@@ -1701,7 +1789,7 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -1710,7 +1798,9 @@ class Documents(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentMetadataUpdate]
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1738,6 +1828,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentSummary]:
         r"""Get Document Summary
 
@@ -1747,6 +1838,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1771,6 +1863,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -1790,14 +1883,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentSummary])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1825,6 +1920,7 @@ class Documents(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DocumentSummary]:
         r"""Get Document Summary
 
@@ -1834,6 +1930,7 @@ class Documents(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1858,6 +1955,7 @@ class Documents(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -1877,14 +1975,16 @@ class Documents(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "404", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentSummary])
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
+        if utils.match_response(
+            http_res, ["401", "402", "404", "429"], "application/json"
+        ):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):

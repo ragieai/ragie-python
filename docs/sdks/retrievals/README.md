@@ -18,8 +18,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.retrievals.retrieve(request={
+) as ragie:
+
+    res = ragie.retrievals.retrieve(request={
         "query": "What is the best pizza place in SF?",
         "top_k": 8,
         "filter_": {
@@ -35,9 +36,10 @@ with Ragie(
         "partition": "<value>",
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -56,6 +58,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
