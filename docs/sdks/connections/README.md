@@ -24,16 +24,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.list()
+) as ragie:
 
-    if res is not None:
-        while True:
-            # handle items
+    res = ragie.connections.list()
 
-            res = res.next()
-            if res is None:
-                break
+    while res is not None:
+        # Handle items
+
+        res = res.next()
 
 ```
 
@@ -53,7 +51,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -68,15 +66,17 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.create_o_auth_redirect_url(request={
+) as ragie:
+
+    res = ragie.connections.create_o_auth_redirect_url(request={
         "redirect_uri": "https://lumbering-sundae.net",
         "source_type": "<value>",
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -95,7 +95,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -110,14 +110,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.set_connection_enabled(connection_id="bf0424b5-8be9-4a67-a8ca-6ab0e9e89780", set_connection_enabled_payload={
+) as ragie:
+
+    res = ragie.connections.set_connection_enabled(connection_id="bf0424b5-8be9-4a67-a8ca-6ab0e9e89780", set_connection_enabled_payload={
         "enabled": True,
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -137,7 +139,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -153,14 +155,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.update_connection(connection_id="60a91616-1376-4585-82c8-85b663abc0c8", connection_base={
+) as ragie:
+
+    res = ragie.connections.update_connection(connection_id="60a91616-1376-4585-82c8-85b663abc0c8", connection_base={
         "partition_strategy": ragie.PartitionStrategy.FAST,
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -180,7 +184,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -195,12 +199,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.get_connection(connection_id="ee666f79-dcc9-4015-9e13-63993816d536")
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.connections.get_connection(connection_id="ee666f79-dcc9-4015-9e13-63993816d536")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -219,7 +225,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -234,12 +240,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.get_connection_stats(connection_id="1f4a1403-1d6d-4b6c-b869-7469eff2dd5e")
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.connections.get_connection_stats(connection_id="1f4a1403-1d6d-4b6c-b869-7469eff2dd5e")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -258,7 +266,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -273,14 +281,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.connections.delete_connection(connection_id="5922bdb9-d99a-4e03-8cb8-05fcacce856d", delete_connection_payload={
+) as ragie:
+
+    res = ragie.connections.delete_connection(connection_id="5922bdb9-d99a-4e03-8cb8-05fcacce856d", delete_connection_payload={
         "keep_files": True,
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -300,6 +310,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

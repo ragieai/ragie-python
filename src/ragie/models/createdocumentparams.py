@@ -33,7 +33,7 @@ class FileTypedDict(TypedDict):
 
 class File(BaseModel):
     file_name: Annotated[
-        str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)
+        str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
 
     content: Annotated[
@@ -68,11 +68,7 @@ class CreateDocumentParamsTypedDict(TypedDict):
 
 
 class CreateDocumentParams(BaseModel):
-    file: Annotated[
-        File,
-        pydantic.Field(alias=""),
-        FieldMetadata(multipart=MultipartFormMetadata(file=True)),
-    ]
+    file: Annotated[File, FieldMetadata(multipart=MultipartFormMetadata(file=True))]
     r"""The binary file to upload, extract, and index for retrieval. The following file types are supported: Plain Text: `.eml` `.html` `.json` `.md` `.msg` `.rst` `.rtf` `.txt` `.xml`
     Images: `.png` `.webp` `.jpg` `.jpeg` `.tiff` `.bmp` `.heic`
     Documents: `.csv` `.doc` `.docx` `.epub` `.epub+zip` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx` `.xls`.

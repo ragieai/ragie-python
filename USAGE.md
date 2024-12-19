@@ -5,17 +5,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -29,17 +31,19 @@ from ragie import Ragie
 async def main():
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as s:
-        res = await s.documents.create_async(request={
+    ) as ragie:
+
+        res = await ragie.documents.create_async(request={
             "file": {
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
         })
 
-        if res is not None:
-            # handle response
-            pass
+        assert res is not None
+
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```
