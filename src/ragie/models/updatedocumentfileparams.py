@@ -25,7 +25,7 @@ class UpdateDocumentFileParamsFileTypedDict(TypedDict):
 
 class UpdateDocumentFileParamsFile(BaseModel):
     file_name: Annotated[
-        str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)
+        str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
 
     content: Annotated[
@@ -54,7 +54,6 @@ class UpdateDocumentFileParamsTypedDict(TypedDict):
 class UpdateDocumentFileParams(BaseModel):
     file: Annotated[
         UpdateDocumentFileParamsFile,
-        pydantic.Field(alias=""),
         FieldMetadata(multipart=MultipartFormMetadata(file=True)),
     ]
     r"""The binary file to upload, extract, and index for retrieval. The following file types are supported: Plain Text: `.eml` `.html` `.json` `.md` `.msg` `.rst` `.rtf` `.txt` `.xml`
