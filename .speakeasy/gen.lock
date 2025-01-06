@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 2fb4db2ace25a076c75874acd27a88b8
+  docChecksum: 6dc89de611b1d246f01a0b0576ffda88
   docVersion: 1.0.0
-  speakeasyVersion: 1.453.2
-  generationVersion: 2.474.5
-  releaseVersion: 1.3.8
-  configChecksum: 6980aa07b26001ca76fcadec6192fb6d
+  speakeasyVersion: 1.463.1
+  generationVersion: 2.486.6
+  releaseVersion: 1.4.0
+  configChecksum: 6093ca6104b0faca3032e2e6fea797f9
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.6.9
+    core: 5.7.5
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
@@ -23,12 +23,12 @@ features:
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
-    globalServerURLs: 3.0.0
+    globalServerURLs: 3.1.0
     methodArguments: 1.0.2
     multipartFileContentType: 1.0.0
-    nameOverrides: 3.0.0
+    nameOverrides: 3.0.1
     nullables: 1.0.0
-    pagination: 3.0.1
+    pagination: 3.0.2
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
@@ -65,6 +65,8 @@ generatedFiles:
   - docs/models/deleteconnectionpayload.md
   - docs/models/deletedocumentrequest.md
   - docs/models/document.md
+  - docs/models/documentchunk.md
+  - docs/models/documentchunklist.md
   - docs/models/documentdelete.md
   - docs/models/documentfileupdate.md
   - docs/models/documentget.md
@@ -75,6 +77,8 @@ generatedFiles:
   - docs/models/documentmetadataupdatemetadata.md
   - docs/models/documentrawupdate.md
   - docs/models/documentsummary.md
+  - docs/models/documentwithcontent.md
+  - docs/models/documentwithcontentmetadata.md
   - docs/models/entity.md
   - docs/models/entitylist.md
   - docs/models/errormessage.md
@@ -82,6 +86,9 @@ generatedFiles:
   - docs/models/filter_.md
   - docs/models/getconnectionconnectionsconnectionidgetrequest.md
   - docs/models/getconnectionstatsconnectionsconnectionidstatsgetrequest.md
+  - docs/models/getdocumentchunkrequest.md
+  - docs/models/getdocumentchunksrequest.md
+  - docs/models/getdocumentcontentrequest.md
   - docs/models/getdocumentrequest.md
   - docs/models/getdocumentsummaryrequest.md
   - docs/models/httpvalidationerror.md
@@ -159,6 +166,8 @@ generatedFiles:
   - src/ragie/models/deleteconnectionpayload.py
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/document.py
+  - src/ragie/models/documentchunk.py
+  - src/ragie/models/documentchunklist.py
   - src/ragie/models/documentdelete.py
   - src/ragie/models/documentfileupdate.py
   - src/ragie/models/documentget.py
@@ -166,11 +175,15 @@ generatedFiles:
   - src/ragie/models/documentmetadataupdate.py
   - src/ragie/models/documentrawupdate.py
   - src/ragie/models/documentsummary.py
+  - src/ragie/models/documentwithcontent.py
   - src/ragie/models/entity.py
   - src/ragie/models/entitylist.py
   - src/ragie/models/errormessage.py
   - src/ragie/models/get_connection_connections_connection_id_getop.py
   - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
+  - src/ragie/models/getdocumentchunkop.py
+  - src/ragie/models/getdocumentchunksop.py
+  - src/ragie/models/getdocumentcontentop.py
   - src/ragie/models/getdocumentop.py
   - src/ragie/models/getdocumentsummaryop.py
   - src/ragie/models/httpvalidationerror.py
@@ -230,19 +243,22 @@ examples:
           application/json: {"id": "7a621cf0-21cd-49cf-8540-3315211a509a", "created_at": "2022-01-18T01:06:03.366Z", "updated_at": "2023-07-28T18:44:31.482Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   ListDocuments:
     speakeasy-default-list-documents:
       parameters:
         query:
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
-        header: {}
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"documents": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "status": "<value>", "name": "<value>", "metadata": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2022-05-09T15:43:49.850Z", "updated_at": "2024-10-31T06:20:54.910Z", "status": "<value>", "name": "<value>", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "partition": "<value>"}]}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   CreateDocumentRaw:
     speakeasy-default-create-document-raw:
       requestBody:
@@ -252,7 +268,8 @@ examples:
           application/json: {"id": "f32d8f20-2af5-4fe3-9301-884a461abb5d", "created_at": "2024-10-07T02:25:22.865Z", "updated_at": "2024-07-13T21:12:32.248Z", "status": "<value>", "name": "<value>", "metadata": {"key": 391493, "key1": 816075, "key2": true}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   CreateDocumentFromUrl:
     speakeasy-default-create-document-from-url:
       requestBody:
@@ -262,34 +279,37 @@ examples:
           application/json: {"id": "0adf151b-6a78-4e39-a7b3-465615a95443", "created_at": "2022-07-13T10:16:17.094Z", "updated_at": "2024-05-24T16:33:21.360Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   GetDocument:
     speakeasy-default-get-document:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       responses:
         "200":
           application/json: {"id": "b888f774-3e7c-4135-a18c-6b985523c4bc", "created_at": "2024-09-23T09:26:26.647Z", "updated_at": "2022-12-22T20:41:29.028Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "errors": ["<value>", "<value>", "<value>"]}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   DeleteDocument:
     speakeasy-default-delete-document:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       responses:
         "200":
           application/json: {"status": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   UpdateDocumentFile:
     speakeasy-default-update-document-file:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       requestBody:
         multipart/form-data: {"file": {}}
       responses:
@@ -297,12 +317,13 @@ examples:
           application/json: {"status": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   UpdateDocumentRaw:
     speakeasy-default-update-document-raw:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       requestBody:
         application/json: {}
       responses:
@@ -310,41 +331,45 @@ examples:
           application/json: {"status": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   PatchDocumentMetadata:
     speakeasy-default-patch-document-metadata:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       requestBody:
-        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "title": "declassified report", "updated_at": 1714491736216}}
+        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "title": "declassified report", "updated_at": 1714491736216, "published": true, "articleCount": 42}}
       responses:
         "200":
           application/json: {"metadata": {"editors": ["Alice", "Bob"], "title": "declassified report", "unchanged_key": "unchanged_value", "updated_at": 1714491736216}}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   GetDocumentSummary:
     speakeasy-default-get-document-summary:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
       responses:
         "200":
           application/json: {"document_id": "<id>", "summary": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   Retrieve:
     speakeasy-default-retrieve:
       requestBody:
         application/json: {"query": "What is the best pizza place in SF?", "top_k": 8, "filter": {"department": {"$in": ["sales", "marketing"]}}, "rerank": true, "max_chunks_per_document": 0, "partition": "<value>"}
       responses:
         "200":
-          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "document_id": "<id>", "document_name": "<value>", "document_metadata": {"key": "<value>"}}]}
+          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "id": "<id>", "index": 370456, "document_id": "<id>", "document_name": "<value>", "document_metadata": {"key": "<value>"}}]}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   ListInstructions:
     speakeasy-default-list-instructions:
       responses:
@@ -361,12 +386,13 @@ examples:
           application/json: {"id": "7a4c4504-3a1d-446a-b2d3-54e705734d3b", "created_at": "2024-07-30T12:44:16.443Z", "updated_at": "2023-09-24T03:06:52.578Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   UpdateInstruction:
     speakeasy-default-update-instruction:
       parameters:
         path:
-          instruction_id: "<INSTRUCTION_ID>"
+          instruction_id: "00000000-0000-0000-0000-000000000000"
       requestBody:
         application/json: {"active": true}
       responses:
@@ -374,31 +400,34 @@ examples:
           application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2023-01-22T23:04:46.512Z", "updated_at": "2023-05-30T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   ListEntitiesByInstruction:
     speakeasy-default-list-entities-by-instruction:
       parameters:
         path:
-          instruction_id: "<INSTRUCTION_ID>"
+          instruction_id: "00000000-0000-0000-0000-000000000000"
         query: {}
       responses:
         "200":
           application/json: {"entities": []}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   ListEntitiesByDocument:
     speakeasy-default-list-entities-by-document:
       parameters:
         path:
-          document_id: "<DOCUMENT_ID>"
+          document_id: "00000000-0000-0000-0000-000000000000"
         query: {}
       responses:
         "200":
           application/json: {"entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2024-05-24T20:59:27.681Z", "updated_at": "2022-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   list_connections_connections_get:
     speakeasy-default-list-connections-connections-get:
       responses:
@@ -406,7 +435,8 @@ examples:
           application/json: {"connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "type": "<value>", "name": "<value>", "enabled": true}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "type": "<value>", "name": "<value>", "enabled": false}, {"id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "created_at": "2023-03-22T09:41:56.524Z", "updated_at": "2022-03-28T18:28:26.777Z", "type": "<value>", "name": "<value>", "enabled": true}]}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   set_connection_enabled_connections__connection_id__enabled_put:
     speakeasy-default-set-connection-enabled-connections-connection-id-enabled-put:
       parameters:
@@ -419,7 +449,8 @@ examples:
           application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2024-10-14T19:56:20.471Z", "updated_at": "2022-04-26T16:53:39.637Z", "type": "<value>", "name": "<value>", "enabled": false}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   update_connection_connections__connection_id__put:
     speakeasy-default-update-connection-connections-connection-id-put:
       parameters:
@@ -432,7 +463,8 @@ examples:
           application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2022-04-30T21:32:17.394Z", "updated_at": "2024-08-07T23:17:45.906Z", "type": "<value>", "name": "<value>", "enabled": true}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   get_connection_stats_connections__connection_id__stats_get:
     speakeasy-default-get-connection-stats-connections-connection-id-stats-get:
       parameters:
@@ -443,7 +475,8 @@ examples:
           application/json: {"document_count": 687553}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   delete_connection_connections__connection_id__delete_post:
     speakeasy-default-delete-connection-connections-connection-id-delete-post:
       parameters:
@@ -456,7 +489,8 @@ examples:
           application/json: {}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   create_oauth_redirect_url_connections_oauth_post:
     speakeasy-default-create-oauth-redirect-url-connections-oauth-post:
       requestBody:
@@ -466,7 +500,8 @@ examples:
           application/json: {"url": "https://caring-peony.org"}
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
   get_connection_connections__connection_id__get:
     speakeasy-default-get-connection-connections-connection-id-get:
       parameters:
@@ -477,5 +512,52 @@ examples:
           application/json: "<value>"
         "401":
           application/json: {"detail": "<value>"}
-        "422": {}
+        "422":
+          application/json: {}
+  GetDocumentChunks:
+    speakeasy-default-get-document-chunks:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        query:
+          start_index: 3
+          end_index: 5
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"chunks": [{"id": "e6393c90-ff5b-42b1-bc7e-3a9e3df36039", "text": "<value>"}, {"id": "1bd873e6-6a23-427a-96ff-5447556a4fd9", "text": "<value>"}, {"id": "06c06583-a581-4d24-8f54-26da443e5ea7", "text": "<value>"}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  GetDocumentChunk:
+    speakeasy-default-get-document-chunk:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+          chunk_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"id": "34609590-8f6d-44f1-bccc-6b72f3d01897", "text": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  GetDocumentContent:
+    speakeasy-default-get-document-content:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"id": "2387e2a9-6a78-42cc-a38d-781714107a8e", "created_at": "2023-03-31T02:08:08.673Z", "updated_at": "2023-01-16T22:14:29.610Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "content": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
 generatedTests: {}

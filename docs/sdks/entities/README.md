@@ -22,12 +22,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.entities.list_instructions()
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.entities.list_instructions()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -45,7 +47,7 @@ with Ragie(
 
 | Error Type          | Status Code         | Content Type        |
 | ------------------- | ------------------- | ------------------- |
-| models.ErrorMessage | 401                 | application/json    |
+| models.ErrorMessage | 401, 402, 429       | application/json    |
 | models.SDKError     | 4XX, 5XX            | \*/\*               |
 
 ## create_instruction
@@ -60,8 +62,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.entities.create_instruction(request={
+) as ragie:
+
+    res = ragie.entities.create_instruction(request={
         "name": "Find all pizzas",
         "prompt": "Find all pizzas described in the text.",
         "entity_schema": {
@@ -137,9 +140,10 @@ with Ragie(
         "partition": "<value>",
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -158,7 +162,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -173,14 +177,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.entities.update_instruction(instruction_id="<INSTRUCTION_ID>", update_instruction_params={
+) as ragie:
+
+    res = ragie.entities.update_instruction(instruction_id="00000000-0000-0000-0000-000000000000", update_instruction_params={
         "active": True,
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -188,7 +194,7 @@ with Ragie(
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               | Example                                                                   |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `instruction_id`                                                          | *str*                                                                     | :heavy_check_mark:                                                        | The ID of the instruction.                                                | <INSTRUCTION_ID>                                                          |
+| `instruction_id`                                                          | *str*                                                                     | :heavy_check_mark:                                                        | The ID of the instruction.                                                | 00000000-0000-0000-0000-000000000000                                      |
 | `update_instruction_params`                                               | [models.UpdateInstructionParams](../../models/updateinstructionparams.md) | :heavy_check_mark:                                                        | N/A                                                                       |                                                                           |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |                                                                           |
 
@@ -200,7 +206,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -215,18 +221,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.entities.list_by_instruction(request={
-        "instruction_id": "<INSTRUCTION_ID>",
+) as ragie:
+
+    res = ragie.entities.list_by_instruction(request={
+        "instruction_id": "00000000-0000-0000-0000-000000000000",
     })
 
-    if res is not None:
-        while True:
-            # handle items
+    while res is not None:
+        # Handle items
 
-            res = res.next()
-            if res is None:
-                break
+        res = res.next()
 
 ```
 
@@ -245,7 +249,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -260,18 +264,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.entities.list_by_document(request={
-        "document_id": "<DOCUMENT_ID>",
+) as ragie:
+
+    res = ragie.entities.list_by_document(request={
+        "document_id": "00000000-0000-0000-0000-000000000000",
     })
 
-    if res is not None:
-        while True:
-            # handle items
+    while res is not None:
+        # Handle items
 
-            res = res.next()
-            if res is None:
-                break
+        res = res.next()
 
 ```
 
@@ -290,6 +292,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

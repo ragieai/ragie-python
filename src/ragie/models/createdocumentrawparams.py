@@ -43,7 +43,7 @@ class CreateDocumentRawParamsTypedDict(TypedDict):
     external_id: NotRequired[Nullable[str]]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
     partition: NotRequired[str]
-    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created."""
 
 
 class CreateDocumentRawParams(BaseModel):
@@ -60,7 +60,7 @@ class CreateDocumentRawParams(BaseModel):
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
 
     partition: Optional[str] = None
-    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
