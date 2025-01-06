@@ -79,17 +79,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -103,17 +105,19 @@ from ragie import Ragie
 async def main():
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as s:
-        res = await s.documents.create_async(request={
+    ) as ragie:
+
+        res = await ragie.documents.create_async(request={
             "file": {
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
         })
 
-        if res is not None:
-            # handle response
-            pass
+        assert res is not None
+
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```
@@ -146,6 +150,9 @@ asyncio.run(main())
 * [update_file](docs/sdks/documents/README.md#update_file) - Update Document File
 * [update_raw](docs/sdks/documents/README.md#update_raw) - Update Document Raw
 * [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
+* [get_document_chunks](docs/sdks/documents/README.md#get_document_chunks) - Get Document Chunks
+* [get_chunk](docs/sdks/documents/README.md#get_chunk) - Get Document Chunk
+* [get_document_content](docs/sdks/documents/README.md#get_document_content) - Get Document Content
 * [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
 ### [entities](docs/sdks/entities/README.md)
@@ -177,18 +184,17 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.list(request={
+) as ragie:
+
+    res = ragie.documents.list(request={
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     })
 
-    if res is not None:
-        while True:
-            # handle items
+    while res is not None:
+        # Handle items
 
-            res = res.next()
-            if res is None:
-                break
+        res = res.next()
 
 ```
 <!-- End Pagination [pagination] -->
@@ -208,17 +214,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End File uploads [file-upload] -->
@@ -235,8 +243,9 @@ from ragie.utils import BackoffStrategy, RetryConfig
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
@@ -244,9 +253,10 @@ with Ragie(
     },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -258,17 +268,19 @@ from ragie.utils import BackoffStrategy, RetryConfig
 with Ragie(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Retries [retries] -->
@@ -289,11 +301,11 @@ By default, an API error will raise a models.SDKError exception, which has the f
 
 When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create_async` method may raise the following exceptions:
 
-| Error Type                 | Status Code | Content Type     |
-| -------------------------- | ----------- | ---------------- |
-| models.ErrorMessage        | 400, 401    | application/json |
-| models.HTTPValidationError | 422         | application/json |
-| models.SDKError            | 4XX, 5XX    | \*/\*            |
+| Error Type                 | Status Code        | Content Type     |
+| -------------------------- | ------------------ | ---------------- |
+| models.ErrorMessage        | 400, 401, 402, 429 | application/json |
+| models.HTTPValidationError | 422                | application/json |
+| models.SDKError            | 4XX, 5XX           | \*/\*            |
 
 ### Example
 
@@ -302,19 +314,21 @@ from ragie import Ragie, models
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
+) as ragie:
     res = None
     try:
-        res = s.documents.create(request={
+
+        res = ragie.documents.create(request={
             "file": {
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
         })
 
-        if res is not None:
-            # handle response
-            pass
+        assert res is not None
+
+        # Handle response
+        print(res)
 
     except models.ErrorMessage as e:
         # handle e.data: models.ErrorMessageData
@@ -340,17 +354,19 @@ from ragie import Ragie
 with Ragie(
     server_url="https://api.ragie.ai",
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Server Selection [server] -->
@@ -453,17 +469,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Authentication [security] -->

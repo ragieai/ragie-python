@@ -9,6 +9,8 @@ from typing_extensions import TypedDict
 class ScoredChunkTypedDict(TypedDict):
     text: str
     score: float
+    id: str
+    index: int
     document_id: str
     document_name: str
     document_metadata: Dict[str, Any]
@@ -18,6 +20,10 @@ class ScoredChunk(BaseModel):
     text: str
 
     score: float
+
+    id: str
+
+    index: int
 
     document_id: str
 

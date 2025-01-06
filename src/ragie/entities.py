@@ -5,7 +5,7 @@ from jsonpath import JSONPath
 from ragie import models, utils
 from ragie._hooks import HookContext
 from ragie.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Entities(BaseSDK):
@@ -15,6 +15,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[List[models.Instruction]]:
         r"""List Instructions
 
@@ -23,6 +24,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -31,7 +33,7 @@ class Entities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/instructions",
             base_url=base_url,
@@ -42,6 +44,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -61,7 +64,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "4XX", "5XX"],
+            error_status_codes=["401", "402", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -70,7 +73,7 @@ class Entities(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[List[models.Instruction]]
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
@@ -94,6 +97,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[List[models.Instruction]]:
         r"""List Instructions
 
@@ -102,6 +106,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -110,7 +115,7 @@ class Entities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/instructions",
             base_url=base_url,
@@ -121,6 +126,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -140,7 +146,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "4XX", "5XX"],
+            error_status_codes=["401", "402", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -149,7 +155,7 @@ class Entities(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[List[models.Instruction]]
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
@@ -176,6 +182,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Instruction]:
         r"""Create Instruction
 
@@ -185,6 +192,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -198,7 +206,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.CreateInstructionParams)
         request = cast(models.CreateInstructionParams, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/instructions",
             base_url=base_url,
@@ -209,6 +217,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateInstructionParams
@@ -231,14 +240,14 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -268,6 +277,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Instruction]:
         r"""Create Instruction
 
@@ -277,6 +287,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -290,7 +301,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.CreateInstructionParams)
         request = cast(models.CreateInstructionParams, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/instructions",
             base_url=base_url,
@@ -301,6 +312,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateInstructionParams
@@ -323,14 +335,14 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -361,6 +373,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Instruction]:
         r"""Update Instruction
 
@@ -369,6 +382,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -385,7 +399,7 @@ class Entities(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PUT",
             path="/instructions/{instruction_id}",
             base_url=base_url,
@@ -396,6 +410,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_instruction_params,
@@ -422,14 +437,14 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -460,6 +475,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.Instruction]:
         r"""Update Instruction
 
@@ -468,6 +484,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -484,7 +501,7 @@ class Entities(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PUT",
             path="/instructions/{instruction_id}",
             base_url=base_url,
@@ -495,6 +512,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.update_instruction_params,
@@ -521,14 +539,14 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Instruction])
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -559,6 +577,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListEntitiesByInstructionResponse]:
         r"""Get Instruction Extracted Entities
 
@@ -566,6 +585,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -579,7 +599,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
         request = cast(models.ListEntitiesByInstructionRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/instructions/{instruction_id}/entities",
             base_url=base_url,
@@ -590,6 +610,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -609,7 +630,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -636,7 +657,7 @@ class Entities(BaseSDK):
                 result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
                 next=next_func,
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -667,6 +688,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListEntitiesByInstructionResponse]:
         r"""Get Instruction Extracted Entities
 
@@ -674,6 +696,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -687,7 +710,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.ListEntitiesByInstructionRequest)
         request = cast(models.ListEntitiesByInstructionRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/instructions/{instruction_id}/entities",
             base_url=base_url,
@@ -698,6 +721,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -717,7 +741,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -744,7 +768,7 @@ class Entities(BaseSDK):
                 result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
                 next=next_func,
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -775,6 +799,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListEntitiesByDocumentResponse]:
         r"""Get Document Extracted Entities
 
@@ -782,6 +807,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -795,7 +821,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
         request = cast(models.ListEntitiesByDocumentRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/documents/{document_id}/entities",
             base_url=base_url,
@@ -806,6 +832,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -825,7 +852,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -852,7 +879,7 @@ class Entities(BaseSDK):
                 result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
                 next=next_func,
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):
@@ -883,6 +910,7 @@ class Entities(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListEntitiesByDocumentResponse]:
         r"""Get Document Extracted Entities
 
@@ -890,6 +918,7 @@ class Entities(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -903,7 +932,7 @@ class Entities(BaseSDK):
             request = utils.unmarshal(request, models.ListEntitiesByDocumentRequest)
         request = cast(models.ListEntitiesByDocumentRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/documents/{document_id}/entities",
             base_url=base_url,
@@ -914,6 +943,7 @@ class Entities(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -933,7 +963,7 @@ class Entities(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -960,7 +990,7 @@ class Entities(BaseSDK):
                 result=utils.unmarshal_json(http_res.text, Optional[models.EntityList]),
                 next=next_func,
             )
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
             data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
             raise models.ErrorMessage(data=data)
         if utils.match_response(http_res, "422", "application/json"):

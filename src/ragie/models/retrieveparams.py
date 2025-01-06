@@ -16,9 +16,11 @@ class RetrieveParamsTypedDict(TypedDict):
     rerank: NotRequired[bool]
     r"""Reranks the chunks for semantic relevancy post cosine similarity. Will be slower but returns a subset of highly relevant chunks. Best for reducing hallucinations and improving accuracy for LLM generation."""
     max_chunks_per_document: NotRequired[int]
-    r"""Maximum number of chunks to retrieve per document. Use this to increase the number of documents the final chunks are retreived from. This feature is in beta and may change in the future."""
+    r"""Maximum number of chunks to retrieve per document. Use this to increase the number of documents the final chunks are retrieved from. This feature is in beta and may change in the future."""
     partition: NotRequired[str]
-    r"""The partition to scope a retrieval to. If omitted, the retrieval will be scoped to the default partition, which includes any documents that have not been created in or moved to a partition."""
+    r"""The partition to scope a retrieval to. If omitted, the retrieval will be scoped to the default partition, which includes any documents that have not been created in a partition."""
+    recency_bias: NotRequired[bool]
+    r"""Enables recency bias which will favor more recent documents vs older documents. https://docs.ragie.ai/docs/retrievals-recency-bias"""
 
 
 class RetrieveParams(BaseModel):
@@ -34,7 +36,10 @@ class RetrieveParams(BaseModel):
     r"""Reranks the chunks for semantic relevancy post cosine similarity. Will be slower but returns a subset of highly relevant chunks. Best for reducing hallucinations and improving accuracy for LLM generation."""
 
     max_chunks_per_document: Optional[int] = None
-    r"""Maximum number of chunks to retrieve per document. Use this to increase the number of documents the final chunks are retreived from. This feature is in beta and may change in the future."""
+    r"""Maximum number of chunks to retrieve per document. Use this to increase the number of documents the final chunks are retrieved from. This feature is in beta and may change in the future."""
 
     partition: Optional[str] = None
-    r"""The partition to scope a retrieval to. If omitted, the retrieval will be scoped to the default partition, which includes any documents that have not been created in or moved to a partition."""
+    r"""The partition to scope a retrieval to. If omitted, the retrieval will be scoped to the default partition, which includes any documents that have not been created in a partition."""
+
+    recency_bias: Optional[bool] = False
+    r"""Enables recency bias which will favor more recent documents vs older documents. https://docs.ragie.ai/docs/retrievals-recency-bias"""

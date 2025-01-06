@@ -33,7 +33,7 @@ class FileTypedDict(TypedDict):
 
 class File(BaseModel):
     file_name: Annotated[
-        str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)
+        str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
 
     content: Annotated[
@@ -64,15 +64,11 @@ class CreateDocumentParamsTypedDict(TypedDict):
     name: NotRequired[str]
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the file's name."""
     partition: NotRequired[str]
-    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created."""
 
 
 class CreateDocumentParams(BaseModel):
-    file: Annotated[
-        File,
-        pydantic.Field(alias=""),
-        FieldMetadata(multipart=MultipartFormMetadata(file=True)),
-    ]
+    file: Annotated[File, FieldMetadata(multipart=MultipartFormMetadata(file=True))]
     r"""The binary file to upload, extract, and index for retrieval. The following file types are supported: Plain Text: `.eml` `.html` `.json` `.md` `.msg` `.rst` `.rtf` `.txt` `.xml`
     Images: `.png` `.webp` `.jpg` `.jpeg` `.tiff` `.bmp` `.heic`
     Documents: `.csv` `.doc` `.docx` `.epub` `.epub+zip` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx` `.xls`.
@@ -96,4 +92,4 @@ class CreateDocumentParams(BaseModel):
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the file's name."""
 
     partition: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
-    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created or moved to a new partition."""
+    r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created."""

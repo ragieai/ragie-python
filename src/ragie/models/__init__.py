@@ -63,6 +63,8 @@ from .document import (
     DocumentMetadataTypedDict,
     DocumentTypedDict,
 )
+from .documentchunk import DocumentChunk, DocumentChunkTypedDict
+from .documentchunklist import DocumentChunkList, DocumentChunkListTypedDict
 from .documentdelete import DocumentDelete, DocumentDeleteTypedDict
 from .documentfileupdate import DocumentFileUpdate, DocumentFileUpdateTypedDict
 from .documentget import (
@@ -80,6 +82,12 @@ from .documentmetadataupdate import (
 )
 from .documentrawupdate import DocumentRawUpdate, DocumentRawUpdateTypedDict
 from .documentsummary import DocumentSummary, DocumentSummaryTypedDict
+from .documentwithcontent import (
+    DocumentWithContent,
+    DocumentWithContentMetadata,
+    DocumentWithContentMetadataTypedDict,
+    DocumentWithContentTypedDict,
+)
 from .entity import Entity, EntityTypedDict
 from .entitylist import EntityList, EntityListTypedDict
 from .errormessage import ErrorMessage, ErrorMessageData
@@ -90,6 +98,18 @@ from .get_connection_connections_connection_id_getop import (
 from .get_connection_stats_connections_connection_id_stats_getop import (
     GetConnectionStatsConnectionsConnectionIDStatsGetRequest,
     GetConnectionStatsConnectionsConnectionIDStatsGetRequestTypedDict,
+)
+from .getdocumentchunkop import (
+    GetDocumentChunkRequest,
+    GetDocumentChunkRequestTypedDict,
+)
+from .getdocumentchunksop import (
+    GetDocumentChunksRequest,
+    GetDocumentChunksRequestTypedDict,
+)
+from .getdocumentcontentop import (
+    GetDocumentContentRequest,
+    GetDocumentContentRequestTypedDict,
 )
 from .getdocumentop import GetDocumentRequest, GetDocumentRequestTypedDict
 from .getdocumentsummaryop import (
@@ -242,6 +262,10 @@ __all__ = [
     "DeleteDocumentRequest",
     "DeleteDocumentRequestTypedDict",
     "Document",
+    "DocumentChunk",
+    "DocumentChunkList",
+    "DocumentChunkListTypedDict",
+    "DocumentChunkTypedDict",
     "DocumentDelete",
     "DocumentDeleteTypedDict",
     "DocumentFileUpdate",
@@ -263,6 +287,10 @@ __all__ = [
     "DocumentSummary",
     "DocumentSummaryTypedDict",
     "DocumentTypedDict",
+    "DocumentWithContent",
+    "DocumentWithContentMetadata",
+    "DocumentWithContentMetadataTypedDict",
+    "DocumentWithContentTypedDict",
     "Entity",
     "EntityList",
     "EntityListTypedDict",
@@ -277,6 +305,12 @@ __all__ = [
     "GetConnectionConnectionsConnectionIDGetRequestTypedDict",
     "GetConnectionStatsConnectionsConnectionIDStatsGetRequest",
     "GetConnectionStatsConnectionsConnectionIDStatsGetRequestTypedDict",
+    "GetDocumentChunkRequest",
+    "GetDocumentChunkRequestTypedDict",
+    "GetDocumentChunksRequest",
+    "GetDocumentChunksRequestTypedDict",
+    "GetDocumentContentRequest",
+    "GetDocumentContentRequestTypedDict",
     "GetDocumentRequest",
     "GetDocumentRequestTypedDict",
     "GetDocumentSummaryRequest",

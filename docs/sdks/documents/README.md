@@ -14,6 +14,9 @@
 * [update_file](#update_file) - Update Document File
 * [update_raw](#update_raw) - Update Document Raw
 * [patch_metadata](#patch_metadata) - Patch Document Metadata
+* [get_document_chunks](#get_document_chunks) - Get Document Chunks
+* [get_chunk](#get_chunk) - Get Document Chunk
+* [get_document_content](#get_document_content) - Get Document Content
 * [get_summary](#get_summary) - Get Document Summary
 
 ## create
@@ -27,17 +30,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create(request={
+) as ragie:
+
+    res = ragie.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -56,7 +61,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401                   | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -71,18 +76,17 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.list(request={
+) as ragie:
+
+    res = ragie.documents.list(request={
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     })
 
-    if res is not None:
-        while True:
-            # handle items
+    while res is not None:
+        # Handle items
 
-            res = res.next()
-            if res is None:
-                break
+        res = res.next()
 
 ```
 
@@ -101,7 +105,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -116,8 +120,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create_raw(request={
+) as ragie:
+
+    res = ragie.documents.create_raw(request={
         "data": "<value>",
         "metadata": {
             "key": [
@@ -127,9 +132,10 @@ with Ragie(
         "partition": "<value>",
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -148,7 +154,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401                   | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -163,8 +169,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.create_document_from_url(request={
+) as ragie:
+
+    res = ragie.documents.create_document_from_url(request={
         "url": "https://scientific-plain.biz/",
         "metadata": {
 
@@ -172,9 +179,10 @@ with Ragie(
         "partition": "<value>",
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -193,7 +201,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401                   | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -208,12 +216,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.get(document_id="<DOCUMENT_ID>")
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.documents.get(document_id="00000000-0000-0000-0000-000000000000")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -221,7 +231,7 @@ with Ragie(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
+| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | 00000000-0000-0000-0000-000000000000                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
@@ -232,7 +242,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -247,12 +257,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.delete(document_id="<DOCUMENT_ID>")
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.documents.delete(document_id="00000000-0000-0000-0000-000000000000")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -260,7 +272,7 @@ with Ragie(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
+| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | 00000000-0000-0000-0000-000000000000                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
@@ -271,7 +283,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -286,17 +298,19 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.update_file(document_id="<DOCUMENT_ID>", update_document_file_params={
+) as ragie:
+
+    res = ragie.documents.update_file(document_id="00000000-0000-0000-0000-000000000000", update_document_file_params={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -304,7 +318,7 @@ with Ragie(
 
 | Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 | Example                                                                     |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `document_id`                                                               | *str*                                                                       | :heavy_check_mark:                                                          | The id of the document.                                                     | <DOCUMENT_ID>                                                               |
+| `document_id`                                                               | *str*                                                                       | :heavy_check_mark:                                                          | The id of the document.                                                     | 00000000-0000-0000-0000-000000000000                                        |
 | `update_document_file_params`                                               | [models.UpdateDocumentFileParams](../../models/updatedocumentfileparams.md) | :heavy_check_mark:                                                          | N/A                                                                         |                                                                             |
 | `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |                                                                             |
 
@@ -316,7 +330,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -331,14 +345,16 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.update_raw(document_id="<DOCUMENT_ID>", update_document_raw_params={
+) as ragie:
+
+    res = ragie.documents.update_raw(document_id="00000000-0000-0000-0000-000000000000", update_document_raw_params={
         "data": {},
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -346,7 +362,7 @@ with Ragie(
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               | Example                                                                   |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `document_id`                                                             | *str*                                                                     | :heavy_check_mark:                                                        | The id of the document.                                                   | <DOCUMENT_ID>                                                             |
+| `document_id`                                                             | *str*                                                                     | :heavy_check_mark:                                                        | The id of the document.                                                   | 00000000-0000-0000-0000-000000000000                                      |
 | `update_document_raw_params`                                              | [models.UpdateDocumentRawParams](../../models/updatedocumentrawparams.md) | :heavy_check_mark:                                                        | N/A                                                                       |                                                                           |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |                                                                           |
 
@@ -358,7 +374,7 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -373,8 +389,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.patch_metadata(document_id="<DOCUMENT_ID>", patch_document_metadata_params={
+) as ragie:
+
+    res = ragie.documents.patch_metadata(document_id="00000000-0000-0000-0000-000000000000", patch_document_metadata_params={
         "metadata": {
             "classified": "null (setting null deletes key from metadata)",
             "editors": [
@@ -383,12 +400,15 @@ with Ragie(
             ],
             "title": "declassified report",
             "updated_at": 1714491736216,
+            "published": True,
+            "articleCount": 42,
         },
     })
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -396,7 +416,7 @@ with Ragie(
 
 | Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       | Example                                                                           |
 | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `document_id`                                                                     | *str*                                                                             | :heavy_check_mark:                                                                | The id of the document.                                                           | <DOCUMENT_ID>                                                                     |
+| `document_id`                                                                     | *str*                                                                             | :heavy_check_mark:                                                                | The id of the document.                                                           | 00000000-0000-0000-0000-000000000000                                              |
 | `patch_document_metadata_params`                                                  | [models.PatchDocumentMetadataParams](../../models/patchdocumentmetadataparams.md) | :heavy_check_mark:                                                                | N/A                                                                               |                                                                                   |
 | `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |                                                                                   |
 
@@ -408,7 +428,138 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_document_chunks
+
+List all document chunks sorted by index in ascending order. May be limited to a range of chunk indices with the `start_index` and `end_index` parameters. Documents created prior to 9/18/2024, which have not been updated since, have chunks which do not include an index and their index will be returned as -1. They will be sorted by their ID instead. Updating the document using the `Update Document File` or `Update Document Raw` endpoint will regenerate document chunks, including their index. Results are paginated with a max limit of 100. When more chunks are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as ragie:
+
+    res = ragie.documents.get_document_chunks(request={
+        "document_id": "00000000-0000-0000-0000-000000000000",
+        "start_index": 3,
+        "end_index": 5,
+        "partition": "acme_customer_id",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [models.GetDocumentChunksRequest](../../models/getdocumentchunksrequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+
+### Response
+
+**[models.DocumentChunkList](../../models/documentchunklist.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_chunk
+
+Gets a document chunk by its document and chunk ID.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as ragie:
+
+    res = ragie.documents.get_chunk(document_id="00000000-0000-0000-0000-000000000000", chunk_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                        | Type                                                                                                                                                                                                             | Required                                                                                                                                                                                                         | Description                                                                                                                                                                                                      | Example                                                                                                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `document_id`                                                                                                                                                                                                    | *str*                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                               | The id of the document.                                                                                                                                                                                          | 00000000-0000-0000-0000-000000000000                                                                                                                                                                             |
+| `chunk_id`                                                                                                                                                                                                       | *str*                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                               | The ID of the chunk.                                                                                                                                                                                             | 00000000-0000-0000-0000-000000000000                                                                                                                                                                             |
+| `partition`                                                                                                                                                                                                      | *OptionalNullable[str]*                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                               | An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition. | acme_customer_id                                                                                                                                                                                                 |
+| `retries`                                                                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                                                                              |                                                                                                                                                                                                                  |
+
+### Response
+
+**[models.DocumentChunk](../../models/documentchunk.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_document_content
+
+Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as ragie:
+
+    res = ragie.documents.get_document_content(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                        | Type                                                                                                                                                                                                             | Required                                                                                                                                                                                                         | Description                                                                                                                                                                                                      | Example                                                                                                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `document_id`                                                                                                                                                                                                    | *str*                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                               | The id of the document.                                                                                                                                                                                          | 00000000-0000-0000-0000-000000000000                                                                                                                                                                             |
+| `partition`                                                                                                                                                                                                      | *OptionalNullable[str]*                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                               | An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition. | acme_customer_id                                                                                                                                                                                                 |
+| `retries`                                                                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                                                                              |                                                                                                                                                                                                                  |
+
+### Response
+
+**[models.DocumentWithContent](../../models/documentwithcontent.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
@@ -423,12 +574,14 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as s:
-    res = s.documents.get_summary(document_id="<DOCUMENT_ID>")
+) as ragie:
 
-    if res is not None:
-        # handle response
-        pass
+    res = ragie.documents.get_summary(document_id="00000000-0000-0000-0000-000000000000")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -436,7 +589,7 @@ with Ragie(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | <DOCUMENT_ID>                                                       |
+| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The id of the document.                                             | 00000000-0000-0000-0000-000000000000                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
@@ -447,6 +600,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 404                   | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

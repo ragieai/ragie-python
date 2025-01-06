@@ -4,43 +4,58 @@ from __future__ import annotations
 from datetime import datetime
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing import Any, Dict
-from typing_extensions import NotRequired, TypedDict
+from typing import Dict, List, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-class EntityTypedDict(TypedDict):
+DocumentWithContentMetadataTypedDict = TypeAliasType(
+    "DocumentWithContentMetadataTypedDict", Union[str, int, bool, List[str]]
+)
+
+
+DocumentWithContentMetadata = TypeAliasType(
+    "DocumentWithContentMetadata", Union[str, int, bool, List[str]]
+)
+
+
+class DocumentWithContentTypedDict(TypedDict):
     id: str
     created_at: datetime
     updated_at: datetime
-    instruction_id: str
-    r"""The ID of the instruction which generated the entity."""
-    document_id: str
-    r"""The ID of the document which the entity was produced from."""
-    data: Dict[str, Any]
-    chunk_id: NotRequired[Nullable[str]]
+    status: str
+    name: str
+    metadata: Dict[str, DocumentWithContentMetadataTypedDict]
+    partition: str
+    content: str
+    chunk_count: NotRequired[Nullable[int]]
+    external_id: NotRequired[Nullable[str]]
 
 
-class Entity(BaseModel):
+class DocumentWithContent(BaseModel):
     id: str
 
     created_at: datetime
 
     updated_at: datetime
 
-    instruction_id: str
-    r"""The ID of the instruction which generated the entity."""
+    status: str
 
-    document_id: str
-    r"""The ID of the document which the entity was produced from."""
+    name: str
 
-    data: Dict[str, Any]
+    metadata: Dict[str, DocumentWithContentMetadata]
 
-    chunk_id: OptionalNullable[str] = UNSET
+    partition: str
+
+    content: str
+
+    chunk_count: OptionalNullable[int] = UNSET
+
+    external_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["chunk_id"]
-        nullable_fields = ["chunk_id"]
+        optional_fields = ["chunk_count", "external_id"]
+        nullable_fields = ["chunk_count", "external_id"]
         null_default_fields = []
 
         serialized = handler(self)
