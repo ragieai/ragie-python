@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 6dc89de611b1d246f01a0b0576ffda88
+  docChecksum: 879305928ae3c786432ceab9c51149b5
   docVersion: 1.0.0
-  speakeasyVersion: 1.463.1
-  generationVersion: 2.486.6
-  releaseVersion: 1.4.0
-  configChecksum: 6093ca6104b0faca3032e2e6fea797f9
+  speakeasyVersion: 1.467.1
+  generationVersion: 2.492.3
+  releaseVersion: 1.4.1
+  configChecksum: 55a024637287416cc1cfce43f1d3b22d
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.7.5
+    core: 5.10.0
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     enumUnions: 0.1.0
@@ -286,6 +286,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"id": "b888f774-3e7c-4135-a18c-6b985523c4bc", "created_at": "2024-09-23T09:26:26.647Z", "updated_at": "2022-12-22T20:41:29.028Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "errors": ["<value>", "<value>", "<value>"]}
@@ -298,6 +300,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"status": "<value>"}
@@ -310,6 +314,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       requestBody:
         multipart/form-data: {"file": {}}
       responses:
@@ -324,6 +330,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       requestBody:
         application/json: {}
       responses:
@@ -338,8 +346,10 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       requestBody:
-        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "title": "declassified report", "updated_at": 1714491736216, "published": true, "articleCount": 42}}
+        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "published": true, "articleCount": 42, "title": "declassified report"}}
       responses:
         "200":
           application/json: {"metadata": {"editors": ["Alice", "Bob"], "title": "declassified report", "unchanged_key": "unchanged_value", "updated_at": 1714491736216}}
@@ -352,6 +362,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"document_id": "<id>", "summary": "<value>"}
@@ -408,6 +420,8 @@ examples:
         path:
           instruction_id: "00000000-0000-0000-0000-000000000000"
         query: {}
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"entities": []}
@@ -421,6 +435,8 @@ examples:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
         query: {}
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2024-05-24T20:59:27.681Z", "updated_at": "2022-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}

@@ -13,7 +13,7 @@ class GetDocumentChunkRequestTypedDict(TypedDict):
     chunk_id: str
     r"""The ID of the chunk."""
     partition: NotRequired[Nullable[str]]
-    r"""An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition."""
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
 
 class GetDocumentChunkRequest(BaseModel):
@@ -31,7 +31,7 @@ class GetDocumentChunkRequest(BaseModel):
         OptionalNullable[str],
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = UNSET
-    r"""An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition."""
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

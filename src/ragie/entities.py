@@ -647,6 +647,7 @@ class Entities(BaseSDK):
                     instruction_id=request.instruction_id,
                     cursor=next_cursor,
                     page_size=request.page_size,
+                    partition=request.partition,
                 ),
                 retries=retries,
             )
@@ -758,6 +759,7 @@ class Entities(BaseSDK):
                     instruction_id=request.instruction_id,
                     cursor=next_cursor,
                     page_size=request.page_size,
+                    partition=request.partition,
                 ),
                 retries=retries,
             )
@@ -869,6 +871,7 @@ class Entities(BaseSDK):
                     document_id=request.document_id,
                     cursor=next_cursor,
                     page_size=request.page_size,
+                    partition=request.partition,
                 ),
                 retries=retries,
             )
@@ -980,6 +983,7 @@ class Entities(BaseSDK):
                     document_id=request.document_id,
                     cursor=next_cursor,
                     page_size=request.page_size,
+                    partition=request.partition,
                 ),
                 retries=retries,
             )

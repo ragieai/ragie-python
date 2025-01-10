@@ -4,7 +4,12 @@ from __future__ import annotations
 from .entitylist import EntityList, EntityListTypedDict
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from ragie.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from ragie.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+)
 from typing import Callable, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -16,6 +21,8 @@ class ListEntitiesByDocumentRequestTypedDict(TypedDict):
     r"""An opaque cursor for pagination"""
     page_size: NotRequired[int]
     r"""The number of items per page (must be greater than 0 and less than or equal to 100)"""
+    partition: NotRequired[Nullable[str]]
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
 
 class ListEntitiesByDocumentRequest(BaseModel):
@@ -36,10 +43,16 @@ class ListEntitiesByDocumentRequest(BaseModel):
     ] = 10
     r"""The number of items per page (must be greater than 0 and less than or equal to 100)"""
 
+    partition: Annotated[
+        OptionalNullable[str],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = UNSET
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["cursor", "page_size"]
-        nullable_fields = ["cursor"]
+        optional_fields = ["cursor", "page_size", "partition"]
+        nullable_fields = ["cursor", "partition"]
         null_default_fields = []
 
         serialized = handler(self)
