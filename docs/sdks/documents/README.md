@@ -14,9 +14,9 @@
 * [update_file](#update_file) - Update Document File
 * [update_raw](#update_raw) - Update Document Raw
 * [patch_metadata](#patch_metadata) - Patch Document Metadata
-* [get_document_chunks](#get_document_chunks) - Get Document Chunks
+* [get_chunks](#get_chunks) - Get Document Chunks
 * [get_chunk](#get_chunk) - Get Document Chunk
-* [get_document_content](#get_document_content) - Get Document Content
+* [get_content](#get_content) - Get Document Content
 * [get_summary](#get_summary) - Get Document Summary
 
 ## create
@@ -436,7 +436,7 @@ with Ragie(
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
-## get_document_chunks
+## get_chunks
 
 List all document chunks sorted by index in ascending order. May be limited to a range of chunk indices with the `start_index` and `end_index` parameters. Documents created prior to 9/18/2024, which have not been updated since, have chunks which do not include an index and their index will be returned as -1. They will be sorted by their ID instead. Updating the document using the `Update Document File` or `Update Document Raw` endpoint will regenerate document chunks, including their index. Results are paginated with a max limit of 100. When more chunks are available, a `cursor` will be provided. Use the `cursor` parameter to retrieve the subsequent page.
 
@@ -449,7 +449,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as ragie:
 
-    res = ragie.documents.get_document_chunks(request={
+    res = ragie.documents.get_chunks(request={
         "document_id": "00000000-0000-0000-0000-000000000000",
         "start_index": 3,
         "end_index": 5,
@@ -525,7 +525,7 @@ with Ragie(
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
-## get_document_content
+## get_content
 
 Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
 
@@ -538,7 +538,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as ragie:
 
-    res = ragie.documents.get_document_content(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = ragie.documents.get_content(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
