@@ -1851,7 +1851,7 @@ class Documents(BaseSDK):
             http_res,
         )
 
-    def get_document_chunks(
+    def get_chunks(
         self,
         *,
         request: Union[
@@ -1947,7 +1947,7 @@ class Documents(BaseSDK):
             http_res,
         )
 
-    async def get_document_chunks_async(
+    async def get_chunks_async(
         self,
         *,
         request: Union[
@@ -2239,7 +2239,7 @@ class Documents(BaseSDK):
             http_res,
         )
 
-    def get_document_content(
+    def get_content(
         self,
         *,
         document_id: str,
@@ -2336,7 +2336,7 @@ class Documents(BaseSDK):
             http_res,
         )
 
-    async def get_document_content_async(
+    async def get_content_async(
         self,
         *,
         document_id: str,
