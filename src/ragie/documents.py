@@ -827,6 +827,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -835,6 +836,7 @@ class Documents(BaseSDK):
         r"""Get Document
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -850,6 +852,7 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request(
@@ -917,6 +920,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -925,6 +929,7 @@ class Documents(BaseSDK):
         r"""Get Document
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -940,6 +945,7 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request_async(
@@ -1007,6 +1013,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1015,6 +1022,7 @@ class Documents(BaseSDK):
         r"""Delete Document
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1030,6 +1038,7 @@ class Documents(BaseSDK):
 
         request = models.DeleteDocumentRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request(
@@ -1097,6 +1106,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1105,6 +1115,7 @@ class Documents(BaseSDK):
         r"""Delete Document
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1120,6 +1131,7 @@ class Documents(BaseSDK):
 
         request = models.DeleteDocumentRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request_async(
@@ -1190,6 +1202,7 @@ class Documents(BaseSDK):
         update_document_file_params: Union[
             models.UpdateDocumentFileParams, models.UpdateDocumentFileParamsTypedDict
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1199,6 +1212,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param update_document_file_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1214,6 +1228,7 @@ class Documents(BaseSDK):
 
         request = models.UpdateDocumentFileRequest(
             document_id=document_id,
+            partition=partition,
             update_document_file_params=utils.get_pydantic_model(
                 update_document_file_params, models.UpdateDocumentFileParams
             ),
@@ -1296,6 +1311,7 @@ class Documents(BaseSDK):
         update_document_file_params: Union[
             models.UpdateDocumentFileParams, models.UpdateDocumentFileParamsTypedDict
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1305,6 +1321,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param update_document_file_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1320,6 +1337,7 @@ class Documents(BaseSDK):
 
         request = models.UpdateDocumentFileRequest(
             document_id=document_id,
+            partition=partition,
             update_document_file_params=utils.get_pydantic_model(
                 update_document_file_params, models.UpdateDocumentFileParams
             ),
@@ -1402,6 +1420,7 @@ class Documents(BaseSDK):
         update_document_raw_params: Union[
             models.UpdateDocumentRawParams, models.UpdateDocumentRawParamsTypedDict
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1411,6 +1430,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param update_document_raw_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1426,6 +1446,7 @@ class Documents(BaseSDK):
 
         request = models.UpdateDocumentRawRequest(
             document_id=document_id,
+            partition=partition,
             update_document_raw_params=utils.get_pydantic_model(
                 update_document_raw_params, models.UpdateDocumentRawParams
             ),
@@ -1508,6 +1529,7 @@ class Documents(BaseSDK):
         update_document_raw_params: Union[
             models.UpdateDocumentRawParams, models.UpdateDocumentRawParamsTypedDict
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1517,6 +1539,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param update_document_raw_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1532,6 +1555,7 @@ class Documents(BaseSDK):
 
         request = models.UpdateDocumentRawRequest(
             document_id=document_id,
+            partition=partition,
             update_document_raw_params=utils.get_pydantic_model(
                 update_document_raw_params, models.UpdateDocumentRawParams
             ),
@@ -1615,6 +1639,7 @@ class Documents(BaseSDK):
             models.PatchDocumentMetadataParams,
             models.PatchDocumentMetadataParamsTypedDict,
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1624,6 +1649,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param patch_document_metadata_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1639,6 +1665,7 @@ class Documents(BaseSDK):
 
         request = models.PatchDocumentMetadataRequest(
             document_id=document_id,
+            partition=partition,
             patch_document_metadata_params=utils.get_pydantic_model(
                 patch_document_metadata_params, models.PatchDocumentMetadataParams
             ),
@@ -1722,6 +1749,7 @@ class Documents(BaseSDK):
             models.PatchDocumentMetadataParams,
             models.PatchDocumentMetadataParamsTypedDict,
         ],
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1731,6 +1759,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param patch_document_metadata_params:
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1746,6 +1775,7 @@ class Documents(BaseSDK):
 
         request = models.PatchDocumentMetadataRequest(
             document_id=document_id,
+            partition=partition,
             patch_document_metadata_params=utils.get_pydantic_model(
                 patch_document_metadata_params, models.PatchDocumentMetadataParams
             ),
@@ -2030,7 +2060,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param chunk_id: The ID of the chunk.
-        :param partition: An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2128,7 +2158,7 @@ class Documents(BaseSDK):
 
         :param document_id: The id of the document.
         :param chunk_id: The ID of the chunk.
-        :param partition: An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2224,7 +2254,7 @@ class Documents(BaseSDK):
         Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
 
         :param document_id: The id of the document.
-        :param partition: An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2321,7 +2351,7 @@ class Documents(BaseSDK):
         Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
 
         :param document_id: The id of the document.
-        :param partition: An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2407,6 +2437,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2417,6 +2448,7 @@ class Documents(BaseSDK):
         Get a LLM generated summary of the document. The summary is created when the document is first created or updated. Documents of types ['xls', 'xlsx', 'csv', 'json'] are not supported for summarization. Documents greater than 1M in token length are not supported. This feature is in beta and may change in the future.
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2432,6 +2464,7 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentSummaryRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request(
@@ -2499,6 +2532,7 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2509,6 +2543,7 @@ class Documents(BaseSDK):
         Get a LLM generated summary of the document. The summary is created when the document is first created or updated. Documents of types ['xls', 'xlsx', 'csv', 'json'] are not supported for summarization. Documents greater than 1M in token length are not supported. This feature is in beta and may change in the future.
 
         :param document_id: The id of the document.
+        :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2524,6 +2559,7 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentSummaryRequest(
             document_id=document_id,
+            partition=partition,
         )
 
         req = self._build_request_async(

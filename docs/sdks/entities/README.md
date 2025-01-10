@@ -225,6 +225,7 @@ with Ragie(
 
     res = ragie.entities.list_by_instruction(request={
         "instruction_id": "00000000-0000-0000-0000-000000000000",
+        "partition": "acme_customer_id",
     })
 
     while res is not None:
@@ -268,6 +269,7 @@ with Ragie(
 
     res = ragie.entities.list_by_document(request={
         "document_id": "00000000-0000-0000-0000-000000000000",
+        "partition": "acme_customer_id",
     })
 
     while res is not None:

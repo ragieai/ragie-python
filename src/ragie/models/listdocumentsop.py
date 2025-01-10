@@ -18,7 +18,7 @@ class ListDocumentsRequestTypedDict(TypedDict):
     filter_: NotRequired[Nullable[str]]
     r"""The metadata search filter on documents. Returns only documents which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
     partition: NotRequired[Nullable[str]]
-    r"""An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition."""
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
 
 class ListDocumentsRequest(BaseModel):
@@ -45,7 +45,7 @@ class ListDocumentsRequest(BaseModel):
         OptionalNullable[str],
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = UNSET
-    r"""An optional partition to scope the request to. If omitted, the request will be scoped to all partitions. If you are using the partitions feature it is strongly recommended to scope the request to a partition."""
+    r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
