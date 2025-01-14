@@ -13,10 +13,12 @@
 * [delete](#delete) - Delete Document
 * [update_file](#update_file) - Update Document File
 * [update_raw](#update_raw) - Update Document Raw
+* [update_document_from_url](#update_document_from_url) - Update Document Url
 * [patch_metadata](#patch_metadata) - Patch Document Metadata
 * [get_chunks](#get_chunks) - Get Document Chunks
 * [get_chunk](#get_chunk) - Get Document Chunk
 * [get_content](#get_content) - Get Document Content
+* [get_source](#get_source) - Get Document Source
 * [get_summary](#get_summary) - Get Document Summary
 
 ## create
@@ -126,7 +128,7 @@ with Ragie(
         "data": "<value>",
         "metadata": {
             "key": [
-                "<value>",
+
             ],
         },
         "partition": "<value>",
@@ -160,7 +162,7 @@ with Ragie(
 
 ## create_document_from_url
 
-Create Document From Url
+Ingest a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
 ### Example Usage
 
@@ -173,9 +175,6 @@ with Ragie(
 
     res = ragie.documents.create_document_from_url(request={
         "url": "https://scientific-plain.biz/",
-        "metadata": {
-
-        },
         "partition": "<value>",
     })
 
@@ -382,6 +381,51 @@ with Ragie(
 | models.HTTPValidationError | 422                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
+## update_document_from_url
+
+Updates a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as ragie:
+
+    res = ragie.documents.update_document_from_url(document_id="00000000-0000-0000-0000-000000000000", update_document_from_url_params={
+        "url": "https://dual-longboat.com/",
+    }, partition="acme_customer_id")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                                              | Type                                                                                                                                                                                                                                                                                                                                                                                                                   | Required                                                                                                                                                                                                                                                                                                                                                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                                                            | Example                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `document_id`                                                                                                                                                                                                                                                                                                                                                                                                          | *str*                                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                     | The id of the document.                                                                                                                                                                                                                                                                                                                                                                                                | 00000000-0000-0000-0000-000000000000                                                                                                                                                                                                                                                                                                                                                                                   |
+| `update_document_from_url_params`                                                                                                                                                                                                                                                                                                                                                                                      | [models.UpdateDocumentFromURLParams](../../models/updatedocumentfromurlparams.md)                                                                                                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `partition`                                                                                                                                                                                                                                                                                                                                                                                                            | *OptionalNullable[str]*                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                     | An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition. | acme_customer_id                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `retries`                                                                                                                                                                                                                                                                                                                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                     | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                        |
+
+### Response
+
+**[models.DocumentURLUpdate](../../models/documenturlupdate.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
 ## patch_metadata
 
 Patch Document Metadata
@@ -558,6 +602,48 @@ with Ragie(
 ### Response
 
 **[models.DocumentWithContent](../../models/documentwithcontent.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_source
+
+Get the source file of a document. The source file is the original file that was uploaded to create the document. If the document was created from a URL, the source file will be the content of the URL. If the document was created by a connection, the source file will vary based on the type of the connection. For example, a Google Drive connection will return the file that was synced from the Google Drive, while a SalesForce connection would return a JSON file of the data synced from SalesForce.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as ragie:
+
+    res = ragie.documents.get_source(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                                              | Type                                                                                                                                                                                                                                                                                                                                                                                                                   | Required                                                                                                                                                                                                                                                                                                                                                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                                                            | Example                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `document_id`                                                                                                                                                                                                                                                                                                                                                                                                          | *str*                                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                     | The id of the document.                                                                                                                                                                                                                                                                                                                                                                                                | 00000000-0000-0000-0000-000000000000                                                                                                                                                                                                                                                                                                                                                                                   |
+| `partition`                                                                                                                                                                                                                                                                                                                                                                                                            | *OptionalNullable[str]*                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                     | An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition. | acme_customer_id                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `retries`                                                                                                                                                                                                                                                                                                                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                     | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                        |
+
+### Response
+
+**[httpx.Response](../../models/.md)**
 
 ### Errors
 

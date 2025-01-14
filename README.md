@@ -149,10 +149,12 @@ asyncio.run(main())
 * [delete](docs/sdks/documents/README.md#delete) - Delete Document
 * [update_file](docs/sdks/documents/README.md#update_file) - Update Document File
 * [update_raw](docs/sdks/documents/README.md#update_raw) - Update Document Raw
+* [update_document_from_url](docs/sdks/documents/README.md#update_document_from_url) - Update Document Url
 * [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
 * [get_chunks](docs/sdks/documents/README.md#get_chunks) - Get Document Chunks
 * [get_chunk](docs/sdks/documents/README.md#get_chunk) - Get Document Chunk
 * [get_content](docs/sdks/documents/README.md#get_content) - Get Document Content
+* [get_source](docs/sdks/documents/README.md#get_source) - Get Document Source
 * [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
 ### [entities](docs/sdks/entities/README.md)
