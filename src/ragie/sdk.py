@@ -64,7 +64,8 @@ class Ragie(BaseSDK):
 
         security: Any = None
         if callable(auth):
-            security = lambda: models.Security(auth=auth())  # pylint: disable=unnecessary-lambda-assignment
+            # pylint: disable=unnecessary-lambda-assignment
+            security = lambda: models.Security(auth=auth())
         else:
             security = models.Security(auth=auth)
 

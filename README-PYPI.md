@@ -149,10 +149,12 @@ asyncio.run(main())
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#delete) - Delete Document
 * [update_file](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#update_file) - Update Document File
 * [update_raw](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#update_raw) - Update Document Raw
+* [update_document_from_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#update_document_from_url) - Update Document Url
 * [patch_metadata](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
 * [get_chunks](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_chunks) - Get Document Chunks
 * [get_chunk](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_chunk) - Get Document Chunk
 * [get_content](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_content) - Get Document Content
+* [get_source](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_source) - Get Document Source
 * [get_summary](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
 ### [entities](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md)

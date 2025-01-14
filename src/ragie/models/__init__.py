@@ -82,6 +82,7 @@ from .documentmetadataupdate import (
 )
 from .documentrawupdate import DocumentRawUpdate, DocumentRawUpdateTypedDict
 from .documentsummary import DocumentSummary, DocumentSummaryTypedDict
+from .documenturlupdate import DocumentURLUpdate, DocumentURLUpdateTypedDict
 from .documentwithcontent import (
     DocumentWithContent,
     DocumentWithContentMetadata,
@@ -112,6 +113,10 @@ from .getdocumentcontentop import (
     GetDocumentContentRequestTypedDict,
 )
 from .getdocumentop import GetDocumentRequest, GetDocumentRequestTypedDict
+from .getdocumentsourceop import (
+    GetDocumentSourceRequest,
+    GetDocumentSourceRequestTypedDict,
+)
 from .getdocumentsummaryop import (
     GetDocumentSummaryRequest,
     GetDocumentSummaryRequestTypedDict,
@@ -194,6 +199,15 @@ from .updatedocumentfileparams import (
     UpdateDocumentFileParamsMode,
     UpdateDocumentFileParamsTypedDict,
 )
+from .updatedocumentfromurlop import (
+    UpdateDocumentFromURLRequest,
+    UpdateDocumentFromURLRequestTypedDict,
+)
+from .updatedocumentfromurlparams import (
+    UpdateDocumentFromURLParams,
+    UpdateDocumentFromURLParamsMode,
+    UpdateDocumentFromURLParamsTypedDict,
+)
 from .updatedocumentrawop import (
     UpdateDocumentRawRequest,
     UpdateDocumentRawRequestTypedDict,
@@ -220,6 +234,7 @@ from .validationerror import (
     ValidationError,
     ValidationErrorTypedDict,
 )
+
 
 __all__ = [
     "Connection",
@@ -287,6 +302,8 @@ __all__ = [
     "DocumentSummary",
     "DocumentSummaryTypedDict",
     "DocumentTypedDict",
+    "DocumentURLUpdate",
+    "DocumentURLUpdateTypedDict",
     "DocumentWithContent",
     "DocumentWithContentMetadata",
     "DocumentWithContentMetadataTypedDict",
@@ -313,6 +330,8 @@ __all__ = [
     "GetDocumentContentRequestTypedDict",
     "GetDocumentRequest",
     "GetDocumentRequestTypedDict",
+    "GetDocumentSourceRequest",
+    "GetDocumentSourceRequestTypedDict",
     "GetDocumentSummaryRequest",
     "GetDocumentSummaryRequestTypedDict",
     "HTTPValidationError",
@@ -379,6 +398,11 @@ __all__ = [
     "UpdateDocumentFileParamsTypedDict",
     "UpdateDocumentFileRequest",
     "UpdateDocumentFileRequestTypedDict",
+    "UpdateDocumentFromURLParams",
+    "UpdateDocumentFromURLParamsMode",
+    "UpdateDocumentFromURLParamsTypedDict",
+    "UpdateDocumentFromURLRequest",
+    "UpdateDocumentFromURLRequestTypedDict",
     "UpdateDocumentRawParams",
     "UpdateDocumentRawParamsData",
     "UpdateDocumentRawParamsDataTypedDict",
