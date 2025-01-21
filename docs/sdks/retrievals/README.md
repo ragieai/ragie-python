@@ -23,17 +23,10 @@ with Ragie(
     res = ragie.retrievals.retrieve(request={
         "query": "What is the best pizza place in SF?",
         "top_k": 8,
-        "filter_": {
-            "department": {
-                "$in": [
-                    "sales",
-                    "marketing",
-                ],
-            },
-        },
         "rerank": True,
         "max_chunks_per_document": 0,
         "partition": "<value>",
+        "recency_bias": False,
     })
 
     assert res is not None

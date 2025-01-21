@@ -75,6 +75,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 
 ```python
 # Synchronous Example
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -86,6 +87,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -100,6 +102,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
+import ragie
 from ragie import Ragie
 
 async def main():
@@ -112,6 +115,7 @@ async def main():
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
+            "mode": ragie.CreateDocumentParamsMode.FAST,
         })
 
         assert res is not None
@@ -189,6 +193,7 @@ with Ragie(
 ) as ragie:
 
     res = ragie.documents.list(request={
+        "page_size": 10,
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
         "partition": "acme_customer_id",
     })
@@ -212,6 +217,7 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 >
 
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -223,6 +229,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -240,6 +247,7 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
+import ragie
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
@@ -252,6 +260,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
@@ -264,6 +273,7 @@ with Ragie(
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
+import ragie
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
@@ -277,6 +287,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -312,6 +323,7 @@ When custom error responses are specified for an operation, the SDK may also rai
 ### Example
 
 ```python
+import ragie
 from ragie import Ragie, models
 
 with Ragie(
@@ -325,6 +337,7 @@ with Ragie(
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
+            "mode": ragie.CreateDocumentParamsMode.FAST,
         })
 
         assert res is not None
@@ -351,6 +364,7 @@ with Ragie(
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -363,6 +377,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -467,6 +482,7 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `auth` parameter must be set when initializing the SDK client instance. For example:
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -478,6 +494,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None

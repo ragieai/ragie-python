@@ -68,72 +68,7 @@ with Ragie(
         "name": "Find all pizzas",
         "prompt": "Find all pizzas described in the text.",
         "entity_schema": {
-            "additionalProperties": False,
-            "properties": {
-                "size": {
-                    "enum": [
-                        "small",
-                        "medium",
-                        "large",
-                    ],
-                    "type": "string",
-                },
-                "crust": {
-                    "enum": [
-                        "thin",
-                        "thick",
-                        "stuffed",
-                    ],
-                    "type": "string",
-                },
-                "sauce": {
-                    "enum": [
-                        "tomato",
-                        "alfredo",
-                        "pesto",
-                    ],
-                    "type": "string",
-                },
-                "cheese": {
-                    "enum": [
-                        "mozzarella",
-                        "cheddar",
-                        "parmesan",
-                        "vegan",
-                    ],
-                    "type": "string",
-                },
-                "toppings": {
-                    "items": {
-                        "enum": [
-                            "pepperoni",
-                            "mushrooms",
-                            "onions",
-                            "sausage",
-                            "bacon",
-                            "extra cheese",
-                            "black olives",
-                            "green peppers",
-                            "pineapple",
-                            "spinach",
-                        ],
-                        "type": "string",
-                    },
-                    "type": "array",
-                    "uniqueItems": True,
-                },
-                "extraInstructions": {
-                    "type": "string",
-                },
-            },
-            "required": [
-                "size",
-                "crust",
-                "sauce",
-                "cheese",
-            ],
-            "title": "Pizza",
-            "type": "object",
+            "key": "<value>",
         },
         "active": True,
         "scope": ragie.CreateInstructionParamsScope.CHUNK,
@@ -225,6 +160,7 @@ with Ragie(
 
     res = ragie.entities.list_by_instruction(request={
         "instruction_id": "00000000-0000-0000-0000-000000000000",
+        "page_size": 10,
         "partition": "acme_customer_id",
     })
 
@@ -269,6 +205,7 @@ with Ragie(
 
     res = ragie.entities.list_by_document(request={
         "document_id": "00000000-0000-0000-0000-000000000000",
+        "page_size": 10,
         "partition": "acme_customer_id",
     })
 

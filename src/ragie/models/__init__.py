@@ -2,8 +2,8 @@
 
 from .connection import (
     Connection,
-    ConnectionMetadataMetadata,
-    ConnectionMetadataMetadataTypedDict,
+    ConnectionMetadata,
+    ConnectionMetadataTypedDict,
     ConnectionTypedDict,
 )
 from .connectionbase import (
@@ -15,6 +15,7 @@ from .connectionbase import (
 )
 from .connectionlist import ConnectionList, ConnectionListTypedDict
 from .connectionstats import ConnectionStats, ConnectionStatsTypedDict
+from .connectorsource import ConnectorSource
 from .createdocumentfromurlparams import (
     CreateDocumentFromURLParams,
     CreateDocumentFromURLParamsMetadata,
@@ -244,11 +245,12 @@ __all__ = [
     "ConnectionBaseTypedDict",
     "ConnectionList",
     "ConnectionListTypedDict",
-    "ConnectionMetadataMetadata",
-    "ConnectionMetadataMetadataTypedDict",
+    "ConnectionMetadata",
+    "ConnectionMetadataTypedDict",
     "ConnectionStats",
     "ConnectionStatsTypedDict",
     "ConnectionTypedDict",
+    "ConnectorSource",
     "CreateDocumentFromURLParams",
     "CreateDocumentFromURLParamsMetadata",
     "CreateDocumentFromURLParamsMetadataTypedDict",

@@ -1,6 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```python
 # Synchronous Example
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -12,6 +13,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -26,6 +28,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
+import ragie
 from ragie import Ragie
 
 async def main():
@@ -38,6 +41,7 @@ async def main():
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
+            "mode": ragie.CreateDocumentParamsMode.FAST,
         })
 
         assert res is not None
