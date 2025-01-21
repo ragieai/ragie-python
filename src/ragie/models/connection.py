@@ -4,25 +4,29 @@ from __future__ import annotations
 from datetime import datetime
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing_extensions import NotRequired, TypedDict
+from typing import Dict, List, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-class ConnectionMetadataMetadataTypedDict(TypedDict):
-    pass
+ConnectionMetadataTypedDict = TypeAliasType(
+    "ConnectionMetadataTypedDict", Union[str, int, bool, List[str]]
+)
 
 
-class ConnectionMetadataMetadata(BaseModel):
-    pass
+ConnectionMetadata = TypeAliasType(
+    "ConnectionMetadata", Union[str, int, bool, List[str]]
+)
 
 
 class ConnectionTypedDict(TypedDict):
     id: str
     created_at: datetime
     updated_at: datetime
-    metadata: ConnectionMetadataMetadataTypedDict
+    metadata: Dict[str, ConnectionMetadataTypedDict]
     type: str
     name: str
     enabled: bool
+    partition: str
     last_synced_at: NotRequired[Nullable[datetime]]
     syncing: NotRequired[Nullable[bool]]
 
@@ -34,13 +38,15 @@ class Connection(BaseModel):
 
     updated_at: datetime
 
-    metadata: ConnectionMetadataMetadata
+    metadata: Dict[str, ConnectionMetadata]
 
     type: str
 
     name: str
 
     enabled: bool
+
+    partition: str
 
     last_synced_at: OptionalNullable[datetime] = UNSET
 

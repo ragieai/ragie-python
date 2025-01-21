@@ -26,7 +26,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as ragie:
 
-    res = ragie.connections.list()
+    res = ragie.connections.list(page_size=10)
 
     while res is not None:
         # Handle items
@@ -69,8 +69,7 @@ with Ragie(
 ) as ragie:
 
     res = ragie.connections.create_o_auth_redirect_url(request={
-        "redirect_uri": "https://lumbering-sundae.net",
-        "source_type": "<value>",
+        "redirect_uri": "https://fatherly-soup.com",
     })
 
     assert res is not None
@@ -219,7 +218,7 @@ with Ragie(
 
 ### Response
 
-**[Any](../../models/.md)**
+**[models.Connection](../../models/connection.md)**
 
 ### Errors
 

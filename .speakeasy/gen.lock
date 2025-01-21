@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 2acaf6b4fff01298bdb81e05cd7998a7
+  docChecksum: 8bc89fbe392e467bbf96e8408a220397
   docVersion: 1.0.0
-  speakeasyVersion: 1.468.6
-  generationVersion: 2.493.13
-  releaseVersion: 1.4.3
-  configChecksum: ec54e93bdca4a152b53da3340996d636
+  speakeasyVersion: 1.469.12
+  generationVersion: 2.493.34
+  releaseVersion: 1.4.4
+  configChecksum: aba09da7e9a6020aef5a9f5cf3f307a1
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.10.1
+    core: 5.10.4
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -47,8 +47,9 @@ generatedFiles:
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
   - docs/models/connectionlist.md
-  - docs/models/connectionmetadatametadata.md
+  - docs/models/connectionmetadata.md
   - docs/models/connectionstats.md
+  - docs/models/connectorsource.md
   - docs/models/createdocumentfromurlparams.md
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
@@ -163,6 +164,7 @@ generatedFiles:
   - src/ragie/models/connectionbase.py
   - src/ragie/models/connectionlist.py
   - src/ragie/models/connectionstats.py
+  - src/ragie/models/connectorsource.py
   - src/ragie/models/createdocumentfromurlparams.py
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
@@ -246,10 +248,10 @@ examples:
   CreateDocument:
     speakeasy-default-create-document:
       requestBody:
-        multipart/form-data: {"file": {}}
+        multipart/form-data: {"mode": "fast", "file": {"": "x-file: example.file"}}
       responses:
         "201":
-          application/json: {"id": "7a621cf0-21cd-49cf-8540-3315211a509a", "created_at": "2022-01-18T01:06:03.366Z", "updated_at": "2023-07-28T18:44:31.482Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
+          application/json: {"id": "7a621cf0-21cd-49cf-8540-3315211a509a", "created_at": "2023-01-18T01:06:03.366Z", "updated_at": "2024-07-27T18:44:31.482Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
         "422":
@@ -258,12 +260,13 @@ examples:
     speakeasy-default-list-documents:
       parameters:
         query:
+          page_size: 10
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
         header:
           partition: "acme_customer_id"
       responses:
         "200":
-          application/json: {"pagination": {}, "documents": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "status": "<value>", "name": "<value>", "metadata": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2022-05-09T15:43:49.850Z", "updated_at": "2024-10-31T06:20:54.910Z", "status": "<value>", "name": "<value>", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "partition": "<value>"}]}
+          application/json: {"pagination": {}, "documents": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2023-11-08T21:35:05.868Z", "updated_at": "2025-05-06T10:10:32.094Z", "status": "<value>", "name": "<value>", "metadata": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "status": "<value>", "name": "<value>", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "partition": "<value>"}]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -271,10 +274,10 @@ examples:
   CreateDocumentRaw:
     speakeasy-default-create-document-raw:
       requestBody:
-        application/json: {"metadata": {"key": []}, "partition": "<value>", "data": "<value>"}
+        application/json: {"partition": "<value>", "data": "<value>"}
       responses:
         "201":
-          application/json: {"id": "f32d8f20-2af5-4fe3-9301-884a461abb5d", "created_at": "2024-10-07T02:25:22.865Z", "updated_at": "2024-07-13T21:12:32.248Z", "status": "<value>", "name": "<value>", "metadata": {"key": 391493, "key1": 816075, "key2": true}, "partition": "<value>"}
+          application/json: {"id": "f32d8f20-2af5-4fe3-9301-884a461abb5d", "created_at": "2025-10-07T02:25:22.865Z", "updated_at": "2025-07-13T21:12:32.248Z", "status": "<value>", "name": "<value>", "metadata": {"key": 391493, "key1": 816075, "key2": true}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
         "422":
@@ -282,10 +285,10 @@ examples:
   CreateDocumentFromUrl:
     speakeasy-default-create-document-from-url:
       requestBody:
-        application/json: {"partition": "<value>", "url": "https://scientific-plain.biz/"}
+        application/json: {"mode": "fast", "partition": "<value>", "url": "https://scientific-plain.biz/"}
       responses:
         "201":
-          application/json: {"id": "0adf151b-6a78-4e39-a7b3-465615a95443", "created_at": "2022-07-13T10:16:17.094Z", "updated_at": "2024-05-24T16:33:21.360Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
+          application/json: {"id": "0adf151b-6a78-4e39-a7b3-465615a95443", "created_at": "2023-07-13T10:16:17.094Z", "updated_at": "2025-05-24T16:33:21.360Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>"}
         "400":
           application/json: {"detail": "<value>"}
         "422":
@@ -299,7 +302,7 @@ examples:
           partition: "acme_customer_id"
       responses:
         "200":
-          application/json: {"id": "b888f774-3e7c-4135-a18c-6b985523c4bc", "created_at": "2024-09-23T09:26:26.647Z", "updated_at": "2022-12-22T20:41:29.028Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "errors": ["<value>", "<value>", "<value>"]}
+          application/json: {"id": "b888f774-3e7c-4135-a18c-6b985523c4bc", "created_at": "2025-09-23T09:26:26.647Z", "updated_at": "2023-12-22T20:41:29.028Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "errors": ["<value>", "<value>", "<value>"]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -326,7 +329,7 @@ examples:
         header:
           partition: "acme_customer_id"
       requestBody:
-        multipart/form-data: {"file": {}}
+        multipart/form-data: {"mode": "fast", "file": {"": "x-file: example.file"}}
       responses:
         "200":
           application/json: {"status": "<value>"}
@@ -342,7 +345,23 @@ examples:
         header:
           partition: "acme_customer_id"
       requestBody:
-        application/json: {}
+        application/json: {"data": {}}
+      responses:
+        "200":
+          application/json: {"status": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  UpdateDocumentFromUrl:
+    speakeasy-default-update-document-from-url:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      requestBody:
+        application/json: {"mode": "fast", "url": "https://dual-longboat.com/"}
       responses:
         "200":
           application/json: {"status": "<value>"}
@@ -366,6 +385,67 @@ examples:
           application/json: {"detail": "<value>"}
         "422":
           application/json: {}
+  GetDocumentChunks:
+    speakeasy-default-get-document-chunks:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        query:
+          start_index: 3
+          end_index: 5
+          page_size: 10
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"pagination": {}, "chunks": []}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  GetDocumentChunk:
+    speakeasy-default-get-document-chunk:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+          chunk_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"id": "34609590-8f6d-44f1-bccc-6b72f3d01897", "index": -1, "text": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  GetDocumentContent:
+    speakeasy-default-get-document-content:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/json: {"id": "4ef0a601-5625-4d36-bb58-a4475ef91735", "created_at": "2024-07-15T09:31:52.945Z", "updated_at": "2023-08-30T16:52:35.685Z", "status": "<value>", "name": "<value>", "metadata": {"key": ["<value>"]}, "partition": "<value>", "content": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  GetDocumentSource:
+    speakeasy-default-get-document-source:
+      parameters:
+        path:
+          document_id: "00000000-0000-0000-0000-000000000000"
+        header:
+          partition: "acme_customer_id"
+      responses:
+        "200":
+          application/octet-stream: "x-file: example.file"
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
   GetDocumentSummary:
     speakeasy-default-get-document-summary:
       parameters:
@@ -383,10 +463,10 @@ examples:
   Retrieve:
     speakeasy-default-retrieve:
       requestBody:
-        application/json: {"query": "What is the best pizza place in SF?", "top_k": 8, "filter": {"department": {"$in": ["sales", "marketing"]}}, "rerank": true, "max_chunks_per_document": 0, "partition": "<value>"}
+        application/json: {"query": "What is the best pizza place in SF?", "top_k": 8, "rerank": true, "max_chunks_per_document": 0, "partition": "<value>", "recency_bias": false}
       responses:
         "200":
-          application/json: {"scored_chunks": [{"text": "<value>", "score": "9198.30", "id": "<id>", "index": 370456, "document_id": "<id>", "document_name": "<value>", "document_metadata": {"key": "<value>"}}]}
+          application/json: {"scored_chunks": [{"text": "<value>", "score": 9198.31, "id": "<id>", "index": 312993, "document_id": "<id>", "document_name": "<value>", "document_metadata": {"key": "<value>"}}]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -395,16 +475,16 @@ examples:
     speakeasy-default-list-instructions:
       responses:
         "200":
-          application/json: [{"id": "07948203-9687-472b-addd-d152fe0e4b0c", "created_at": "2023-07-16T13:45:54.250Z", "updated_at": "2023-06-27T05:32:29.020Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}]
+          application/json: [{"id": "07948203-9687-472b-addd-d152fe0e4b0c", "created_at": "2024-07-15T13:45:54.250Z", "updated_at": "2024-06-26T05:32:29.020Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}, {"id": "95ebdeac-9b6a-4cc2-bae1-f9c459df591a", "created_at": "2024-10-05T19:25:40.120Z", "updated_at": "2025-11-27T23:51:15.773Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>"}, "partition": "<value>"}]
         "401":
           application/json: {"detail": "<value>"}
   CreateInstruction:
     speakeasy-default-create-instruction:
       requestBody:
-        application/json: {"name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+        application/json: {"name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>"}, "partition": "<value>"}
       responses:
         "200":
-          application/json: {"id": "7a4c4504-3a1d-446a-b2d3-54e705734d3b", "created_at": "2024-07-30T12:44:16.443Z", "updated_at": "2023-09-24T03:06:52.578Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+          application/json: {"id": "a4c45043-a1d4-46a2-bd35-4e705734d3bf", "created_at": "2024-09-23T03:06:52.578Z", "updated_at": "2023-03-21T16:28:26.454Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -418,7 +498,7 @@ examples:
         application/json: {"active": true}
       responses:
         "200":
-          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2023-01-22T23:04:46.512Z", "updated_at": "2023-05-30T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"additionalProperties": false, "properties": {"size": {"enum": ["small", "medium", "large"], "type": "string"}, "crust": {"enum": ["thin", "thick", "stuffed"], "type": "string"}, "sauce": {"enum": ["tomato", "alfredo", "pesto"], "type": "string"}, "cheese": {"enum": ["mozzarella", "cheddar", "parmesan", "vegan"], "type": "string"}, "toppings": {"items": {"enum": ["pepperoni", "mushrooms", "onions", "sausage", "bacon", "extra cheese", "black olives", "green peppers", "pineapple", "spinach"], "type": "string"}, "type": "array", "uniqueItems": true}, "extraInstructions": {"type": "string"}}, "required": ["size", "crust", "sauce", "cheese"], "title": "Pizza", "type": "object"}, "partition": "<value>"}
+          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2024-01-22T23:04:46.512Z", "updated_at": "2024-05-29T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -428,7 +508,8 @@ examples:
       parameters:
         path:
           instruction_id: "00000000-0000-0000-0000-000000000000"
-        query: {}
+        query:
+          page_size: 10
         header:
           partition: "acme_customer_id"
       responses:
@@ -443,21 +524,36 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
-        query: {}
+        query:
+          page_size: 10
         header:
           partition: "acme_customer_id"
       responses:
         "200":
-          application/json: {"pagination": {}, "entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2024-05-24T20:59:27.681Z", "updated_at": "2022-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}
+          application/json: {"pagination": {}, "entities": [{"id": "0acf0abf-c6b5-4e2a-9ea8-a13f725d0bb4", "created_at": "2025-05-24T20:59:27.681Z", "updated_at": "2023-12-13T21:49:21.883Z", "instruction_id": "92a05549-1b0f-45fb-8f85-0f20075f1108", "document_id": "104fc7ec-2190-4ecf-83d0-7049ae9e1af9", "data": {"key": "<value>", "key1": "<value>"}}]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
           application/json: {}
   list_connections_connections_get:
     speakeasy-default-list-connections-connections-get:
+      parameters:
+        query:
+          page_size: 10
       responses:
         "200":
-          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2022-03-24T06:20:14.879Z", "updated_at": "2024-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true}, {"id": "766718d6-d461-42e0-aaee-1b9ddf121dc2", "created_at": "2022-11-08T21:35:05.868Z", "updated_at": "2024-05-06T10:10:32.094Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": false}, {"id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "created_at": "2023-03-22T09:41:56.524Z", "updated_at": "2022-03-28T18:28:26.777Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true}]}
+          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}, {"id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created_at": "2025-05-06T10:10:32.094Z", "updated_at": "2024-08-19T22:29:27.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}]}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  create_oauth_redirect_url_connections_oauth_post:
+    speakeasy-default-create-oauth-redirect-url-connections-oauth-post:
+      requestBody:
+        application/json: {"redirect_uri": "https://fatherly-soup.com"}
+      responses:
+        "200":
+          application/json: {"url": "https://better-negotiation.net/"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -471,7 +567,7 @@ examples:
         application/json: {"enabled": true}
       responses:
         "200":
-          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2024-10-14T19:56:20.471Z", "updated_at": "2022-04-26T16:53:39.637Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": false}
+          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2025-10-14T19:56:20.471Z", "updated_at": "2023-04-26T16:53:39.637Z", "metadata": {"key": 43810, "key1": true, "key2": false}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -485,7 +581,19 @@ examples:
         application/json: {"partition_strategy": "fast"}
       responses:
         "200":
-          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2022-04-30T21:32:17.394Z", "updated_at": "2024-08-07T23:17:45.906Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true}
+          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2023-04-30T21:32:17.394Z", "updated_at": "2025-08-07T23:17:45.906Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  get_connection_connections__connection_id__get:
+    speakeasy-default-get-connection-connections-connection-id-get:
+      parameters:
+        path:
+          connection_id: "ee666f79-dcc9-4015-9e13-63993816d536"
+      responses:
+        "200":
+          application/json: {"id": "78e43ac5-5898-4648-926e-6fab72ebbe8d", "created_at": "2023-03-16T14:08:34.785Z", "updated_at": "2024-07-23T20:09:43.508Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -511,108 +619,10 @@ examples:
         application/json: {"keep_files": true}
       responses:
         "200":
-          application/json: {}
+          application/json: {"key": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
           application/json: {}
-  create_oauth_redirect_url_connections_oauth_post:
-    speakeasy-default-create-oauth-redirect-url-connections-oauth-post:
-      requestBody:
-        application/json: {"redirect_uri": "https://lumbering-sundae.net", "source_type": "<value>"}
-      responses:
-        "200":
-          application/json: {"url": "https://caring-peony.org"}
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  get_connection_connections__connection_id__get:
-    speakeasy-default-get-connection-connections-connection-id-get:
-      parameters:
-        path:
-          connection_id: "ee666f79-dcc9-4015-9e13-63993816d536"
-      responses:
-        "200":
-          application/json: "<value>"
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  GetDocumentChunks:
-    speakeasy-default-get-document-chunks:
-      parameters:
-        path:
-          document_id: "00000000-0000-0000-0000-000000000000"
-        query:
-          start_index: 3
-          end_index: 5
-        header:
-          partition: "acme_customer_id"
-      responses:
-        "200":
-          application/json: {"pagination": {}, "chunks": [{"id": "e6393c90-ff5b-42b1-bc7e-3a9e3df36039", "text": "<value>"}, {"id": "1bd873e6-6a23-427a-96ff-5447556a4fd9", "text": "<value>"}, {"id": "06c06583-a581-4d24-8f54-26da443e5ea7", "text": "<value>"}]}
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  GetDocumentChunk:
-    speakeasy-default-get-document-chunk:
-      parameters:
-        path:
-          document_id: "00000000-0000-0000-0000-000000000000"
-          chunk_id: "00000000-0000-0000-0000-000000000000"
-        header:
-          partition: "acme_customer_id"
-      responses:
-        "200":
-          application/json: {"id": "34609590-8f6d-44f1-bccc-6b72f3d01897", "text": "<value>"}
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  GetDocumentContent:
-    speakeasy-default-get-document-content:
-      parameters:
-        path:
-          document_id: "00000000-0000-0000-0000-000000000000"
-        header:
-          partition: "acme_customer_id"
-      responses:
-        "200":
-          application/json: {"id": "2387e2a9-6a78-42cc-a38d-781714107a8e", "created_at": "2023-03-31T02:08:08.673Z", "updated_at": "2023-01-16T22:14:29.610Z", "status": "<value>", "name": "<value>", "metadata": {}, "partition": "<value>", "content": "<value>"}
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  UpdateDocumentFromUrl:
-    speakeasy-default-update-document-from-url:
-      parameters:
-        path:
-          document_id: "00000000-0000-0000-0000-000000000000"
-        header:
-          partition: "acme_customer_id"
-      requestBody:
-        application/json: {"url": "https://dual-longboat.com/"}
-      responses:
-        "200":
-          application/json: {"status": "<value>"}
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
-  GetDocumentSource:
-    speakeasy-default-get-document-source:
-      parameters:
-        path:
-          document_id: "00000000-0000-0000-0000-000000000000"
-        header:
-          partition: "acme_customer_id"
-      responses:
-        "200":
-          application/octet-stream: "x-file: example.file"
-        "401":
-          application/json: {"detail": "<value>"}
-        "422":
-          application/json: {}
+examplesVersion: 1.0.0
 generatedTests: {}

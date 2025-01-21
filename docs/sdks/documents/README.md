@@ -28,6 +28,7 @@ On ingest, the document goes through a series of steps before it is ready for re
 ### Example Usage
 
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -39,6 +40,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -81,6 +83,7 @@ with Ragie(
 ) as ragie:
 
     res = ragie.documents.list(request={
+        "page_size": 10,
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
         "partition": "acme_customer_id",
     })
@@ -126,11 +129,6 @@ with Ragie(
 
     res = ragie.documents.create_raw(request={
         "data": "<value>",
-        "metadata": {
-            "key": [
-
-            ],
-        },
         "partition": "<value>",
     })
 
@@ -167,6 +165,7 @@ Ingest a document from a publicly accessible URL. On ingest, the document goes t
 ### Example Usage
 
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -175,6 +174,7 @@ with Ragie(
 
     res = ragie.documents.create_document_from_url(request={
         "url": "https://scientific-plain.biz/",
+        "mode": ragie.CreateDocumentFromURLParamsMode.FAST,
         "partition": "<value>",
     })
 
@@ -295,6 +295,7 @@ Update Document File
 ### Example Usage
 
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -306,6 +307,7 @@ with Ragie(
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
+        "mode": ragie.UpdateDocumentFileParamsMode.FAST,
     }, partition="acme_customer_id")
 
     assert res is not None
@@ -388,6 +390,7 @@ Updates a document from a publicly accessible URL. On ingest, the document goes 
 ### Example Usage
 
 ```python
+import ragie
 from ragie import Ragie
 
 with Ragie(
@@ -396,6 +399,7 @@ with Ragie(
 
     res = ragie.documents.update_document_from_url(document_id="00000000-0000-0000-0000-000000000000", update_document_from_url_params={
         "url": "https://dual-longboat.com/",
+        "mode": ragie.UpdateDocumentFromURLParamsMode.FAST,
     }, partition="acme_customer_id")
 
     assert res is not None
@@ -497,6 +501,7 @@ with Ragie(
         "document_id": "00000000-0000-0000-0000-000000000000",
         "start_index": 3,
         "end_index": 5,
+        "page_size": 10,
         "partition": "acme_customer_id",
     })
 
