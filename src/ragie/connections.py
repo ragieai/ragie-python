@@ -443,7 +443,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def set_connection_enabled(
+    def set_enabled(
         self,
         *,
         connection_id: str,
@@ -553,7 +553,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def set_connection_enabled_async(
+    async def set_enabled_async(
         self,
         *,
         connection_id: str,
@@ -663,7 +663,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def update_connection(
+    def update(
         self,
         *,
         connection_id: str,
@@ -766,7 +766,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def update_connection_async(
+    async def update_async(
         self,
         *,
         connection_id: str,
@@ -869,7 +869,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def get_connection(
+    def get(
         self,
         *,
         connection_id: str,
@@ -964,7 +964,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def get_connection_async(
+    async def get_async(
         self,
         *,
         connection_id: str,
@@ -1059,7 +1059,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def get_connection_stats(
+    def get_stats(
         self,
         *,
         connection_id: str,
@@ -1070,7 +1070,7 @@ class Connections(BaseSDK):
     ) -> Optional[models.ConnectionStats]:
         r"""Get Connection Stats
 
-        Lists connection stats: total documents synced.
+        Lists connection stats: total documents active documents, total active pages.
 
         :param connection_id:
         :param retries: Override the default retry configuration for this method
@@ -1154,7 +1154,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def get_connection_stats_async(
+    async def get_stats_async(
         self,
         *,
         connection_id: str,
@@ -1165,7 +1165,7 @@ class Connections(BaseSDK):
     ) -> Optional[models.ConnectionStats]:
         r"""Get Connection Stats
 
-        Lists connection stats: total documents synced.
+        Lists connection stats: total documents active documents, total active pages.
 
         :param connection_id:
         :param retries: Override the default retry configuration for this method
@@ -1249,7 +1249,225 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    def delete_connection(
+    def set_limits(
+        self,
+        *,
+        connection_id: str,
+        connection_limit_params: Union[
+            models.ConnectionLimitParams, models.ConnectionLimitParamsTypedDict
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.Connection]:
+        r"""Set Connection Limits
+
+        Sets limits on a connection. Limits can be set on the total number of pages a connection can sync. When the limit is reached, the connection will be disabled. Limit may be removed by setting it to `null`.
+
+        :param connection_id:
+        :param connection_limit_params:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.SetConnectionLimitsConnectionsConnectionIDLimitPutRequest(
+            connection_id=connection_id,
+            connection_limit_params=utils.get_pydantic_model(
+                connection_limit_params, models.ConnectionLimitParams
+            ),
+        )
+
+        req = self._build_request(
+            method="PUT",
+            path="/connections/{connection_id}/limit",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.connection_limit_params,
+                False,
+                False,
+                "json",
+                models.ConnectionLimitParams,
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="set_connection_limits_connections__connection_id__limit_put",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
+        if utils.match_response(http_res, "422", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
+            raise models.HTTPValidationError(data=data)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def set_limits_async(
+        self,
+        *,
+        connection_id: str,
+        connection_limit_params: Union[
+            models.ConnectionLimitParams, models.ConnectionLimitParamsTypedDict
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.Connection]:
+        r"""Set Connection Limits
+
+        Sets limits on a connection. Limits can be set on the total number of pages a connection can sync. When the limit is reached, the connection will be disabled. Limit may be removed by setting it to `null`.
+
+        :param connection_id:
+        :param connection_limit_params:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.SetConnectionLimitsConnectionsConnectionIDLimitPutRequest(
+            connection_id=connection_id,
+            connection_limit_params=utils.get_pydantic_model(
+                connection_limit_params, models.ConnectionLimitParams
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PUT",
+            path="/connections/{connection_id}/limit",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.connection_limit_params,
+                False,
+                False,
+                "json",
+                models.ConnectionLimitParams,
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="set_connection_limits_connections__connection_id__limit_put",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["401", "402", "422", "429", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, Optional[models.Connection])
+        if utils.match_response(http_res, ["401", "402", "429"], "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=data)
+        if utils.match_response(http_res, "422", "application/json"):
+            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
+            raise models.HTTPValidationError(data=data)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def delete(
         self,
         *,
         connection_id: str,
@@ -1358,7 +1576,7 @@ class Connections(BaseSDK):
             http_res,
         )
 
-    async def delete_connection_async(
+    async def delete_async(
         self,
         *,
         connection_id: str,

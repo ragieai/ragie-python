@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 8bc89fbe392e467bbf96e8408a220397
+  docChecksum: 83f8bcc7eee813d10854d3894859d858
   docVersion: 1.0.0
-  speakeasyVersion: 1.469.12
-  generationVersion: 2.493.34
-  releaseVersion: 1.4.4
-  configChecksum: aba09da7e9a6020aef5a9f5cf3f307a1
+  speakeasyVersion: 1.476.2
+  generationVersion: 2.495.1
+  releaseVersion: 1.4.5
+  configChecksum: b2418522eef8ef457241430392460a49
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.10.4
+    core: 5.10.5
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -46,6 +46,7 @@ generatedFiles:
   - docs/models/connection.md
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
+  - docs/models/connectionlimitparams.md
   - docs/models/connectionlist.md
   - docs/models/connectionmetadata.md
   - docs/models/connectionstats.md
@@ -121,6 +122,7 @@ generatedFiles:
   - docs/models/security.md
   - docs/models/setconnectionenabledconnectionsconnectionidenabledputrequest.md
   - docs/models/setconnectionenabledpayload.md
+  - docs/models/setconnectionlimitsconnectionsconnectionidlimitputrequest.md
   - docs/models/theme.md
   - docs/models/two.md
   - docs/models/updateconnectionconnectionsconnectionidputrequest.md
@@ -162,6 +164,7 @@ generatedFiles:
   - src/ragie/models/__init__.py
   - src/ragie/models/connection.py
   - src/ragie/models/connectionbase.py
+  - src/ragie/models/connectionlimitparams.py
   - src/ragie/models/connectionlist.py
   - src/ragie/models/connectionstats.py
   - src/ragie/models/connectorsource.py
@@ -212,6 +215,7 @@ generatedFiles:
   - src/ragie/models/sdkerror.py
   - src/ragie/models/security.py
   - src/ragie/models/set_connection_enabled_connections_connection_id_enabled_putop.py
+  - src/ragie/models/set_connection_limits_connections_connection_id_limit_putop.py
   - src/ragie/models/setconnectionenabledpayload.py
   - src/ragie/models/update_connection_connections_connection_id_putop.py
   - src/ragie/models/updatedocumentfileop.py
@@ -475,7 +479,7 @@ examples:
     speakeasy-default-list-instructions:
       responses:
         "200":
-          application/json: [{"id": "07948203-9687-472b-addd-d152fe0e4b0c", "created_at": "2024-07-15T13:45:54.250Z", "updated_at": "2024-06-26T05:32:29.020Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}, {"id": "95ebdeac-9b6a-4cc2-bae1-f9c459df591a", "created_at": "2024-10-05T19:25:40.120Z", "updated_at": "2025-11-27T23:51:15.773Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>"}, "partition": "<value>"}]
+          application/json: [{"id": "07948203-9687-472b-addd-d152fe0e4b0c", "created_at": "2024-07-15T13:45:54.250Z", "updated_at": "2024-06-26T05:32:29.020Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}, {"id": "95ebdeac-9b6a-4cc2-bae1-f9c459df591a", "created_at": "2024-10-05T19:25:40.120Z", "updated_at": "2025-11-27T23:51:15.773Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>"}, "partition": "<value>"}]
         "401":
           application/json: {"detail": "<value>"}
   CreateInstruction:
@@ -498,7 +502,7 @@ examples:
         application/json: {"active": true}
       responses:
         "200":
-          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2024-01-22T23:04:46.512Z", "updated_at": "2024-05-29T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "chunk", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}
+          application/json: {"id": "300da585-97bb-4310-a83d-8181b96e85ab", "created_at": "2024-01-22T23:04:46.512Z", "updated_at": "2024-05-29T20:38:04.429Z", "name": "Find all pizzas", "active": true, "scope": "document", "prompt": "Find all pizzas described in the text.", "entity_schema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "partition": "<value>"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -542,7 +546,7 @@ examples:
           page_size: 10
       responses:
         "200":
-          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}, {"id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created_at": "2025-05-06T10:10:32.094Z", "updated_at": "2024-08-19T22:29:27.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}]}
+          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>", "disabled_by_system": false}, {"id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created_at": "2025-05-06T10:10:32.094Z", "updated_at": "2024-08-19T22:29:27.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>", "disabled_by_system": false}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>", "disabled_by_system": false}]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -567,7 +571,7 @@ examples:
         application/json: {"enabled": true}
       responses:
         "200":
-          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2025-10-14T19:56:20.471Z", "updated_at": "2023-04-26T16:53:39.637Z", "metadata": {"key": 43810, "key1": true, "key2": false}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}
+          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2025-10-14T19:56:20.471Z", "updated_at": "2023-04-26T16:53:39.637Z", "metadata": {"key": 43810, "key1": true, "key2": true}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>", "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -581,7 +585,7 @@ examples:
         application/json: {"partition_strategy": "fast"}
       responses:
         "200":
-          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2023-04-30T21:32:17.394Z", "updated_at": "2025-08-07T23:17:45.906Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>"}
+          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2023-04-30T21:32:17.394Z", "updated_at": "2025-08-07T23:17:45.906Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "enabled": false, "partition": "<value>", "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -593,7 +597,7 @@ examples:
           connection_id: "ee666f79-dcc9-4015-9e13-63993816d536"
       responses:
         "200":
-          application/json: {"id": "78e43ac5-5898-4648-926e-6fab72ebbe8d", "created_at": "2023-03-16T14:08:34.785Z", "updated_at": "2024-07-23T20:09:43.508Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>"}
+          application/json: {"id": "78e43ac5-5898-4648-926e-6fab72ebbe8d", "created_at": "2023-03-16T14:08:34.785Z", "updated_at": "2024-07-23T20:09:43.508Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>", "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -605,7 +609,7 @@ examples:
           connection_id: "1f4a1403-1d6d-4b6c-b869-7469eff2dd5e"
       responses:
         "200":
-          application/json: {"document_count": 687553}
+          application/json: {"document_count": 687553, "page_count": 934780}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -619,7 +623,21 @@ examples:
         application/json: {"keep_files": true}
       responses:
         "200":
-          application/json: {"key": "<value>"}
+          application/json: {"key": "<value>", "key1": "<value>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {}
+  set_connection_limits_connections__connection_id__limit_put:
+    speakeasy-default-set-connection-limits-connections-connection-id-limit-put:
+      parameters:
+        path:
+          connection_id: "dfde4e02-1322-4e1c-8bdc-47313184eebe"
+      requestBody:
+        application/json: {"page_limit": 1000}
+      responses:
+        "200":
+          application/json: {"id": "46973cfa-f674-422d-bdc5-0c22d63d4490", "created_at": "2025-07-01T15:25:15.852Z", "updated_at": "2023-02-14T11:43:08.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "enabled": true, "partition": "<value>", "disabled_by_system": true}
         "401":
           application/json: {"detail": "<value>"}
         "422":

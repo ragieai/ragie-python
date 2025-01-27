@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from enum import Enum
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Dict, List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
@@ -26,6 +27,8 @@ class ConnectionBaseTypedDict(TypedDict):
     partition_strategy: PartitionStrategy
     metadata: NotRequired[Dict[str, ConnectionBaseMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    page_limit: NotRequired[Nullable[int]]
+    r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in process documents may continue processing. Remove the limit by setting to `null`."""
 
 
 class ConnectionBase(BaseModel):
@@ -33,3 +36,36 @@ class ConnectionBase(BaseModel):
 
     metadata: Optional[Dict[str, ConnectionBaseMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+
+    page_limit: OptionalNullable[int] = UNSET
+    r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in process documents may continue processing. Remove the limit by setting to `null`."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["metadata", "page_limit"]
+        nullable_fields = ["page_limit"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

@@ -39,6 +39,8 @@ class OAuthURLCreateTypedDict(TypedDict):
     partition: NotRequired[Nullable[str]]
     theme: NotRequired[Nullable[Theme]]
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
+    page_limit: NotRequired[Nullable[int]]
+    r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
 
 
 class OAuthURLCreate(BaseModel):
@@ -56,10 +58,20 @@ class OAuthURLCreate(BaseModel):
     theme: OptionalNullable[Theme] = UNSET
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
 
+    page_limit: OptionalNullable[int] = UNSET
+    r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["source_type", "metadata", "mode", "partition", "theme"]
-        nullable_fields = ["mode", "partition", "theme"]
+        optional_fields = [
+            "source_type",
+            "metadata",
+            "mode",
+            "partition",
+            "theme",
+            "page_limit",
+        ]
+        nullable_fields = ["mode", "partition", "theme", "page_limit"]
         null_default_fields = []
 
         serialized = handler(self)
