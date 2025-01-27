@@ -6,6 +6,7 @@
 | Name           | Value          |
 | -------------- | -------------- |
 | `CONFLUENCE`   | confluence     |
+| `FRESHDESK`    | freshdesk      |
 | `DROPBOX`      | dropbox        |
 | `ONEDRIVE`     | onedrive       |
 | `GOOGLE_DRIVE` | google_drive   |

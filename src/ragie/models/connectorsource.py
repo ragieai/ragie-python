@@ -6,6 +6,7 @@ from enum import Enum
 
 class ConnectorSource(str, Enum):
     CONFLUENCE = "confluence"
+    FRESHDESK = "freshdesk"
     DROPBOX = "dropbox"
     ONEDRIVE = "onedrive"
     GOOGLE_DRIVE = "google_drive"

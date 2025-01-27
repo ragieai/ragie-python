@@ -13,6 +13,7 @@ from .connectionbase import (
     ConnectionBaseTypedDict,
     PartitionStrategy,
 )
+from .connectionlimitparams import ConnectionLimitParams, ConnectionLimitParamsTypedDict
 from .connectionlist import ConnectionList, ConnectionListTypedDict
 from .connectionstats import ConnectionStats, ConnectionStatsTypedDict
 from .connectorsource import ConnectorSource
@@ -181,6 +182,10 @@ from .set_connection_enabled_connections_connection_id_enabled_putop import (
     SetConnectionEnabledConnectionsConnectionIDEnabledPutRequest,
     SetConnectionEnabledConnectionsConnectionIDEnabledPutRequestTypedDict,
 )
+from .set_connection_limits_connections_connection_id_limit_putop import (
+    SetConnectionLimitsConnectionsConnectionIDLimitPutRequest,
+    SetConnectionLimitsConnectionsConnectionIDLimitPutRequestTypedDict,
+)
 from .setconnectionenabledpayload import (
     SetConnectionEnabledPayload,
     SetConnectionEnabledPayloadTypedDict,
@@ -243,6 +248,8 @@ __all__ = [
     "ConnectionBaseMetadata",
     "ConnectionBaseMetadataTypedDict",
     "ConnectionBaseTypedDict",
+    "ConnectionLimitParams",
+    "ConnectionLimitParamsTypedDict",
     "ConnectionList",
     "ConnectionListTypedDict",
     "ConnectionMetadata",
@@ -388,6 +395,8 @@ __all__ = [
     "SetConnectionEnabledConnectionsConnectionIDEnabledPutRequestTypedDict",
     "SetConnectionEnabledPayload",
     "SetConnectionEnabledPayloadTypedDict",
+    "SetConnectionLimitsConnectionsConnectionIDLimitPutRequest",
+    "SetConnectionLimitsConnectionsConnectionIDLimitPutRequestTypedDict",
     "Theme",
     "Two",
     "TwoTypedDict",

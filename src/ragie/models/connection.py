@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 from datetime import datetime
+import pydantic
 from pydantic import model_serializer
+from pydantic.functional_validators import AfterValidator
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing import Dict, List, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from ragie.utils import validate_const
+from typing import Dict, List, Literal, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 ConnectionMetadataTypedDict = TypeAliasType(
@@ -27,6 +30,8 @@ class ConnectionTypedDict(TypedDict):
     name: str
     enabled: bool
     partition: str
+    disabled_by_system: bool
+    disabled_by_system_reason: Nullable[Literal["connection_over_total_page_limit"]]
     last_synced_at: NotRequired[Nullable[datetime]]
     syncing: NotRequired[Nullable[bool]]
 
@@ -48,6 +53,16 @@ class Connection(BaseModel):
 
     partition: str
 
+    disabled_by_system: bool
+
+    DISABLED_BY_SYSTEM_REASON: Annotated[
+        Annotated[
+            Nullable[Literal["connection_over_total_page_limit"]],
+            AfterValidator(validate_const("connection_over_total_page_limit")),
+        ],
+        pydantic.Field(alias="disabled_by_system_reason"),
+    ] = "connection_over_total_page_limit"
+
     last_synced_at: OptionalNullable[datetime] = UNSET
 
     syncing: OptionalNullable[bool] = UNSET
@@ -55,7 +70,7 @@ class Connection(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["last_synced_at", "syncing"]
-        nullable_fields = ["last_synced_at", "syncing"]
+        nullable_fields = ["disabled_by_system_reason", "last_synced_at", "syncing"]
         null_default_fields = []
 
         serialized = handler(self)

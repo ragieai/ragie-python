@@ -7,7 +7,10 @@ from typing_extensions import TypedDict
 
 class ConnectionStatsTypedDict(TypedDict):
     document_count: int
+    page_count: int
 
 
 class ConnectionStats(BaseModel):
     document_count: int
+
+    page_count: int
