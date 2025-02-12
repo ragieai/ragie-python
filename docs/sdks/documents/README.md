@@ -28,19 +28,17 @@ On ingest, the document goes through a series of steps before it is ready for re
 ### Example Usage
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -65,8 +63,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list
@@ -80,10 +78,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.list(request={
-        "page_size": 10,
+    res = r_client.documents.list(request={
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
         "partition": "acme_customer_id",
     })
@@ -110,8 +107,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## create_raw
@@ -125,9 +122,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create_raw(request={
+    res = r_client.documents.create_raw(request={
         "data": "<value>",
         "partition": "<value>",
     })
@@ -154,8 +151,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## create_document_from_url
@@ -165,16 +162,14 @@ Ingest a document from a publicly accessible URL. On ingest, the document goes t
 ### Example Usage
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create_document_from_url(request={
+    res = r_client.documents.create_document_from_url(request={
         "url": "https://scientific-plain.biz/",
-        "mode": ragie.CreateDocumentFromURLParamsMode.FAST,
         "partition": "<value>",
     })
 
@@ -200,8 +195,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get
@@ -215,9 +210,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.get(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -242,8 +237,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## delete
@@ -257,9 +252,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.delete(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.delete(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -284,8 +279,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_file
@@ -295,19 +290,17 @@ Update Document File
 ### Example Usage
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.update_file(document_id="00000000-0000-0000-0000-000000000000", update_document_file_params={
+    res = r_client.documents.update_file(document_id="00000000-0000-0000-0000-000000000000", update_document_file_params={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.UpdateDocumentFileParamsMode.FAST,
     }, partition="acme_customer_id")
 
     assert res is not None
@@ -334,8 +327,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_raw
@@ -349,9 +342,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.update_raw(document_id="00000000-0000-0000-0000-000000000000", update_document_raw_params={
+    res = r_client.documents.update_raw(document_id="00000000-0000-0000-0000-000000000000", update_document_raw_params={
         "data": {},
     }, partition="acme_customer_id")
 
@@ -379,8 +372,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_document_from_url
@@ -390,16 +383,14 @@ Updates a document from a publicly accessible URL. On ingest, the document goes 
 ### Example Usage
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.update_document_from_url(document_id="00000000-0000-0000-0000-000000000000", update_document_from_url_params={
+    res = r_client.documents.update_document_from_url(document_id="00000000-0000-0000-0000-000000000000", update_document_from_url_params={
         "url": "https://dual-longboat.com/",
-        "mode": ragie.UpdateDocumentFromURLParamsMode.FAST,
     }, partition="acme_customer_id")
 
     assert res is not None
@@ -426,8 +417,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## patch_metadata
@@ -441,9 +432,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.patch_metadata(document_id="00000000-0000-0000-0000-000000000000", patch_document_metadata_params={
+    res = r_client.documents.patch_metadata(document_id="00000000-0000-0000-0000-000000000000", patch_document_metadata_params={
         "metadata": {
             "classified": "null (setting null deletes key from metadata)",
             "editors": [
@@ -480,8 +471,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_chunks
@@ -495,13 +486,12 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get_chunks(request={
+    res = r_client.documents.get_chunks(request={
         "document_id": "00000000-0000-0000-0000-000000000000",
         "start_index": 3,
         "end_index": 5,
-        "page_size": 10,
         "partition": "acme_customer_id",
     })
 
@@ -527,8 +517,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_chunk
@@ -542,9 +532,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get_chunk(document_id="00000000-0000-0000-0000-000000000000", chunk_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.get_chunk(document_id="00000000-0000-0000-0000-000000000000", chunk_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -570,8 +560,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_content
@@ -585,9 +575,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get_content(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.get_content(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -612,8 +602,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_source
@@ -627,9 +617,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get_source(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.get_source(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -654,8 +644,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_summary
@@ -669,9 +659,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.get_summary(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
+    res = r_client.documents.get_summary(document_id="00000000-0000-0000-0000-000000000000", partition="acme_customer_id")
 
     assert res is not None
 
@@ -696,6 +686,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

@@ -12,11 +12,12 @@ generation:
     nameResolutionDec2023: true
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
 python:
-  version: 1.4.5
+  version: 1.5.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -45,5 +46,6 @@ python:
   methodArguments: infer-optional-args
   outputModelSuffix: output
   packageName: ragie
+  pytestTimeout: 0
   responseFormat: flat
   templateVersion: v2
