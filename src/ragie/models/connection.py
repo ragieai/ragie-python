@@ -21,6 +21,12 @@ ConnectionMetadata = TypeAliasType(
 )
 
 
+SourceTypedDict = TypeAliasType("SourceTypedDict", Union[str, List[str]])
+
+
+Source = TypeAliasType("Source", Union[str, List[str]])
+
+
 class ConnectionTypedDict(TypedDict):
     id: str
     created_at: datetime
@@ -28,8 +34,10 @@ class ConnectionTypedDict(TypedDict):
     metadata: Dict[str, ConnectionMetadataTypedDict]
     type: str
     name: str
+    source: Nullable[SourceTypedDict]
     enabled: bool
     partition: str
+    page_limit: Nullable[int]
     disabled_by_system: bool
     disabled_by_system_reason: Nullable[Literal["connection_over_total_page_limit"]]
     last_synced_at: NotRequired[Nullable[datetime]]
@@ -49,9 +57,13 @@ class Connection(BaseModel):
 
     name: str
 
+    source: Nullable[Source]
+
     enabled: bool
 
     partition: str
+
+    page_limit: Nullable[int]
 
     disabled_by_system: bool
 
@@ -70,7 +82,13 @@ class Connection(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["last_synced_at", "syncing"]
-        nullable_fields = ["disabled_by_system_reason", "last_synced_at", "syncing"]
+        nullable_fields = [
+            "source",
+            "page_limit",
+            "disabled_by_system_reason",
+            "last_synced_at",
+            "syncing",
+        ]
         null_default_fields = []
 
         serialized = handler(self)

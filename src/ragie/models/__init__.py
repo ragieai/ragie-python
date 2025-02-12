@@ -5,6 +5,8 @@ from .connection import (
     ConnectionMetadata,
     ConnectionMetadataTypedDict,
     ConnectionTypedDict,
+    Source,
+    SourceTypedDict,
 )
 from .connectionbase import (
     ConnectionBase,
@@ -173,6 +175,7 @@ from .patchdocumentmetadataparams import (
     PatchDocumentMetadataParams,
     PatchDocumentMetadataParamsTypedDict,
 )
+from .responseok import ResponseOK, ResponseOKTypedDict
 from .retrieval import Retrieval, RetrievalTypedDict
 from .retrieveparams import RetrieveParams, RetrieveParamsTypedDict
 from .scoredchunk import ScoredChunk, ScoredChunkTypedDict
@@ -190,6 +193,7 @@ from .setconnectionenabledpayload import (
     SetConnectionEnabledPayload,
     SetConnectionEnabledPayloadTypedDict,
 )
+from .syncconnectionop import SyncConnectionRequest, SyncConnectionRequestTypedDict
 from .update_connection_connections_connection_id_putop import (
     UpdateConnectionConnectionsConnectionIDPutRequest,
     UpdateConnectionConnectionsConnectionIDPutRequestTypedDict,
@@ -381,6 +385,8 @@ __all__ = [
     "PatchDocumentMetadataParamsTypedDict",
     "PatchDocumentMetadataRequest",
     "PatchDocumentMetadataRequestTypedDict",
+    "ResponseOK",
+    "ResponseOKTypedDict",
     "Retrieval",
     "RetrievalTypedDict",
     "RetrieveParams",
@@ -397,6 +403,10 @@ __all__ = [
     "SetConnectionEnabledPayloadTypedDict",
     "SetConnectionLimitsConnectionsConnectionIDLimitPutRequest",
     "SetConnectionLimitsConnectionsConnectionIDLimitPutRequestTypedDict",
+    "Source",
+    "SourceTypedDict",
+    "SyncConnectionRequest",
+    "SyncConnectionRequestTypedDict",
     "Theme",
     "Two",
     "TwoTypedDict",

@@ -62,6 +62,37 @@ pip install ragie
 ```bash
 poetry add ragie
 ```
+
+### Shell and script usage with `uv`
+
+You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
+
+```shell
+uvx --from ragie python
+```
+
+It's also possible to write a standalone Python script without needing to set up a whole project like so:
+
+```python
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "ragie",
+# ]
+# ///
+
+from ragie import Ragie
+
+sdk = Ragie(
+  # SDK arguments
+)
+
+# Rest of script here...
+```
+
+Once that is saved to a file, you can run it with `uv run script.py` where
+`script.py` can be replaced with the actual file name.
 <!-- End SDK Installation [installation] -->
 
 <!-- Start IDE Support [idesupport] -->
@@ -81,19 +112,17 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 
 ```python
 # Synchronous Example
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -108,20 +137,18 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
-import ragie
 from ragie import Ragie
 
 async def main():
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as ragie:
+    ) as r_client:
 
-        res = await ragie.documents.create_async(request={
+        res = await r_client.documents.create_async(request={
             "file": {
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
-            "mode": ragie.CreateDocumentParamsMode.FAST,
         })
 
         assert res is not None
@@ -149,6 +176,7 @@ asyncio.run(main())
 * [get_stats](docs/sdks/connections/README.md#get_stats) - Get Connection Stats
 * [set_limits](docs/sdks/connections/README.md#set_limits) - Set Connection Limits
 * [delete](docs/sdks/connections/README.md#delete) - Delete Connection
+* [sync](docs/sdks/connections/README.md#sync) - Sync Connection
 
 ### [documents](docs/sdks/documents/README.md)
 
@@ -197,10 +225,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.list(request={
-        "page_size": 10,
+    res = r_client.documents.list(request={
         "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
         "partition": "acme_customer_id",
     })
@@ -224,19 +251,17 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 >
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -254,20 +279,18 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-import ragie
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
@@ -280,21 +303,19 @@ with Ragie(
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-import ragie
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
 with Ragie(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -323,28 +344,26 @@ When custom error responses are specified for an operation, the SDK may also rai
 
 | Error Type                 | Status Code        | Content Type     |
 | -------------------------- | ------------------ | ---------------- |
-| models.ErrorMessage        | 400, 401, 402, 429 | application/json |
 | models.HTTPValidationError | 422                | application/json |
+| models.ErrorMessage        | 400, 401, 402, 429 | application/json |
 | models.SDKError            | 4XX, 5XX           | \*/\*            |
 
 ### Example
 
 ```python
-import ragie
 from ragie import Ragie, models
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
     res = None
     try:
 
-        res = ragie.documents.create(request={
+        res = r_client.documents.create(request={
             "file": {
                 "file_name": "example.file",
                 "content": open("example.file", "rb"),
             },
-            "mode": ragie.CreateDocumentParamsMode.FAST,
         })
 
         assert res is not None
@@ -352,11 +371,11 @@ with Ragie(
         # Handle response
         print(res)
 
-    except models.ErrorMessage as e:
-        # handle e.data: models.ErrorMessageData
-        raise(e)
     except models.HTTPValidationError as e:
         # handle e.data: models.HTTPValidationErrorData
+        raise(e)
+    except models.ErrorMessage as e:
+        # handle e.data: models.ErrorMessageData
         raise(e)
     except models.SDKError as e:
         # handle exception
@@ -371,20 +390,18 @@ with Ragie(
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     server_url="https://api.ragie.ai",
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -489,19 +506,17 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `auth` parameter must be set when initializing the SDK client instance. For example:
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.documents.create(request={
+    res = r_client.documents.create(request={
         "file": {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
-        "mode": ragie.CreateDocumentParamsMode.FAST,
     })
 
     assert res is not None
@@ -524,7 +539,7 @@ from ragie import Ragie
 def main():
     with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as ragie:
+    ) as r_client:
         # Rest of application here...
 
 
@@ -532,7 +547,7 @@ def main():
 async def amain():
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as ragie:
+    ) as r_client:
         # Rest of application here...
 ```
 <!-- End Resource Management [resource-management] -->

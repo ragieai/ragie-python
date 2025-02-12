@@ -8,7 +8,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UpdateDocumentFromURLParamsMode(str, Enum):
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
 
     HI_RES = "hi_res"
     FAST = "fast"
@@ -18,7 +18,7 @@ class UpdateDocumentFromURLParamsTypedDict(TypedDict):
     url: str
     r"""Url of the file to download. Must be publicly accessible and HTTP or HTTPS scheme."""
     mode: NotRequired[UpdateDocumentFromURLParamsMode]
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
 
 
 class UpdateDocumentFromURLParams(BaseModel):
@@ -28,4 +28,4 @@ class UpdateDocumentFromURLParams(BaseModel):
     mode: Optional[UpdateDocumentFromURLParamsMode] = (
         UpdateDocumentFromURLParamsMode.FAST
     )
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. Only applicable for rich documents such as word documents and PDFs. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`."""
+    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""

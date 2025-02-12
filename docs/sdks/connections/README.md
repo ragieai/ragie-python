@@ -13,6 +13,7 @@
 * [get_stats](#get_stats) - Get Connection Stats
 * [set_limits](#set_limits) - Set Connection Limits
 * [delete](#delete) - Delete Connection
+* [sync](#sync) - Sync Connection
 
 ## list
 
@@ -25,9 +26,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.list(page_size=10)
+    res = r_client.connections.list(filter_="{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}")
 
     while res is not None:
         # Handle items
@@ -38,11 +39,12 @@ with Ragie(
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `cursor`                                                                            | *OptionalNullable[str]*                                                             | :heavy_minus_sign:                                                                  | An opaque cursor for pagination                                                     |
-| `page_size`                                                                         | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | The number of items per page (must be greater than 0 and less than or equal to 100) |
-| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `cursor`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | *OptionalNullable[str]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | An opaque cursor for pagination                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `page_size`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | *Optional[int]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | The number of items per page (must be greater than 0 and less than or equal to 100)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `filter_`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *OptionalNullable[str]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | The metadata search filter. Returns only items which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples. | {<br/>"department": {<br/>"$in": [<br/>"sales",<br/>"marketing"<br/>]<br/>}<br/>}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `retries`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 ### Response
 
@@ -52,8 +54,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## create_o_auth_redirect_url
@@ -67,10 +69,11 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.create_o_auth_redirect_url(request={
+    res = r_client.connections.create_o_auth_redirect_url(request={
         "redirect_uri": "https://fatherly-soup.com",
+        "page_limit": 1000,
     })
 
     assert res is not None
@@ -95,8 +98,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## set_enabled
@@ -110,9 +113,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.set_enabled(connection_id="bf0424b5-8be9-4a67-a8ca-6ab0e9e89780", set_connection_enabled_payload={
+    res = r_client.connections.set_enabled(connection_id="bf0424b5-8be9-4a67-a8ca-6ab0e9e89780", set_connection_enabled_payload={
         "enabled": True,
     })
 
@@ -139,8 +142,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update
@@ -155,10 +158,11 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.update(connection_id="60a91616-1376-4585-82c8-85b663abc0c8", connection_base={
+    res = r_client.connections.update(connection_id="60a91616-1376-4585-82c8-85b663abc0c8", connection_base={
         "partition_strategy": ragie.PartitionStrategy.FAST,
+        "page_limit": 1000,
     })
 
     assert res is not None
@@ -184,8 +188,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get
@@ -199,9 +203,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.get(connection_id="ee666f79-dcc9-4015-9e13-63993816d536")
+    res = r_client.connections.get(connection_id="ee666f79-dcc9-4015-9e13-63993816d536")
 
     assert res is not None
 
@@ -225,8 +229,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_stats
@@ -240,9 +244,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.get_stats(connection_id="1f4a1403-1d6d-4b6c-b869-7469eff2dd5e")
+    res = r_client.connections.get_stats(connection_id="1f4a1403-1d6d-4b6c-b869-7469eff2dd5e")
 
     assert res is not None
 
@@ -266,8 +270,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## set_limits
@@ -281,9 +285,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.set_limits(connection_id="dfde4e02-1322-4e1c-8bdc-47313184eebe", connection_limit_params={
+    res = r_client.connections.set_limits(connection_id="dfde4e02-1322-4e1c-8bdc-47313184eebe", connection_limit_params={
         "page_limit": 1000,
     })
 
@@ -310,8 +314,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## delete
@@ -325,9 +329,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.connections.delete(connection_id="5922bdb9-d99a-4e03-8cb8-05fcacce856d", delete_connection_payload={
+    res = r_client.connections.delete(connection_id="5922bdb9-d99a-4e03-8cb8-05fcacce856d", delete_connection_payload={
         "keep_files": True,
     })
 
@@ -354,6 +358,47 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## sync
+
+Schedules a connector to sync as soon as possible.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.connections.sync(connection_id="f0897be3-0808-45c9-a63b-509c0142ddd3")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `connection_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ResponseOK](../../models/responseok.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

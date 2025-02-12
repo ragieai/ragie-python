@@ -22,9 +22,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.entities.list_instructions()
+    res = r_client.entities.list_instructions()
 
     assert res is not None
 
@@ -57,21 +57,18 @@ Create a new instruction. Instructions are applied to documents as they are crea
 ### Example Usage
 
 ```python
-import ragie
 from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.entities.create_instruction(request={
+    res = r_client.entities.create_instruction(request={
         "name": "Find all pizzas",
         "prompt": "Find all pizzas described in the text.",
         "entity_schema": {
             "key": "<value>",
         },
-        "active": True,
-        "scope": ragie.CreateInstructionParamsScope.CHUNK,
         "partition": "<value>",
     })
 
@@ -97,8 +94,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## update_instruction
@@ -112,9 +109,9 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.entities.update_instruction(instruction_id="00000000-0000-0000-0000-000000000000", update_instruction_params={
+    res = r_client.entities.update_instruction(instruction_id="00000000-0000-0000-0000-000000000000", update_instruction_params={
         "active": True,
     })
 
@@ -141,8 +138,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list_by_instruction
@@ -156,11 +153,10 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.entities.list_by_instruction(request={
+    res = r_client.entities.list_by_instruction(request={
         "instruction_id": "00000000-0000-0000-0000-000000000000",
-        "page_size": 10,
         "partition": "acme_customer_id",
     })
 
@@ -186,8 +182,8 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list_by_document
@@ -201,11 +197,10 @@ from ragie import Ragie
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
-) as ragie:
+) as r_client:
 
-    res = ragie.entities.list_by_document(request={
+    res = r_client.entities.list_by_document(request={
         "document_id": "00000000-0000-0000-0000-000000000000",
-        "page_size": 10,
         "partition": "acme_customer_id",
     })
 
@@ -231,6 +226,6 @@ with Ragie(
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |

@@ -72,6 +72,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -81,17 +82,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -174,6 +177,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -183,17 +187,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -273,6 +279,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="ListDocuments",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -300,7 +307,7 @@ class Documents(BaseSDK):
                 retries=retries,
             )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return models.ListDocumentsResponse(
                 result=utils.unmarshal_json(
@@ -308,14 +315,16 @@ class Documents(BaseSDK):
                 ),
                 next=next_func,
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -395,6 +404,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="ListDocuments",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -422,7 +432,7 @@ class Documents(BaseSDK):
                 retries=retries,
             )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return models.ListDocumentsResponse(
                 result=utils.unmarshal_json(
@@ -430,14 +440,16 @@ class Documents(BaseSDK):
                 ),
                 next=next_func,
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -520,6 +532,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocumentRaw",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -529,17 +542,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -622,6 +637,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocumentRaw",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -631,17 +647,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -725,6 +743,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocumentFromUrl",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -734,17 +753,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -828,6 +849,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreateDocumentFromUrl",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -837,17 +859,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.Document])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["400", "401", "402", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -926,6 +950,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -935,17 +960,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentGet])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -1024,6 +1051,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1033,17 +1061,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentGet])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -1122,6 +1152,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeleteDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1131,17 +1162,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentDelete])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -1220,6 +1253,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeleteDocument",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1229,17 +1263,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentDelete])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -1332,6 +1368,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentFile",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1341,19 +1378,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentFileUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -1446,6 +1485,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentFile",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1455,19 +1495,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentFileUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -1560,6 +1602,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentRaw",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1569,19 +1612,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentRawUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -1674,6 +1719,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentRaw",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1683,19 +1729,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentRawUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -1791,6 +1839,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentFromUrl",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1800,19 +1849,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentURLUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -1908,6 +1959,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdateDocumentFromUrl",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1917,19 +1969,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentURLUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -2023,6 +2077,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="PatchDocumentMetadata",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2032,19 +2087,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentMetadataUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -2138,6 +2195,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="PatchDocumentMetadata",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2147,19 +2205,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentMetadataUpdate]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -2239,6 +2299,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentChunks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2248,19 +2309,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentChunkList]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -2340,6 +2403,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentChunks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2349,19 +2413,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentChunkList]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -2445,6 +2511,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentChunk",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2454,17 +2521,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentChunk])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -2548,6 +2617,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentChunk",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2557,17 +2627,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentChunk])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -2648,6 +2720,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentContent",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2657,19 +2730,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentWithContent]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -2750,6 +2825,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentContent",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2759,19 +2835,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DocumentWithContent]
             )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -2852,6 +2930,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentSource",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2862,19 +2941,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/octet-stream"):
             return http_res
+        if utils.match_response(http_res, "422", "application/json"):
+            http_res_text = utils.stream_to_text(http_res)
+            response_data = utils.unmarshal_json(
+                http_res_text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
             http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(http_res_text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(http_res_text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res_text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -2955,6 +3036,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentSource",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2965,19 +3047,21 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/octet-stream"):
             return http_res
+        if utils.match_response(http_res, "422", "application/json"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            response_data = utils.unmarshal_json(
+                http_res_text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
             http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(http_res_text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(http_res_text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res_text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(
@@ -3058,6 +3142,7 @@ class Documents(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentSummary",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3067,17 +3152,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentSummary])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.SDKError(
@@ -3158,6 +3245,7 @@ class Documents(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetDocumentSummary",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3167,17 +3255,19 @@ class Documents(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, Optional[models.DocumentSummary])
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.HTTPValidationErrorData
+            )
+            raise models.HTTPValidationError(data=response_data)
         if utils.match_response(
             http_res, ["401", "402", "404", "429"], "application/json"
         ):
-            data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
-            raise models.ErrorMessage(data=data)
-        if utils.match_response(http_res, "422", "application/json"):
-            data = utils.unmarshal_json(http_res.text, models.HTTPValidationErrorData)
-            raise models.HTTPValidationError(data=data)
+            response_data = utils.unmarshal_json(http_res.text, models.ErrorMessageData)
+            raise models.ErrorMessage(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.SDKError(

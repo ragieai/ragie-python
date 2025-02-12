@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .connectionlist import ConnectionList, ConnectionListTypedDict
+import pydantic
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from ragie.utils import FieldMetadata, QueryParamMetadata
@@ -14,6 +15,8 @@ class ListConnectionsConnectionsGetRequestTypedDict(TypedDict):
     r"""An opaque cursor for pagination"""
     page_size: NotRequired[int]
     r"""The number of items per page (must be greater than 0 and less than or equal to 100)"""
+    filter_: NotRequired[Nullable[str]]
+    r"""The metadata search filter. Returns only items which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
 
 
 class ListConnectionsConnectionsGetRequest(BaseModel):
@@ -29,10 +32,17 @@ class ListConnectionsConnectionsGetRequest(BaseModel):
     ] = 10
     r"""The number of items per page (must be greater than 0 and less than or equal to 100)"""
 
+    filter_: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="filter"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""The metadata search filter. Returns only items which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["cursor", "page_size"]
-        nullable_fields = ["cursor"]
+        optional_fields = ["cursor", "page_size", "filter"]
+        nullable_fields = ["cursor", "filter"]
         null_default_fields = []
 
         serialized = handler(self)

@@ -29,6 +29,7 @@ class DocumentGetTypedDict(TypedDict):
     errors: List[str]
     chunk_count: NotRequired[Nullable[int]]
     external_id: NotRequired[Nullable[str]]
+    page_count: NotRequired[Nullable[float]]
 
 
 class DocumentGet(BaseModel):
@@ -52,10 +53,12 @@ class DocumentGet(BaseModel):
 
     external_id: OptionalNullable[str] = UNSET
 
+    page_count: OptionalNullable[float] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["chunk_count", "external_id"]
-        nullable_fields = ["chunk_count", "external_id"]
+        optional_fields = ["chunk_count", "external_id", "page_count"]
+        nullable_fields = ["chunk_count", "external_id", "page_count"]
         null_default_fields = []
 
         serialized = handler(self)
