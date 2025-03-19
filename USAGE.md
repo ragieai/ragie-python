@@ -3,6 +3,7 @@
 # Synchronous Example
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -29,6 +30,7 @@ import asyncio
 from ragie import Ragie
 
 async def main():
+
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     ) as r_client:

@@ -24,6 +24,7 @@ List all connections sorted by created_at in descending order. Results are pagin
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -66,6 +67,7 @@ Creates a redirect url to redirect the user to when initializing an embedded con
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -110,6 +112,7 @@ Enable or disable the connection. A disabled connection won't sync.
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -156,6 +159,7 @@ Updates a connections metadata or mode. These changes will be seen after the nex
 import ragie
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -201,6 +205,7 @@ Get a connection.
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -242,6 +247,7 @@ Lists connection stats: total documents active documents, total active pages.
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -282,6 +288,7 @@ Sets limits on a connection. Limits can be set on the total number of pages a co
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -327,6 +334,7 @@ Schedules a connection to be deleted. You can choose to keep the files from the 
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -370,6 +378,7 @@ Schedules a connector to sync as soon as possible.
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",

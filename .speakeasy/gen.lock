@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 15fe73349abd76ac6b3e03d5c6695796
+  docChecksum: a481bbe28d4f7cffb4b3fdea8e3ca32a
   docVersion: 1.0.0
-  speakeasyVersion: 1.490.0
-  generationVersion: 2.512.0
-  releaseVersion: 1.5.0
-  configChecksum: 747c90682d15234cb090151de8acbaac
+  speakeasyVersion: 1.520.1
+  generationVersion: 2.556.1
+  releaseVersion: 1.6.0
+  configChecksum: a1898c3385f21be96b28f73dd5fbba15
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.11.0
+    core: 5.12.4
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -28,11 +28,11 @@ features:
     methodArguments: 1.0.2
     multipartFileContentType: 1.0.0
     nameOverrides: 3.0.1
-    nullables: 1.0.0
-    pagination: 3.0.3
+    nullables: 1.0.1
+    pagination: 3.0.4
     responseFormat: 1.0.1
     retries: 3.0.2
-    sdkHooks: 1.0.0
+    sdkHooks: 1.0.1
     unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
@@ -61,11 +61,14 @@ generatedFiles:
   - docs/models/createinstructionparams.md
   - docs/models/createinstructionparamsfilter.md
   - docs/models/createinstructionparamsscope.md
+  - docs/models/createpartitionparams.md
   - docs/models/data.md
   - docs/models/data2.md
   - docs/models/deleteconnectionconnectionsconnectioniddeletepostrequest.md
   - docs/models/deleteconnectionpayload.md
   - docs/models/deletedocumentrequest.md
+  - docs/models/deletepartitionpartitionspartitioniddeleterequest.md
+  - docs/models/disabledbysystemreason.md
   - docs/models/document.md
   - docs/models/documentchunk.md
   - docs/models/documentchunklist.md
@@ -95,6 +98,7 @@ generatedFiles:
   - docs/models/getdocumentrequest.md
   - docs/models/getdocumentsourcerequest.md
   - docs/models/getdocumentsummaryrequest.md
+  - docs/models/getpartitionpartitionspartitionidgetrequest.md
   - docs/models/httpvalidationerror.md
   - docs/models/instruction.md
   - docs/models/listconnectionsconnectionsgetrequest.md
@@ -105,6 +109,8 @@ generatedFiles:
   - docs/models/listentitiesbydocumentresponse.md
   - docs/models/listentitiesbyinstructionrequest.md
   - docs/models/listentitiesbyinstructionresponse.md
+  - docs/models/listpartitionspartitionsgetrequest.md
+  - docs/models/listpartitionspartitionsgetresponse.md
   - docs/models/loc.md
   - docs/models/metadata.md
   - docs/models/mode.md
@@ -112,9 +118,16 @@ generatedFiles:
   - docs/models/oauthurlcreatemetadata.md
   - docs/models/oauthurlresponse.md
   - docs/models/pagination.md
+  - docs/models/partition.md
+  - docs/models/partitiondetail.md
+  - docs/models/partitionlimitparams.md
+  - docs/models/partitionlimits.md
+  - docs/models/partitionlist.md
+  - docs/models/partitionstats.md
   - docs/models/partitionstrategy.md
   - docs/models/patchdocumentmetadataparams.md
   - docs/models/patchdocumentmetadatarequest.md
+  - docs/models/reason.md
   - docs/models/responseok.md
   - docs/models/retrieval.md
   - docs/models/retrieveparams.md
@@ -124,6 +137,7 @@ generatedFiles:
   - docs/models/setconnectionenabledconnectionsconnectionidenabledputrequest.md
   - docs/models/setconnectionenabledpayload.md
   - docs/models/setconnectionlimitsconnectionsconnectionidlimitputrequest.md
+  - docs/models/setpartitionlimitspartitionspartitionidlimitsputrequest.md
   - docs/models/source.md
   - docs/models/syncconnectionrequest.md
   - docs/models/theme.md
@@ -146,13 +160,14 @@ generatedFiles:
   - docs/sdks/connections/README.md
   - docs/sdks/documents/README.md
   - docs/sdks/entities/README.md
+  - docs/sdks/partitions/README.md
   - docs/sdks/ragie/README.md
   - docs/sdks/retrievals/README.md
   - poetry.toml
   - py.typed
   - pylintrc
   - pyproject.toml
-  - scripts/prepare-readme.py
+  - scripts/prepare_readme.py
   - scripts/publish.sh
   - src/ragie/__init__.py
   - src/ragie/_hooks/__init__.py
@@ -175,7 +190,9 @@ generatedFiles:
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
   - src/ragie/models/createinstructionparams.py
+  - src/ragie/models/createpartitionparams.py
   - src/ragie/models/delete_connection_connections_connection_id_delete_postop.py
+  - src/ragie/models/delete_partition_partitions_partition_id_deleteop.py
   - src/ragie/models/deleteconnectionpayload.py
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/document.py
@@ -195,6 +212,7 @@ generatedFiles:
   - src/ragie/models/errormessage.py
   - src/ragie/models/get_connection_connections_connection_id_getop.py
   - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
+  - src/ragie/models/get_partition_partitions_partition_id_getop.py
   - src/ragie/models/getdocumentchunkop.py
   - src/ragie/models/getdocumentchunksop.py
   - src/ragie/models/getdocumentcontentop.py
@@ -204,12 +222,19 @@ generatedFiles:
   - src/ragie/models/httpvalidationerror.py
   - src/ragie/models/instruction.py
   - src/ragie/models/list_connections_connections_getop.py
+  - src/ragie/models/list_partitions_partitions_getop.py
   - src/ragie/models/listdocumentsop.py
   - src/ragie/models/listentitiesbydocumentop.py
   - src/ragie/models/listentitiesbyinstructionop.py
   - src/ragie/models/oauthurlcreate.py
   - src/ragie/models/oauthurlresponse.py
   - src/ragie/models/pagination.py
+  - src/ragie/models/partition.py
+  - src/ragie/models/partitiondetail.py
+  - src/ragie/models/partitionlimitparams.py
+  - src/ragie/models/partitionlimits.py
+  - src/ragie/models/partitionlist.py
+  - src/ragie/models/partitionstats.py
   - src/ragie/models/patchdocumentmetadataop.py
   - src/ragie/models/patchdocumentmetadataparams.py
   - src/ragie/models/responseok.py
@@ -220,6 +245,7 @@ generatedFiles:
   - src/ragie/models/security.py
   - src/ragie/models/set_connection_enabled_connections_connection_id_enabled_putop.py
   - src/ragie/models/set_connection_limits_connections_connection_id_limit_putop.py
+  - src/ragie/models/set_partition_limits_partitions_partition_id_limits_putop.py
   - src/ragie/models/setconnectionenabledpayload.py
   - src/ragie/models/syncconnectionop.py
   - src/ragie/models/update_connection_connections_connection_id_putop.py
@@ -232,6 +258,7 @@ generatedFiles:
   - src/ragie/models/updateinstructionop.py
   - src/ragie/models/updateinstructionparams.py
   - src/ragie/models/validationerror.py
+  - src/ragie/partitions.py
   - src/ragie/py.typed
   - src/ragie/retrievals.py
   - src/ragie/sdk.py
@@ -552,7 +579,7 @@ examples:
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
       responses:
         "200":
-          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": true, "partition": "<value>", "page_limit": 678317, "disabled_by_system": false}, {"id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created_at": "2025-05-06T10:10:32.094Z", "updated_at": "2024-08-19T22:29:27.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "partition": "<value>", "page_limit": 229716, "disabled_by_system": false}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": false, "partition": "<value>", "page_limit": 635532, "disabled_by_system": false}]}
+          application/json: {"pagination": {}, "connections": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created_at": "2023-03-24T06:20:14.879Z", "updated_at": "2025-09-10T04:30:13.188Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": true, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 678317, "disabled_by_system": false}, {"id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created_at": "2025-05-06T10:10:32.094Z", "updated_at": "2024-08-19T22:29:27.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 229716, "disabled_by_system": false}, {"id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "created_at": "2023-05-09T15:43:49.850Z", "updated_at": "2025-10-31T06:20:54.910Z", "metadata": {"key": 370293, "key1": 212921, "key2": []}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": false, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 635532, "disabled_by_system": false}]}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -577,7 +604,7 @@ examples:
         application/json: {"enabled": true}
       responses:
         "200":
-          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2025-10-14T19:56:20.471Z", "updated_at": "2023-04-26T16:53:39.637Z", "metadata": {"key": 43810, "key1": true, "key2": true}, "type": "<value>", "name": "<value>", "source": [], "enabled": false, "partition": "<value>", "page_limit": 898430, "disabled_by_system": false}
+          application/json: {"id": "26fadfa1-29b4-490b-acfb-7e6429656623", "created_at": "2025-10-14T19:56:20.471Z", "updated_at": "2023-04-26T16:53:39.637Z", "metadata": {"key": 43810, "key1": true, "key2": true}, "type": "<value>", "name": "<value>", "source": [], "enabled": false, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 898430, "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -591,7 +618,7 @@ examples:
         application/json: {"partition_strategy": "fast", "page_limit": 1000}
       responses:
         "200":
-          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2023-04-30T21:32:17.394Z", "updated_at": "2025-08-07T23:17:45.906Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": false, "partition": "<value>", "page_limit": 344620, "disabled_by_system": false}
+          application/json: {"id": "e8483df4-d337-4f04-a295-c0df4e3bbb65", "created_at": "2023-04-30T21:32:17.394Z", "updated_at": "2025-08-07T23:17:45.906Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": false, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 344620, "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -603,7 +630,7 @@ examples:
           connection_id: "ee666f79-dcc9-4015-9e13-63993816d536"
       responses:
         "200":
-          application/json: {"id": "78e43ac5-5898-4648-926e-6fab72ebbe8d", "created_at": "2023-03-16T14:08:34.785Z", "updated_at": "2024-07-23T20:09:43.508Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": true, "partition": "<value>", "page_limit": 544221, "disabled_by_system": false}
+          application/json: {"id": "78e43ac5-5898-4648-926e-6fab72ebbe8d", "created_at": "2023-03-16T14:08:34.785Z", "updated_at": "2024-07-23T20:09:43.508Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>"], "enabled": true, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 544221, "disabled_by_system": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -643,7 +670,7 @@ examples:
         application/json: {"page_limit": 1000}
       responses:
         "200":
-          application/json: {"id": "46973cfa-f674-422d-bdc5-0c22d63d4490", "created_at": "2025-07-01T15:25:15.852Z", "updated_at": "2023-02-14T11:43:08.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>", "<value>"], "enabled": true, "partition": "<value>", "page_limit": 839833, "disabled_by_system": true}
+          application/json: {"id": "46973cfa-f674-422d-bdc5-0c22d63d4490", "created_at": "2025-07-01T15:25:15.852Z", "updated_at": "2023-02-14T11:43:08.736Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": ["<value>", "<value>", "<value>"], "enabled": true, "disabled_by_system_reason": "authentication_failed", "partition": "<value>", "page_limit": 839833, "disabled_by_system": true}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -653,5 +680,73 @@ examples:
       parameters:
         path:
           connection_id: "f0897be3-0808-45c9-a63b-509c0142ddd3"
+      responses:
+        "201":
+          application/json: {"message": "ok"}
+        "422":
+          application/json: {}
+        "400":
+          application/json: {"detail": "<value>"}
+  list_partitions_partitions_get:
+    speakeasy-default-list-partitions-partitions-get:
+      parameters:
+        query:
+          page_size: 10
+      responses:
+        "200":
+          application/json: {"pagination": {}, "partitions": [{"name": "<value>", "is_default": false, "limit_exceeded_at": "2025-01-13T10:26:00.433Z", "limits": {"pages_processed_limit_monthly": 1777.06, "pages_hosted_limit_monthly": 2297.16, "pages_processed_limit_max": 1528.37, "pages_hosted_limit_max": 6355.32}}, {"name": "<value>", "is_default": false, "limit_exceeded_at": "2023-01-20T06:21:22.156Z", "limits": {"pages_processed_limit_monthly": 7183.03, "pages_hosted_limit_monthly": 861.4, "pages_processed_limit_max": 685.04, "pages_hosted_limit_max": 6879.6}}, {"name": "<value>", "is_default": false, "limit_exceeded_at": "2024-11-25T18:23:24.264Z", "limits": {"pages_processed_limit_monthly": 74.68, "pages_hosted_limit_monthly": 546.07, "pages_processed_limit_max": 3677.45, "pages_hosted_limit_max": 4857.29}}]}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  create_partition_partitions_post:
+    speakeasy-default-create-partition-partitions-post:
+      requestBody:
+        application/json: {"name": "<value>", "pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000}
+      responses:
+        "200":
+          application/json: {"name": "<value>", "is_default": true, "limit_exceeded_at": "2024-11-30T17:06:07.804Z", "limits": {"pages_processed_limit_monthly": 4174.58, "pages_hosted_limit_monthly": 1343.65, "pages_processed_limit_max": 690.25, "pages_hosted_limit_max": 7964.74}}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  get_partition_partitions__partition_id__get:
+    speakeasy-default-get-partition-partitions-partition-id-get:
+      parameters:
+        path:
+          partition_id: "<id>"
+      responses:
+        "200":
+          application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2024-09-04T11:33:52.011Z", "limits": {"pages_processed_limit_monthly": 5442.21, "pages_hosted_limit_monthly": 5212.35, "pages_processed_limit_max": 9699.61, "pages_hosted_limit_max": 4580.49}, "stats": {"pages_processed_monthly": 4508.24, "pages_hosted_monthly": 2627.95, "pages_processed_total": 2134.57, "pages_hosted_total": 9371.46, "document_count": 438142}}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  delete_partition_partitions__partition_id__delete:
+    speakeasy-default-delete-partition-partitions-partition-id-delete:
+      parameters:
+        path:
+          partition_id: "<id>"
+      responses:
+        "200":
+          application/json: {"key": "<value>", "key1": "<value>"}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  set_partition_limits_partitions__partition_id__limits_put:
+    speakeasy-default-set-partition-limits-partitions-partition-id-limits-put:
+      parameters:
+        path:
+          partition_id: "<id>"
+      requestBody:
+        application/json: {"pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000}
+      responses:
+        "200":
+          application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2025-11-24T01:01:44.131Z", "limits": {"pages_processed_limit_monthly": 8398.33, "pages_hosted_limit_monthly": 9368.54, "pages_processed_limit_max": 2906.53, "pages_hosted_limit_max": 8986.73}, "stats": {"pages_processed_monthly": 434.22, "pages_hosted_monthly": 1388.47, "pages_processed_total": 1187.52, "pages_hosted_total": 2241.15, "document_count": 152223}}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
 examplesVersion: 1.0.0
 generatedTests: {}

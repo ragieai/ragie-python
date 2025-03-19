@@ -20,6 +20,7 @@ List all instructions.
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -58,6 +59,7 @@ Create a new instruction. Instructions are applied to documents as they are crea
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -107,6 +109,7 @@ Update Instruction
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -151,6 +154,7 @@ Get Instruction Extracted Entities
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -194,6 +198,7 @@ Get Document Extracted Entities
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",

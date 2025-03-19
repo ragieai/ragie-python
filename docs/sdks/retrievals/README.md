@@ -16,6 +16,7 @@ Retrieve
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:

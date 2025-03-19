@@ -39,6 +39,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.ListConnectionsConnectionsGetRequest(
             cursor=cursor,
@@ -88,7 +90,10 @@ class Connections(BaseSDK):
 
             if len(next_cursor) == 0:
                 return None
+
             next_cursor = next_cursor[0]
+            if next_cursor is None:
+                return None
 
             return self.list(
                 cursor=next_cursor,
@@ -163,6 +168,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.ListConnectionsConnectionsGetRequest(
             cursor=cursor,
@@ -212,7 +219,10 @@ class Connections(BaseSDK):
 
             if len(next_cursor) == 0:
                 return None
+
             next_cursor = next_cursor[0]
+            if next_cursor is None:
+                return None
 
             return self.list(
                 cursor=next_cursor,
@@ -283,6 +293,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.OAuthURLCreate)
@@ -386,6 +398,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.OAuthURLCreate)
@@ -494,6 +508,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SetConnectionEnabledConnectionsConnectionIDEnabledPutRequest(
             connection_id=connection_id,
@@ -607,6 +623,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SetConnectionEnabledConnectionsConnectionIDEnabledPutRequest(
             connection_id=connection_id,
@@ -717,6 +735,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateConnectionConnectionsConnectionIDPutRequest(
             connection_id=connection_id,
@@ -823,6 +843,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateConnectionConnectionsConnectionIDPutRequest(
             connection_id=connection_id,
@@ -927,6 +949,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.GetConnectionConnectionsConnectionIDGetRequest(
             connection_id=connection_id,
@@ -1025,6 +1049,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.GetConnectionConnectionsConnectionIDGetRequest(
             connection_id=connection_id,
@@ -1123,6 +1149,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.GetConnectionStatsConnectionsConnectionIDStatsGetRequest(
             connection_id=connection_id,
@@ -1221,6 +1249,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.GetConnectionStatsConnectionsConnectionIDStatsGetRequest(
             connection_id=connection_id,
@@ -1323,6 +1353,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SetConnectionLimitsConnectionsConnectionIDLimitPutRequest(
             connection_id=connection_id,
@@ -1435,6 +1467,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SetConnectionLimitsConnectionsConnectionIDLimitPutRequest(
             connection_id=connection_id,
@@ -1547,6 +1581,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteConnectionConnectionsConnectionIDDeletePostRequest(
             connection_id=connection_id,
@@ -1659,6 +1695,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteConnectionConnectionsConnectionIDDeletePostRequest(
             connection_id=connection_id,
@@ -1767,6 +1805,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SyncConnectionRequest(
             connection_id=connection_id,
@@ -1867,6 +1907,8 @@ class Connections(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.SyncConnectionRequest(
             connection_id=connection_id,
