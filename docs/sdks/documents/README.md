@@ -23,12 +23,13 @@
 
 ## create
 
-On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
 ### Example Usage
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -76,6 +77,7 @@ List all documents sorted by created_at in descending order. Results are paginat
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -113,12 +115,13 @@ with Ragie(
 
 ## create_raw
 
-Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+Ingest a document as raw text. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
 ### Example Usage
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -157,12 +160,13 @@ with Ragie(
 
 ## create_document_from_url
 
-Ingest a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+Ingest a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
 ### Example Usage
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -208,6 +212,7 @@ Get Document
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -250,6 +255,7 @@ Delete Document
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -291,6 +297,7 @@ Update Document File
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -340,6 +347,7 @@ Update Document Raw
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -378,12 +386,13 @@ with Ragie(
 
 ## update_document_from_url
 
-Updates a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+Updates a document from a publicly accessible URL. On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
 
 ### Example Usage
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -429,6 +438,7 @@ Patch Document Metadata
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -484,6 +494,7 @@ List all document chunks sorted by index in ascending order. May be limited to a
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -530,6 +541,7 @@ Gets a document chunk by its document and chunk ID.
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -573,6 +585,7 @@ Get the content of a document. The content is the raw text of the document. If t
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -615,6 +628,7 @@ Get the source file of a document. The source file is the original file that was
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -656,6 +670,7 @@ Get a LLM generated summary of the document. The summary is created when the doc
 
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",

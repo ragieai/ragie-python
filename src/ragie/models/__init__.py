@@ -5,6 +5,7 @@ from .connection import (
     ConnectionMetadata,
     ConnectionMetadataTypedDict,
     ConnectionTypedDict,
+    DisabledBySystemReason,
     Source,
     SourceTypedDict,
 )
@@ -52,9 +53,14 @@ from .createinstructionparams import (
     CreateInstructionParamsScope,
     CreateInstructionParamsTypedDict,
 )
+from .createpartitionparams import CreatePartitionParams, CreatePartitionParamsTypedDict
 from .delete_connection_connections_connection_id_delete_postop import (
     DeleteConnectionConnectionsConnectionIDDeletePostRequest,
     DeleteConnectionConnectionsConnectionIDDeletePostRequestTypedDict,
+)
+from .delete_partition_partitions_partition_id_deleteop import (
+    DeletePartitionPartitionsPartitionIDDeleteRequest,
+    DeletePartitionPartitionsPartitionIDDeleteRequestTypedDict,
 )
 from .deleteconnectionpayload import (
     DeleteConnectionPayload,
@@ -104,6 +110,10 @@ from .get_connection_stats_connections_connection_id_stats_getop import (
     GetConnectionStatsConnectionsConnectionIDStatsGetRequest,
     GetConnectionStatsConnectionsConnectionIDStatsGetRequestTypedDict,
 )
+from .get_partition_partitions_partition_id_getop import (
+    GetPartitionPartitionsPartitionIDGetRequest,
+    GetPartitionPartitionsPartitionIDGetRequestTypedDict,
+)
 from .getdocumentchunkop import (
     GetDocumentChunkRequest,
     GetDocumentChunkRequestTypedDict,
@@ -139,6 +149,12 @@ from .list_connections_connections_getop import (
     ListConnectionsConnectionsGetResponse,
     ListConnectionsConnectionsGetResponseTypedDict,
 )
+from .list_partitions_partitions_getop import (
+    ListPartitionsPartitionsGetRequest,
+    ListPartitionsPartitionsGetRequestTypedDict,
+    ListPartitionsPartitionsGetResponse,
+    ListPartitionsPartitionsGetResponseTypedDict,
+)
 from .listdocumentsop import (
     ListDocumentsRequest,
     ListDocumentsRequestTypedDict,
@@ -167,6 +183,12 @@ from .oauthurlcreate import (
 )
 from .oauthurlresponse import OAuthURLResponse, OAuthURLResponseTypedDict
 from .pagination import Pagination, PaginationTypedDict
+from .partition import Partition, PartitionTypedDict
+from .partitiondetail import PartitionDetail, PartitionDetailTypedDict
+from .partitionlimitparams import PartitionLimitParams, PartitionLimitParamsTypedDict
+from .partitionlimits import PartitionLimits, PartitionLimitsTypedDict
+from .partitionlist import PartitionList, PartitionListTypedDict
+from .partitionstats import PartitionStats, PartitionStatsTypedDict
 from .patchdocumentmetadataop import (
     PatchDocumentMetadataRequest,
     PatchDocumentMetadataRequestTypedDict,
@@ -189,7 +211,12 @@ from .set_connection_limits_connections_connection_id_limit_putop import (
     SetConnectionLimitsConnectionsConnectionIDLimitPutRequest,
     SetConnectionLimitsConnectionsConnectionIDLimitPutRequestTypedDict,
 )
+from .set_partition_limits_partitions_partition_id_limits_putop import (
+    SetPartitionLimitsPartitionsPartitionIDLimitsPutRequest,
+    SetPartitionLimitsPartitionsPartitionIDLimitsPutRequestTypedDict,
+)
 from .setconnectionenabledpayload import (
+    Reason,
     SetConnectionEnabledPayload,
     SetConnectionEnabledPayloadTypedDict,
 )
@@ -279,6 +306,8 @@ __all__ = [
     "CreateInstructionParamsFilterTypedDict",
     "CreateInstructionParamsScope",
     "CreateInstructionParamsTypedDict",
+    "CreatePartitionParams",
+    "CreatePartitionParamsTypedDict",
     "Data",
     "Data2",
     "Data2TypedDict",
@@ -289,6 +318,9 @@ __all__ = [
     "DeleteConnectionPayloadTypedDict",
     "DeleteDocumentRequest",
     "DeleteDocumentRequestTypedDict",
+    "DeletePartitionPartitionsPartitionIDDeleteRequest",
+    "DeletePartitionPartitionsPartitionIDDeleteRequestTypedDict",
+    "DisabledBySystemReason",
     "Document",
     "DocumentChunk",
     "DocumentChunkList",
@@ -347,6 +379,8 @@ __all__ = [
     "GetDocumentSourceRequestTypedDict",
     "GetDocumentSummaryRequest",
     "GetDocumentSummaryRequestTypedDict",
+    "GetPartitionPartitionsPartitionIDGetRequest",
+    "GetPartitionPartitionsPartitionIDGetRequestTypedDict",
     "HTTPValidationError",
     "HTTPValidationErrorData",
     "Instruction",
@@ -367,6 +401,10 @@ __all__ = [
     "ListEntitiesByInstructionRequestTypedDict",
     "ListEntitiesByInstructionResponse",
     "ListEntitiesByInstructionResponseTypedDict",
+    "ListPartitionsPartitionsGetRequest",
+    "ListPartitionsPartitionsGetRequestTypedDict",
+    "ListPartitionsPartitionsGetResponse",
+    "ListPartitionsPartitionsGetResponseTypedDict",
     "Loc",
     "LocTypedDict",
     "Metadata",
@@ -380,11 +418,24 @@ __all__ = [
     "OAuthURLResponseTypedDict",
     "Pagination",
     "PaginationTypedDict",
+    "Partition",
+    "PartitionDetail",
+    "PartitionDetailTypedDict",
+    "PartitionLimitParams",
+    "PartitionLimitParamsTypedDict",
+    "PartitionLimits",
+    "PartitionLimitsTypedDict",
+    "PartitionList",
+    "PartitionListTypedDict",
+    "PartitionStats",
+    "PartitionStatsTypedDict",
     "PartitionStrategy",
+    "PartitionTypedDict",
     "PatchDocumentMetadataParams",
     "PatchDocumentMetadataParamsTypedDict",
     "PatchDocumentMetadataRequest",
     "PatchDocumentMetadataRequestTypedDict",
+    "Reason",
     "ResponseOK",
     "ResponseOKTypedDict",
     "Retrieval",
@@ -403,6 +454,8 @@ __all__ = [
     "SetConnectionEnabledPayloadTypedDict",
     "SetConnectionLimitsConnectionsConnectionIDLimitPutRequest",
     "SetConnectionLimitsConnectionsConnectionIDLimitPutRequestTypedDict",
+    "SetPartitionLimitsPartitionsPartitionIDLimitsPutRequest",
+    "SetPartitionLimitsPartitionsPartitionIDLimitsPutRequestTypedDict",
     "Source",
     "SourceTypedDict",
     "SyncConnectionRequest",

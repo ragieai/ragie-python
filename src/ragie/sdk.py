@@ -11,6 +11,7 @@ from ragie._hooks import SDKHooks
 from ragie.connections import Connections
 from ragie.documents import Documents
 from ragie.entities import Entities
+from ragie.partitions import Partitions
 from ragie.retrievals import Retrievals
 from ragie.types import OptionalNullable, UNSET
 from typing import Any, Callable, Dict, Optional, Union, cast
@@ -22,6 +23,7 @@ class Ragie(BaseSDK):
     retrievals: Retrievals
     entities: Entities
     connections: Connections
+    partitions: Partitions
 
     def __init__(
         self,
@@ -46,15 +48,19 @@ class Ragie(BaseSDK):
         :param retry_config: The retry configuration to use for all supported methods
         :param timeout_ms: Optional request timeout applied to each operation in milliseconds
         """
+        client_supplied = True
         if client is None:
             client = httpx.Client()
+            client_supplied = False
 
         assert issubclass(
             type(client), HttpClient
         ), "The provided client must implement the HttpClient protocol."
 
+        async_client_supplied = True
         if async_client is None:
             async_client = httpx.AsyncClient()
+            async_client_supplied = False
 
         if debug_logger is None:
             debug_logger = get_default_logger()
@@ -78,7 +84,9 @@ class Ragie(BaseSDK):
             self,
             SDKConfiguration(
                 client=client,
+                client_supplied=client_supplied,
                 async_client=async_client,
+                async_client_supplied=async_client_supplied,
                 security=security,
                 server_url=server_url,
                 server_idx=server_idx,
@@ -92,7 +100,7 @@ class Ragie(BaseSDK):
 
         current_server_url, *_ = self.sdk_configuration.get_server_details()
         server_url, self.sdk_configuration.client = hooks.sdk_init(
-            current_server_url, self.sdk_configuration.client
+            current_server_url, client
         )
         if current_server_url != server_url:
             self.sdk_configuration.server_url = server_url
@@ -105,7 +113,9 @@ class Ragie(BaseSDK):
             close_clients,
             cast(ClientOwner, self.sdk_configuration),
             self.sdk_configuration.client,
+            self.sdk_configuration.client_supplied,
             self.sdk_configuration.async_client,
+            self.sdk_configuration.async_client_supplied,
         )
 
         self._init_sdks()
@@ -115,6 +125,7 @@ class Ragie(BaseSDK):
         self.retrievals = Retrievals(self.sdk_configuration)
         self.entities = Entities(self.sdk_configuration)
         self.connections = Connections(self.sdk_configuration)
+        self.partitions = Partitions(self.sdk_configuration)
 
     def __enter__(self):
         return self
@@ -123,9 +134,17 @@ class Ragie(BaseSDK):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.sdk_configuration.client is not None:
+        if (
+            self.sdk_configuration.client is not None
+            and not self.sdk_configuration.client_supplied
+        ):
             self.sdk_configuration.client.close()
+        self.sdk_configuration.client = None
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        if self.sdk_configuration.async_client is not None:
+        if (
+            self.sdk_configuration.async_client is not None
+            and not self.sdk_configuration.async_client_supplied
+        ):
             await self.sdk_configuration.async_client.aclose()
+        self.sdk_configuration.async_client = None

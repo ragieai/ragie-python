@@ -114,6 +114,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 # Synchronous Example
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -140,6 +141,7 @@ import asyncio
 from ragie import Ragie
 
 async def main():
+
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     ) as r_client:
@@ -204,6 +206,14 @@ asyncio.run(main())
 * [list_by_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 
+### [partitions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md)
+
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#list) - List Partitions
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#create) - Create Partition
+* [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#get) - Get Partition
+* [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#delete) - Delete Partition
+* [set_limits](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#set_limits) - Set Partition Limits
+
 
 ### [retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
 
@@ -222,6 +232,7 @@ return value of `Next` is `None`, then there are no more pages to be fetched.
 Here's an example of one such pagination call:
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
@@ -253,6 +264,7 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -282,6 +294,7 @@ To change the default retry strategy for a single API call, simply provide a `Re
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -305,6 +318,7 @@ If you'd like to override the default retry strategy for all operations that sup
 ```python
 from ragie import Ragie
 from ragie.utils import BackoffStrategy, RetryConfig
+
 
 with Ragie(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
@@ -353,6 +367,7 @@ When custom error responses are specified for an operation, the SDK may also rai
 ```python
 from ragie import Ragie, models
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -388,9 +403,10 @@ with Ragie(
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
 from ragie import Ragie
+
 
 with Ragie(
     server_url="https://api.ragie.ai",
@@ -508,6 +524,7 @@ To authenticate with the API the `auth` parameter must be set when initializing 
 ```python
 from ragie import Ragie
 
+
 with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
@@ -537,6 +554,7 @@ The `Ragie` class implements the context manager protocol and registers a finali
 ```python
 from ragie import Ragie
 def main():
+
     with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     ) as r_client:
@@ -545,6 +563,7 @@ def main():
 
 # Or when using async:
 async def amain():
+
     async with Ragie(
         auth="<YOUR_BEARER_TOKEN_HERE>",
     ) as r_client:

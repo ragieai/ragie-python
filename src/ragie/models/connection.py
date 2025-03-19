@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 from datetime import datetime
-import pydantic
+from enum import Enum
 from pydantic import model_serializer
-from pydantic.functional_validators import AfterValidator
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from ragie.utils import validate_const
-from typing import Dict, List, Literal, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing import Dict, List, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 ConnectionMetadataTypedDict = TypeAliasType(
@@ -27,6 +25,11 @@ SourceTypedDict = TypeAliasType("SourceTypedDict", Union[str, List[str]])
 Source = TypeAliasType("Source", Union[str, List[str]])
 
 
+class DisabledBySystemReason(str, Enum):
+    CONNECTION_OVER_TOTAL_PAGE_LIMIT = "connection_over_total_page_limit"
+    AUTHENTICATION_FAILED = "authentication_failed"
+
+
 class ConnectionTypedDict(TypedDict):
     id: str
     created_at: datetime
@@ -36,12 +39,12 @@ class ConnectionTypedDict(TypedDict):
     name: str
     source: Nullable[SourceTypedDict]
     enabled: bool
-    partition: str
+    disabled_by_system_reason: Nullable[DisabledBySystemReason]
     page_limit: Nullable[int]
     disabled_by_system: bool
-    disabled_by_system_reason: Nullable[Literal["connection_over_total_page_limit"]]
     last_synced_at: NotRequired[Nullable[datetime]]
     syncing: NotRequired[Nullable[bool]]
+    partition: NotRequired[Nullable[str]]
 
 
 class Connection(BaseModel):
@@ -61,33 +64,28 @@ class Connection(BaseModel):
 
     enabled: bool
 
-    partition: str
+    disabled_by_system_reason: Nullable[DisabledBySystemReason]
 
     page_limit: Nullable[int]
 
     disabled_by_system: bool
 
-    DISABLED_BY_SYSTEM_REASON: Annotated[
-        Annotated[
-            Nullable[Literal["connection_over_total_page_limit"]],
-            AfterValidator(validate_const("connection_over_total_page_limit")),
-        ],
-        pydantic.Field(alias="disabled_by_system_reason"),
-    ] = "connection_over_total_page_limit"
-
     last_synced_at: OptionalNullable[datetime] = UNSET
 
     syncing: OptionalNullable[bool] = UNSET
 
+    partition: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["last_synced_at", "syncing"]
+        optional_fields = ["last_synced_at", "syncing", "partition"]
         nullable_fields = [
             "source",
-            "page_limit",
             "disabled_by_system_reason",
+            "page_limit",
             "last_synced_at",
             "syncing",
+            "partition",
         ]
         null_default_fields = []
 
