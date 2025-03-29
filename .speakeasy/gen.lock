@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: a481bbe28d4f7cffb4b3fdea8e3ca32a
+  docChecksum: bd5912bdd988bb89040f221f11d792c5
   docVersion: 1.0.0
-  speakeasyVersion: 1.520.1
-  generationVersion: 2.556.1
-  releaseVersion: 1.6.0
-  configChecksum: a1898c3385f21be96b28f73dd5fbba15
+  speakeasyVersion: 1.526.0
+  generationVersion: 2.563.0
+  releaseVersion: 1.6.1
+  configChecksum: 08629fe173a174e6520a8b086e202478
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -67,6 +67,7 @@ generatedFiles:
   - docs/models/deleteconnectionconnectionsconnectioniddeletepostrequest.md
   - docs/models/deleteconnectionpayload.md
   - docs/models/deletedocumentrequest.md
+  - docs/models/deleteinstructionrequest.md
   - docs/models/deletepartitionpartitionspartitioniddeleterequest.md
   - docs/models/disabledbysystemreason.md
   - docs/models/document.md
@@ -195,6 +196,7 @@ generatedFiles:
   - src/ragie/models/delete_partition_partitions_partition_id_deleteop.py
   - src/ragie/models/deleteconnectionpayload.py
   - src/ragie/models/deletedocumentop.py
+  - src/ragie/models/deleteinstructionop.py
   - src/ragie/models/document.py
   - src/ragie/models/documentchunk.py
   - src/ragie/models/documentchunklist.py
@@ -744,6 +746,18 @@ examples:
       responses:
         "200":
           application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2025-11-24T01:01:44.131Z", "limits": {"pages_processed_limit_monthly": 8398.33, "pages_hosted_limit_monthly": 9368.54, "pages_processed_limit_max": 2906.53, "pages_hosted_limit_max": 8986.73}, "stats": {"pages_processed_monthly": 434.22, "pages_hosted_monthly": 1388.47, "pages_processed_total": 1187.52, "pages_hosted_total": 2241.15, "document_count": 152223}}
+        "422":
+          application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  DeleteInstruction:
+    speakeasy-default-delete-instruction:
+      parameters:
+        path:
+          instruction_id: "00000000-0000-0000-0000-000000000000"
+      responses:
+        "200":
+          application/json: {"key": "<value>", "key1": "<value>"}
         "422":
           application/json: {}
         "401":
