@@ -203,6 +203,7 @@ asyncio.run(main())
 * [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
 * [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
 * [update_instruction](docs/sdks/entities/README.md#update_instruction) - Update Instruction
+* [delete](docs/sdks/entities/README.md#delete) - Delete Instruction
 * [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 

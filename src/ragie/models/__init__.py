@@ -67,6 +67,10 @@ from .deleteconnectionpayload import (
     DeleteConnectionPayloadTypedDict,
 )
 from .deletedocumentop import DeleteDocumentRequest, DeleteDocumentRequestTypedDict
+from .deleteinstructionop import (
+    DeleteInstructionRequest,
+    DeleteInstructionRequestTypedDict,
+)
 from .document import (
     Document,
     DocumentMetadata,
@@ -318,6 +322,8 @@ __all__ = [
     "DeleteConnectionPayloadTypedDict",
     "DeleteDocumentRequest",
     "DeleteDocumentRequestTypedDict",
+    "DeleteInstructionRequest",
+    "DeleteInstructionRequestTypedDict",
     "DeletePartitionPartitionsPartitionIDDeleteRequest",
     "DeletePartitionPartitionsPartitionIDDeleteRequestTypedDict",
     "DisabledBySystemReason",

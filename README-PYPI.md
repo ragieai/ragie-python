@@ -203,6 +203,7 @@ asyncio.run(main())
 * [list_instructions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_instructions) - List Instructions
 * [create_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#create_instruction) - Create Instruction
 * [update_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#update_instruction) - Update Instruction
+* [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#delete) - Delete Instruction
 * [list_by_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 
