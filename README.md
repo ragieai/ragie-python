@@ -194,6 +194,7 @@ asyncio.run(main())
 * [patch_metadata](docs/sdks/documents/README.md#patch_metadata) - Patch Document Metadata
 * [get_chunks](docs/sdks/documents/README.md#get_chunks) - Get Document Chunks
 * [get_chunk](docs/sdks/documents/README.md#get_chunk) - Get Document Chunk
+* [get_chunk_content](docs/sdks/documents/README.md#get_chunk_content) - Get Document Chunk Content
 * [get_content](docs/sdks/documents/README.md#get_content) - Get Document Content
 * [get_source](docs/sdks/documents/README.md#get_source) - Get Document Source
 * [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
@@ -203,6 +204,7 @@ asyncio.run(main())
 * [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
 * [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
 * [update_instruction](docs/sdks/entities/README.md#update_instruction) - Update Instruction
+* [delete](docs/sdks/entities/README.md#delete) - Delete Instruction
 * [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 

@@ -5,6 +5,7 @@ from enum import Enum
 
 
 class ConnectorSource(str, Enum):
+    BACKBLAZE = "backblaze"
     CONFLUENCE = "confluence"
     FRESHDESK = "freshdesk"
     DROPBOX = "dropbox"
@@ -13,6 +14,7 @@ class ConnectorSource(str, Enum):
     GMAIL = "gmail"
     NOTION = "notion"
     SALESFORCE = "salesforce"
+    SHAREPOINT = "sharepoint"
     JIRA = "jira"
     SLACK = "slack"
     S3 = "s3"

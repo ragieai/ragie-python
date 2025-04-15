@@ -118,8 +118,8 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.set_enabled(connection_id="bf0424b5-8be9-4a67-a8ca-6ab0e9e89780", set_connection_enabled_payload={
-        "enabled": True,
+    res = r_client.connections.set_enabled(connection_id="1e380027-f68d-43de-9bae-68e42f38f83c", set_connection_enabled_payload={
+        "enabled": False,
     })
 
     assert res is not None
@@ -164,7 +164,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.update(connection_id="60a91616-1376-4585-82c8-85b663abc0c8", connection_base={
+    res = r_client.connections.update(connection_id="95fa7f0e-7432-4ce4-a7cb-60cc78135dde", connection_base={
         "partition_strategy": ragie.PartitionStrategy.FAST,
         "page_limit": 1000,
     })
@@ -210,7 +210,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.get(connection_id="ee666f79-dcc9-4015-9e13-63993816d536")
+    res = r_client.connections.get(connection_id="b888f774-3e7c-4135-a18c-6b985523c4bc")
 
     assert res is not None
 
@@ -252,7 +252,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.get_stats(connection_id="1f4a1403-1d6d-4b6c-b869-7469eff2dd5e")
+    res = r_client.connections.get_stats(connection_id="eb0d219a-f873-4b97-b475-8b26b746a105")
 
     assert res is not None
 
@@ -339,8 +339,8 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.delete(connection_id="5922bdb9-d99a-4e03-8cb8-05fcacce856d", delete_connection_payload={
-        "keep_files": True,
+    res = r_client.connections.delete(connection_id="b6fe91aa-0b1b-43eb-97be-83a32f2399eb", delete_connection_payload={
+        "keep_files": False,
     })
 
     assert res is not None

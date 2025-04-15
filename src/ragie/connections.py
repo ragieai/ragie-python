@@ -5,7 +5,7 @@ from jsonpath import JSONPath
 from ragie import models, utils
 from ragie._hooks import HookContext
 from ragie.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, Dict, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Connections(BaseSDK):
@@ -85,7 +85,7 @@ class Connections(BaseSDK):
         )
 
         def next_func() -> Optional[models.ListConnectionsConnectionsGetResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
+            body = utils.unmarshal_json(http_res.text, Union[Dict[Any, Any], List[Any]])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
 
             if len(next_cursor) == 0:
@@ -214,7 +214,7 @@ class Connections(BaseSDK):
         )
 
         def next_func() -> Optional[models.ListConnectionsConnectionsGetResponse]:
-            body = utils.unmarshal_json(http_res.text, Dict[Any, Any])
+            body = utils.unmarshal_json(http_res.text, Union[Dict[Any, Any], List[Any]])
             next_cursor = JSONPath("$.pagination.next_cursor").parse(body)
 
             if len(next_cursor) == 0:

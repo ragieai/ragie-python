@@ -39,7 +39,7 @@ class CreateDocumentRawParamsTypedDict(TypedDict):
     name: NotRequired[str]
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
     metadata: NotRequired[Dict[str, CreateDocumentRawParamsMetadataTypedDict]]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
     external_id: NotRequired[Nullable[str]]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
     partition: NotRequired[str]
@@ -54,7 +54,7 @@ class CreateDocumentRawParams(BaseModel):
     r"""An optional name for the document. If set, the document will have this name. Otherwise it will default to the current timestamp."""
 
     metadata: Optional[Dict[str, CreateDocumentRawParamsMetadata]] = None
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
 
     external_id: OptionalNullable[str] = UNSET
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
@@ -72,7 +72,7 @@ class CreateDocumentRawParams(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
