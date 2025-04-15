@@ -5,6 +5,7 @@
 
 | Name           | Value          |
 | -------------- | -------------- |
+| `BACKBLAZE`    | backblaze      |
 | `CONFLUENCE`   | confluence     |
 | `FRESHDESK`    | freshdesk      |
 | `DROPBOX`      | dropbox        |
@@ -13,6 +14,7 @@
 | `GMAIL`        | gmail          |
 | `NOTION`       | notion         |
 | `SALESFORCE`   | salesforce     |
+| `SHAREPOINT`   | sharepoint     |
 | `JIRA`         | jira           |
 | `SLACK`        | slack          |
 | `S3`           | s3             |

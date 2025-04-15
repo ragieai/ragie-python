@@ -19,10 +19,10 @@ DocumentWithContentMetadata = TypeAliasType(
 
 
 class DocumentWithContentTypedDict(TypedDict):
+    status: str
     id: str
     created_at: datetime
     updated_at: datetime
-    status: str
     name: str
     metadata: Dict[str, DocumentWithContentMetadataTypedDict]
     partition: str
@@ -33,13 +33,13 @@ class DocumentWithContentTypedDict(TypedDict):
 
 
 class DocumentWithContent(BaseModel):
+    status: str
+
     id: str
 
     created_at: datetime
 
     updated_at: datetime
-
-    status: str
 
     name: str
 
@@ -65,7 +65,7 @@ class DocumentWithContent(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

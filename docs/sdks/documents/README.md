@@ -17,6 +17,7 @@
 * [patch_metadata](#patch_metadata) - Patch Document Metadata
 * [get_chunks](#get_chunks) - Get Document Chunks
 * [get_chunk](#get_chunk) - Get Document Chunk
+* [get_chunk_content](#get_chunk_content) - Get Document Chunk Content
 * [get_content](#get_content) - Get Document Content
 * [get_source](#get_source) - Get Document Source
 * [get_summary](#get_summary) - Get Document Summary
@@ -128,8 +129,8 @@ with Ragie(
 ) as r_client:
 
     res = r_client.documents.create_raw(request={
-        "data": "<value>",
         "partition": "<value>",
+        "data": "<value>",
     })
 
     assert res is not None
@@ -173,8 +174,8 @@ with Ragie(
 ) as r_client:
 
     res = r_client.documents.create_document_from_url(request={
-        "url": "https://scientific-plain.biz/",
         "partition": "<value>",
+        "url": "https://scientific-plain.biz/",
     })
 
     assert res is not None
@@ -566,7 +567,7 @@ with Ragie(
 
 ### Response
 
-**[models.DocumentChunk](../../models/documentchunk.md)**
+**[models.DocumentChunkDetail](../../models/documentchunkdetail.md)**
 
 ### Errors
 
@@ -574,6 +575,52 @@ with Ragie(
 | -------------------------- | -------------------------- | -------------------------- |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_chunk_content
+
+Returns the content of a document chunk in the requested format. Can be used to stream media of the content for audio/video documents.
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.documents.get_chunk_content(request={
+        "document_id": "00000000-0000-0000-0000-000000000000",
+        "chunk_id": "00000000-0000-0000-0000-000000000000",
+        "partition": "acme_customer_id",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [models.GetDocumentChunkContentRequest](../../models/getdocumentchunkcontentrequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
+| `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
+
+### Response
+
+**[Any](../../models/.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_content

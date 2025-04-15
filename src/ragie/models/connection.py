@@ -82,10 +82,10 @@ class Connection(BaseModel):
         nullable_fields = [
             "source",
             "disabled_by_system_reason",
-            "page_limit",
             "last_synced_at",
             "syncing",
             "partition",
+            "page_limit",
         ]
         null_default_fields = []
 
@@ -93,7 +93,7 @@ class Connection(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

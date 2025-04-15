@@ -58,7 +58,7 @@ class CreateDocumentParamsTypedDict(TypedDict):
     mode: NotRequired[CreateDocumentParamsMode]
     r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
     metadata: NotRequired[Dict[str, MetadataTypedDict]]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
     external_id: NotRequired[str]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
     name: NotRequired[str]
@@ -83,7 +83,7 @@ class CreateDocumentParams(BaseModel):
         Optional[Dict[str, Metadata]],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
     ] = None
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
 
     external_id: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""

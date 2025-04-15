@@ -30,17 +30,26 @@ class Theme(str, Enum):
     SYSTEM = "system"
 
 
+class ConfigTypedDict(TypedDict):
+    pass
+
+
+class Config(BaseModel):
+    pass
+
+
 class OAuthURLCreateTypedDict(TypedDict):
     redirect_uri: str
     source_type: NotRequired[ConnectorSource]
     metadata: NotRequired[Dict[str, OAuthURLCreateMetadataTypedDict]]
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
     mode: NotRequired[Nullable[Mode]]
     partition: NotRequired[Nullable[str]]
     theme: NotRequired[Nullable[Theme]]
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
     page_limit: NotRequired[Nullable[int]]
     r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
+    config: NotRequired[Nullable[ConfigTypedDict]]
 
 
 class OAuthURLCreate(BaseModel):
@@ -49,7 +58,7 @@ class OAuthURLCreate(BaseModel):
     source_type: Optional[ConnectorSource] = None
 
     metadata: Optional[Dict[str, OAuthURLCreateMetadata]] = None
-    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`."""
+    r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
 
     mode: OptionalNullable[Mode] = UNSET
 
@@ -61,6 +70,8 @@ class OAuthURLCreate(BaseModel):
     page_limit: OptionalNullable[int] = UNSET
     r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
 
+    config: OptionalNullable[Config] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -70,15 +81,16 @@ class OAuthURLCreate(BaseModel):
             "partition",
             "theme",
             "page_limit",
+            "config",
         ]
-        nullable_fields = ["mode", "partition", "theme", "page_limit"]
+        nullable_fields = ["mode", "partition", "theme", "page_limit", "config"]
         null_default_fields = []
 
         serialized = handler(self)
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
