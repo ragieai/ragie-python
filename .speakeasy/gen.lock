@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 56f0cb574266be005e02c9cdd6a474b4
+  docChecksum: 182099965e5a2467d97b68e829b78a3a
   docVersion: 1.0.0
-  speakeasyVersion: 1.531.4
-  generationVersion: 2.570.4
-  releaseVersion: 1.6.1
-  configChecksum: 08629fe173a174e6520a8b086e202478
+  speakeasyVersion: 1.533.0
+  generationVersion: 2.578.0
+  releaseVersion: 1.7.0
+  configChecksum: 6497d9f0d18429efd86d8073c6b54397
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.12.7
+    core: 5.14.0
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -44,7 +44,6 @@ generatedFiles:
   - .vscode/settings.json
   - USAGE.md
   - docs/models/audiomodalitydata.md
-  - docs/models/config.md
   - docs/models/connection.md
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
@@ -715,7 +714,7 @@ examples:
         application/json: {"keep_files": false}
       responses:
         "200":
-          application/json: {"key": "<value>", "key1": "<value>", "key2": "<value>"}
+          application/json: {"key": "<value>", "key1": "<value>"}
         "422":
           application/json: {}
         "401":

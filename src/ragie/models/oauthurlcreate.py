@@ -5,7 +5,7 @@ from .connectorsource import ConnectorSource
 from enum import Enum
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing import Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
@@ -30,14 +30,6 @@ class Theme(str, Enum):
     SYSTEM = "system"
 
 
-class ConfigTypedDict(TypedDict):
-    pass
-
-
-class Config(BaseModel):
-    pass
-
-
 class OAuthURLCreateTypedDict(TypedDict):
     redirect_uri: str
     source_type: NotRequired[ConnectorSource]
@@ -49,7 +41,8 @@ class OAuthURLCreateTypedDict(TypedDict):
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
     page_limit: NotRequired[Nullable[int]]
     r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
-    config: NotRequired[Nullable[ConfigTypedDict]]
+    config: NotRequired[Dict[str, Any]]
+    r"""Optional config per connector"""
 
 
 class OAuthURLCreate(BaseModel):
@@ -70,7 +63,8 @@ class OAuthURLCreate(BaseModel):
     page_limit: OptionalNullable[int] = UNSET
     r"""The maximum number of pages a connection will sync. The connection will be disabled after this limit is reached. Some in progress documents may continue processing after the limit is reached. The limit will be enforced at the start of the next document sync. Remove the limit by setting to null."""
 
-    config: OptionalNullable[Config] = UNSET
+    config: Optional[Dict[str, Any]] = None
+    r"""Optional config per connector"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -83,7 +77,7 @@ class OAuthURLCreate(BaseModel):
             "page_limit",
             "config",
         ]
-        nullable_fields = ["mode", "partition", "theme", "page_limit", "config"]
+        nullable_fields = ["mode", "partition", "theme", "page_limit"]
         null_default_fields = []
 
         serialized = handler(self)
