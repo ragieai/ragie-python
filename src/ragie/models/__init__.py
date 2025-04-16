@@ -191,8 +191,6 @@ from .listentitiesbyinstructionop import (
     ListEntitiesByInstructionResponseTypedDict,
 )
 from .oauthurlcreate import (
-    Config,
-    ConfigTypedDict,
     Mode,
     OAuthURLCreate,
     OAuthURLCreateMetadata,
@@ -296,8 +294,6 @@ from .wordtimestamp import WordTimestamp, WordTimestampTypedDict
 __all__ = [
     "AudioModalityData",
     "AudioModalityDataTypedDict",
-    "Config",
-    "ConfigTypedDict",
     "Connection",
     "ConnectionBase",
     "ConnectionBaseMetadata",
