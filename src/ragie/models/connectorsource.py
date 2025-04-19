@@ -7,8 +7,8 @@ from enum import Enum
 class ConnectorSource(str, Enum):
     BACKBLAZE = "backblaze"
     CONFLUENCE = "confluence"
-    FRESHDESK = "freshdesk"
     DROPBOX = "dropbox"
+    FRESHDESK = "freshdesk"
     ONEDRIVE = "onedrive"
     GOOGLE_DRIVE = "google_drive"
     GMAIL = "gmail"
@@ -20,3 +20,4 @@ class ConnectorSource(str, Enum):
     S3 = "s3"
     GCS = "gcs"
     HUBSPOT = "hubspot"
+    ZENDESK = "zendesk"
