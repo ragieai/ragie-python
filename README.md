@@ -172,6 +172,7 @@ asyncio.run(main())
 
 * [list](docs/sdks/connections/README.md#list) - List Connections
 * [create_o_auth_redirect_url](docs/sdks/connections/README.md#create_o_auth_redirect_url) - Create Oauth Redirect Url
+* [list_connection_source_types](docs/sdks/connections/README.md#list_connection_source_types) - List Connection Source Types
 * [set_enabled](docs/sdks/connections/README.md#set_enabled) - Set Connection Enabled
 * [update](docs/sdks/connections/README.md#update) - Update Connection
 * [get](docs/sdks/connections/README.md#get) - Get Connection

@@ -7,8 +7,8 @@
 | -------------- | -------------- |
 | `BACKBLAZE`    | backblaze      |
 | `CONFLUENCE`   | confluence     |
-| `FRESHDESK`    | freshdesk      |
 | `DROPBOX`      | dropbox        |
+| `FRESHDESK`    | freshdesk      |
 | `ONEDRIVE`     | onedrive       |
 | `GOOGLE_DRIVE` | google_drive   |
 | `GMAIL`        | gmail          |
@@ -20,3 +20,4 @@
 | `S3`           | s3             |
 | `GCS`          | gcs            |
 | `HUBSPOT`      | hubspot        |
+| `ZENDESK`      | zendesk        |
