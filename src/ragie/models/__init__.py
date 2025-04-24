@@ -21,6 +21,10 @@ from .connectionlimitparams import ConnectionLimitParams, ConnectionLimitParamsT
 from .connectionlist import ConnectionList, ConnectionListTypedDict
 from .connectionstats import ConnectionStats, ConnectionStatsTypedDict
 from .connectorsource import ConnectorSource
+from .connectorsourcetypeinfo import (
+    ConnectorSourceTypeInfo,
+    ConnectorSourceTypeInfoTypedDict,
+)
 from .createdocumentfromurlparams import (
     CreateDocumentFromURLParams,
     CreateDocumentFromURLParamsMetadata,
@@ -172,6 +176,10 @@ from .list_partitions_partitions_getop import (
     ListPartitionsPartitionsGetResponse,
     ListPartitionsPartitionsGetResponseTypedDict,
 )
+from .listconnectorsourcetypeinfo import (
+    ListConnectorSourceTypeInfo,
+    ListConnectorSourceTypeInfoTypedDict,
+)
 from .listdocumentsop import (
     ListDocumentsRequest,
     ListDocumentsRequestTypedDict,
@@ -309,6 +317,8 @@ __all__ = [
     "ConnectionStatsTypedDict",
     "ConnectionTypedDict",
     "ConnectorSource",
+    "ConnectorSourceTypeInfo",
+    "ConnectorSourceTypeInfoTypedDict",
     "CreateDocumentFromURLParams",
     "CreateDocumentFromURLParamsMetadata",
     "CreateDocumentFromURLParamsMetadataTypedDict",
@@ -417,6 +427,8 @@ __all__ = [
     "ListConnectionsConnectionsGetRequestTypedDict",
     "ListConnectionsConnectionsGetResponse",
     "ListConnectionsConnectionsGetResponseTypedDict",
+    "ListConnectorSourceTypeInfo",
+    "ListConnectorSourceTypeInfoTypedDict",
     "ListDocumentsRequest",
     "ListDocumentsRequestTypedDict",
     "ListDocumentsResponse",

@@ -172,6 +172,7 @@ asyncio.run(main())
 
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list) - List Connections
 * [create_o_auth_redirect_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_o_auth_redirect_url) - Create Oauth Redirect Url
+* [list_connection_source_types](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list_connection_source_types) - List Connection Source Types
 * [set_enabled](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#set_enabled) - Set Connection Enabled
 * [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#update) - Update Connection
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get) - Get Connection

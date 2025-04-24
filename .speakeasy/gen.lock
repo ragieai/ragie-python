@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: 182099965e5a2467d97b68e829b78a3a
+  docChecksum: 439ee01a1cdd0016e0b68e917b2e9523
   docVersion: 1.0.0
-  speakeasyVersion: 1.533.0
-  generationVersion: 2.578.0
-  releaseVersion: 1.7.0
-  configChecksum: 6497d9f0d18429efd86d8073c6b54397
+  speakeasyVersion: 1.538.0
+  generationVersion: 2.591.1
+  releaseVersion: 1.8.0
+  configChecksum: b4828808a8d40582ab427a32ccdbe1a4
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.14.0
+    core: 5.16.0
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -52,6 +52,7 @@ generatedFiles:
   - docs/models/connectionmetadata.md
   - docs/models/connectionstats.md
   - docs/models/connectorsource.md
+  - docs/models/connectorsourcetypeinfo.md
   - docs/models/createdocumentfromurlparams.md
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
@@ -108,6 +109,7 @@ generatedFiles:
   - docs/models/link.md
   - docs/models/listconnectionsconnectionsgetrequest.md
   - docs/models/listconnectionsconnectionsgetresponse.md
+  - docs/models/listconnectorsourcetypeinfo.md
   - docs/models/listdocumentsrequest.md
   - docs/models/listdocumentsresponse.md
   - docs/models/listentitiesbydocumentrequest.md
@@ -195,6 +197,7 @@ generatedFiles:
   - src/ragie/models/connectionlist.py
   - src/ragie/models/connectionstats.py
   - src/ragie/models/connectorsource.py
+  - src/ragie/models/connectorsourcetypeinfo.py
   - src/ragie/models/createdocumentfromurlparams.py
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
@@ -236,6 +239,7 @@ generatedFiles:
   - src/ragie/models/link.py
   - src/ragie/models/list_connections_connections_getop.py
   - src/ragie/models/list_partitions_partitions_getop.py
+  - src/ragie/models/listconnectorsourcetypeinfo.py
   - src/ragie/models/listdocumentsop.py
   - src/ragie/models/listentitiesbydocumentop.py
   - src/ragie/models/listentitiesbyinstructionop.py
@@ -281,6 +285,7 @@ generatedFiles:
   - src/ragie/types/basemodel.py
   - src/ragie/utils/__init__.py
   - src/ragie/utils/annotations.py
+  - src/ragie/utils/datetimes.py
   - src/ragie/utils/enums.py
   - src/ragie/utils/eventstreaming.py
   - src/ragie/utils/forms.py
@@ -790,6 +795,13 @@ examples:
           application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2025-11-24T01:01:44.131Z", "limits": {"pages_processed_limit_monthly": 8398.33, "pages_hosted_limit_monthly": 9368.54, "pages_processed_limit_max": 2906.53, "pages_hosted_limit_max": 8986.73}, "stats": {"pages_processed_monthly": 434.22, "pages_hosted_monthly": 1388.47, "pages_processed_total": 1187.52, "pages_hosted_total": 2241.15, "document_count": 152223}}
         "422":
           application/json: {}
+        "401":
+          application/json: {"detail": "<value>"}
+  list_connection_source_types_connections_source_type_get:
+    speakeasy-default-list-connection-source-types-connections-source-type-get:
+      responses:
+        "200":
+          application/json: {"connectors": [{"source_type": "jira", "display_name": "Zackery14", "icon_url": "https://circular-advertisement.org", "docs_url": "https://expensive-lid.com"}, {"source_type": "notion", "display_name": "Quentin.Schulist97", "icon_url": "https://miserly-space.biz/", "docs_url": "https://another-baritone.com"}, {"source_type": "onedrive", "display_name": "Tristian_Emmerich", "icon_url": "https://worthy-arcade.net", "docs_url": "https://mundane-presume.net/"}]}
         "401":
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.1

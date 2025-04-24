@@ -7,6 +7,7 @@
 
 * [list](#list) - List Connections
 * [create_o_auth_redirect_url](#create_o_auth_redirect_url) - Create Oauth Redirect Url
+* [list_connection_source_types](#list_connection_source_types) - List Connection Source Types
 * [set_enabled](#set_enabled) - Set Connection Enabled
 * [update](#update) - Update Connection
 * [get](#get) - Get Connection
@@ -103,6 +104,46 @@ with Ragie(
 | models.HTTPValidationError | 422                        | application/json           |
 | models.ErrorMessage        | 401, 402, 429              | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## list_connection_source_types
+
+List available connection source types like 'google_drive' and 'notion' along with their metadata
+
+### Example Usage
+
+```python
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.connections.list_connection_source_types()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListConnectorSourceTypeInfo](../../models/listconnectorsourcetypeinfo.md)**
+
+### Errors
+
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.ErrorMessage | 401, 402, 429       | application/json    |
+| models.SDKError     | 4XX, 5XX            | \*/\*               |
 
 ## set_enabled
 
