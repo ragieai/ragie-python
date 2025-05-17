@@ -7,10 +7,13 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PaginationTypedDict(TypedDict):
+    total_count: int
     next_cursor: NotRequired[Nullable[str]]
 
 
 class Pagination(BaseModel):
+    total_count: int
+
     next_cursor: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")

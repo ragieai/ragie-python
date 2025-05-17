@@ -1,9 +1,17 @@
 # PartitionStrategy
 
 
-## Values
+## Supported Types
 
-| Name     | Value    |
-| -------- | -------- |
-| `HI_RES` | hi_res   |
-| `FAST`   | fast     |
+### `models.PartitionStrategy1`
+
+```python
+value: models.PartitionStrategy1 = /* values here */
+```
+
+### `models.MediaModeParam`
+
+```python
+value: models.MediaModeParam = /* values here */
+```
+

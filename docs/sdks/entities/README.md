@@ -73,6 +73,14 @@ with Ragie(
             "key": "<value>",
             "key1": "<value>",
         },
+        "filter_": {
+            "toppings": {
+                "$in": [
+                    "pizza",
+                    "mushrooms",
+                ],
+            },
+        },
         "partition": "<value>",
     })
 

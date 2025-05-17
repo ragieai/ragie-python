@@ -12,6 +12,7 @@
 | `ONEDRIVE`     | onedrive       |
 | `GOOGLE_DRIVE` | google_drive   |
 | `GMAIL`        | gmail          |
+| `INTERCOM`     | intercom       |
 | `NOTION`       | notion         |
 | `SALESFORCE`   | salesforce     |
 | `SHAREPOINT`   | sharepoint     |

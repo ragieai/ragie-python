@@ -11,9 +11,9 @@ Document data in a text or JSON format.
 value: str = /* values here */
 ```
 
-### `models.Data2`
+### `Dict[str, Any]`
 
 ```python
-value: models.Data2 = /* values here */
+value: Dict[str, Any] = /* values here */
 ```
 

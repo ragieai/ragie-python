@@ -3,16 +3,27 @@
 from __future__ import annotations
 from .audiomodalitydata import AudioModalityData, AudioModalityDataTypedDict
 from .link import Link, LinkTypedDict
-from pydantic import model_serializer
+from .videomodalitydata import VideoModalityData, VideoModalityDataTypedDict
+from pydantic import Discriminator, Tag, model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing import Any, Dict, Optional
-from typing_extensions import NotRequired, TypedDict
+from ragie.utils import get_discriminator
+from typing import Any, Dict, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ModalityDataTypedDict = AudioModalityDataTypedDict
+ModalityDataTypedDict = TypeAliasType(
+    "ModalityDataTypedDict",
+    Union[AudioModalityDataTypedDict, VideoModalityDataTypedDict],
+)
 
 
-ModalityData = AudioModalityData
+ModalityData = Annotated[
+    Union[
+        Annotated[AudioModalityData, Tag("audio")],
+        Annotated[VideoModalityData, Tag("video")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DocumentChunkDetailTypedDict(TypedDict):

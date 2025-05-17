@@ -14,11 +14,12 @@ generation:
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: false
+    sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
 python:
-  version: 1.8.0
+  version: 1.9.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -45,8 +46,10 @@ python:
   inputModelSuffix: input
   maxMethodParams: 4
   methodArguments: infer-optional-args
+  moduleName: ""
   outputModelSuffix: output
   packageName: ragie
+  pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
   templateVersion: v2
