@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .connectorsource import ConnectorSource
+from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict
 from enum import Enum
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
@@ -19,9 +20,19 @@ OAuthURLCreateMetadata = TypeAliasType(
 )
 
 
-class Mode(str, Enum):
+class OAuthURLCreateMode1(str, Enum):
     HI_RES = "hi_res"
     FAST = "fast"
+
+
+OAuthURLCreateModeTypedDict = TypeAliasType(
+    "OAuthURLCreateModeTypedDict", Union[MediaModeParamTypedDict, OAuthURLCreateMode1]
+)
+
+
+OAuthURLCreateMode = TypeAliasType(
+    "OAuthURLCreateMode", Union[MediaModeParam, OAuthURLCreateMode1]
+)
 
 
 class Theme(str, Enum):
@@ -35,7 +46,7 @@ class OAuthURLCreateTypedDict(TypedDict):
     source_type: NotRequired[ConnectorSource]
     metadata: NotRequired[Dict[str, OAuthURLCreateMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
-    mode: NotRequired[Nullable[Mode]]
+    mode: NotRequired[Nullable[OAuthURLCreateModeTypedDict]]
     partition: NotRequired[Nullable[str]]
     theme: NotRequired[Nullable[Theme]]
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
@@ -53,7 +64,7 @@ class OAuthURLCreate(BaseModel):
     metadata: Optional[Dict[str, OAuthURLCreateMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
 
-    mode: OptionalNullable[Mode] = UNSET
+    mode: OptionalNullable[OAuthURLCreateMode] = UNSET
 
     partition: OptionalNullable[str] = UNSET
 

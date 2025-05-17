@@ -16,6 +16,8 @@ from .connectionbase import (
     ConnectionBaseMetadataTypedDict,
     ConnectionBaseTypedDict,
     PartitionStrategy,
+    PartitionStrategy1,
+    PartitionStrategyTypedDict,
 )
 from .connectionlimitparams import ConnectionLimitParams, ConnectionLimitParamsTypedDict
 from .connectionlist import ConnectionList, ConnectionListTypedDict
@@ -30,16 +32,28 @@ from .createdocumentfromurlparams import (
     CreateDocumentFromURLParamsMetadata,
     CreateDocumentFromURLParamsMetadataTypedDict,
     CreateDocumentFromURLParamsMode,
+    CreateDocumentFromURLParamsModeTypedDict,
     CreateDocumentFromURLParamsTypedDict,
+    Mode1,
 )
 from .createdocumentparams import (
     CreateDocumentParams,
-    CreateDocumentParamsMode,
     CreateDocumentParamsTypedDict,
     File,
     FileTypedDict,
     Metadata,
     MetadataTypedDict,
+    Mode,
+    ModeStatic,
+    ModeTypedDict,
+    ModeVideo,
+    One,
+    One1,
+    One2,
+    One2TypedDict,
+    OneTypedDict,
+    Two,
+    TwoTypedDict,
 )
 from .createdocumentrawparams import (
     CreateDocumentRawParams,
@@ -48,13 +62,9 @@ from .createdocumentrawparams import (
     CreateDocumentRawParamsTypedDict,
     Data,
     DataTypedDict,
-    Two,
-    TwoTypedDict,
 )
 from .createinstructionparams import (
     CreateInstructionParams,
-    CreateInstructionParamsFilter,
-    CreateInstructionParamsFilterTypedDict,
     CreateInstructionParamsScope,
     CreateInstructionParamsTypedDict,
 )
@@ -145,6 +155,9 @@ from .getdocumentchunksop import (
 from .getdocumentcontentop import (
     GetDocumentContentRequest,
     GetDocumentContentRequestTypedDict,
+    QueryParam1,
+    QueryParamMediaType,
+    QueryParamMediaTypeTypedDict,
 )
 from .getdocumentop import GetDocumentRequest, GetDocumentRequestTypedDict
 from .getdocumentsourceop import (
@@ -156,13 +169,7 @@ from .getdocumentsummaryop import (
     GetDocumentSummaryRequestTypedDict,
 )
 from .httpvalidationerror import HTTPValidationError, HTTPValidationErrorData
-from .instruction import (
-    Filter,
-    FilterTypedDict,
-    Instruction,
-    InstructionTypedDict,
-    Scope,
-)
+from .instruction import Instruction, InstructionTypedDict, Scope
 from .link import Link, LinkTypedDict
 from .list_connections_connections_getop import (
     ListConnectionsConnectionsGetRequest,
@@ -198,11 +205,14 @@ from .listentitiesbyinstructionop import (
     ListEntitiesByInstructionResponse,
     ListEntitiesByInstructionResponseTypedDict,
 )
+from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict, Static, Video
 from .oauthurlcreate import (
-    Mode,
     OAuthURLCreate,
     OAuthURLCreateMetadata,
     OAuthURLCreateMetadataTypedDict,
+    OAuthURLCreateMode,
+    OAuthURLCreateMode1,
+    OAuthURLCreateModeTypedDict,
     OAuthURLCreateTypedDict,
     Theme,
 )
@@ -255,10 +265,20 @@ from .updatedocumentfileop import (
     UpdateDocumentFileRequestTypedDict,
 )
 from .updatedocumentfileparams import (
+    Mode2,
+    Mode2TypedDict,
     UpdateDocumentFileParams,
+    UpdateDocumentFileParams11,
+    UpdateDocumentFileParams12,
+    UpdateDocumentFileParams12TypedDict,
     UpdateDocumentFileParamsFile,
     UpdateDocumentFileParamsFileTypedDict,
     UpdateDocumentFileParamsMode,
+    UpdateDocumentFileParamsMode1,
+    UpdateDocumentFileParamsMode1TypedDict,
+    UpdateDocumentFileParamsModeStatic,
+    UpdateDocumentFileParamsModeTypedDict,
+    UpdateDocumentFileParamsModeVideo,
     UpdateDocumentFileParamsTypedDict,
 )
 from .updatedocumentfromurlop import (
@@ -268,6 +288,8 @@ from .updatedocumentfromurlop import (
 from .updatedocumentfromurlparams import (
     UpdateDocumentFromURLParams,
     UpdateDocumentFromURLParamsMode,
+    UpdateDocumentFromURLParamsMode1,
+    UpdateDocumentFromURLParamsModeTypedDict,
     UpdateDocumentFromURLParamsTypedDict,
 )
 from .updatedocumentrawop import (
@@ -275,8 +297,6 @@ from .updatedocumentrawop import (
     UpdateDocumentRawRequestTypedDict,
 )
 from .updatedocumentrawparams import (
-    Data2,
-    Data2TypedDict,
     UpdateDocumentRawParams,
     UpdateDocumentRawParamsData,
     UpdateDocumentRawParamsDataTypedDict,
@@ -296,6 +316,7 @@ from .validationerror import (
     ValidationError,
     ValidationErrorTypedDict,
 )
+from .videomodalitydata import VideoModalityData, VideoModalityDataTypedDict
 from .wordtimestamp import WordTimestamp, WordTimestampTypedDict
 
 
@@ -323,24 +344,20 @@ __all__ = [
     "CreateDocumentFromURLParamsMetadata",
     "CreateDocumentFromURLParamsMetadataTypedDict",
     "CreateDocumentFromURLParamsMode",
+    "CreateDocumentFromURLParamsModeTypedDict",
     "CreateDocumentFromURLParamsTypedDict",
     "CreateDocumentParams",
-    "CreateDocumentParamsMode",
     "CreateDocumentParamsTypedDict",
     "CreateDocumentRawParams",
     "CreateDocumentRawParamsMetadata",
     "CreateDocumentRawParamsMetadataTypedDict",
     "CreateDocumentRawParamsTypedDict",
     "CreateInstructionParams",
-    "CreateInstructionParamsFilter",
-    "CreateInstructionParamsFilterTypedDict",
     "CreateInstructionParamsScope",
     "CreateInstructionParamsTypedDict",
     "CreatePartitionParams",
     "CreatePartitionParamsTypedDict",
     "Data",
-    "Data2",
-    "Data2TypedDict",
     "DataTypedDict",
     "DeleteConnectionConnectionsConnectionIDDeletePostRequest",
     "DeleteConnectionConnectionsConnectionIDDeletePostRequestTypedDict",
@@ -395,8 +412,6 @@ __all__ = [
     "ErrorMessageData",
     "File",
     "FileTypedDict",
-    "Filter",
-    "FilterTypedDict",
     "GetConnectionConnectionsConnectionIDGetRequest",
     "GetConnectionConnectionsConnectionIDGetRequestTypedDict",
     "GetConnectionStatsConnectionsConnectionIDStatsGetRequest",
@@ -447,18 +462,34 @@ __all__ = [
     "ListPartitionsPartitionsGetResponseTypedDict",
     "Loc",
     "LocTypedDict",
+    "MediaModeParam",
+    "MediaModeParamTypedDict",
     "MediaType",
     "Metadata",
     "MetadataTypedDict",
     "ModalityData",
     "ModalityDataTypedDict",
     "Mode",
+    "Mode1",
+    "Mode2",
+    "Mode2TypedDict",
+    "ModeStatic",
+    "ModeTypedDict",
+    "ModeVideo",
     "OAuthURLCreate",
     "OAuthURLCreateMetadata",
     "OAuthURLCreateMetadataTypedDict",
+    "OAuthURLCreateMode",
+    "OAuthURLCreateMode1",
+    "OAuthURLCreateModeTypedDict",
     "OAuthURLCreateTypedDict",
     "OAuthURLResponse",
     "OAuthURLResponseTypedDict",
+    "One",
+    "One1",
+    "One2",
+    "One2TypedDict",
+    "OneTypedDict",
     "Pagination",
     "PaginationTypedDict",
     "Partition",
@@ -473,11 +504,16 @@ __all__ = [
     "PartitionStats",
     "PartitionStatsTypedDict",
     "PartitionStrategy",
+    "PartitionStrategy1",
+    "PartitionStrategyTypedDict",
     "PartitionTypedDict",
     "PatchDocumentMetadataParams",
     "PatchDocumentMetadataParamsTypedDict",
     "PatchDocumentMetadataRequest",
     "PatchDocumentMetadataRequestTypedDict",
+    "QueryParam1",
+    "QueryParamMediaType",
+    "QueryParamMediaTypeTypedDict",
     "Reason",
     "ResponseOK",
     "ResponseOKTypedDict",
@@ -501,6 +537,7 @@ __all__ = [
     "SetPartitionLimitsPartitionsPartitionIDLimitsPutRequestTypedDict",
     "Source",
     "SourceTypedDict",
+    "Static",
     "SyncConnectionRequest",
     "SyncConnectionRequestTypedDict",
     "Theme",
@@ -509,14 +546,24 @@ __all__ = [
     "UpdateConnectionConnectionsConnectionIDPutRequest",
     "UpdateConnectionConnectionsConnectionIDPutRequestTypedDict",
     "UpdateDocumentFileParams",
+    "UpdateDocumentFileParams11",
+    "UpdateDocumentFileParams12",
+    "UpdateDocumentFileParams12TypedDict",
     "UpdateDocumentFileParamsFile",
     "UpdateDocumentFileParamsFileTypedDict",
     "UpdateDocumentFileParamsMode",
+    "UpdateDocumentFileParamsMode1",
+    "UpdateDocumentFileParamsMode1TypedDict",
+    "UpdateDocumentFileParamsModeStatic",
+    "UpdateDocumentFileParamsModeTypedDict",
+    "UpdateDocumentFileParamsModeVideo",
     "UpdateDocumentFileParamsTypedDict",
     "UpdateDocumentFileRequest",
     "UpdateDocumentFileRequestTypedDict",
     "UpdateDocumentFromURLParams",
     "UpdateDocumentFromURLParamsMode",
+    "UpdateDocumentFromURLParamsMode1",
+    "UpdateDocumentFromURLParamsModeTypedDict",
     "UpdateDocumentFromURLParamsTypedDict",
     "UpdateDocumentFromURLRequest",
     "UpdateDocumentFromURLRequestTypedDict",
@@ -532,6 +579,9 @@ __all__ = [
     "UpdateInstructionRequestTypedDict",
     "ValidationError",
     "ValidationErrorTypedDict",
+    "Video",
+    "VideoModalityData",
+    "VideoModalityDataTypedDict",
     "WordTimestamp",
     "WordTimestampTypedDict",
 ]

@@ -2928,6 +2928,10 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        media_type: OptionalNullable[
+            Union[models.QueryParamMediaType, models.QueryParamMediaTypeTypedDict]
+        ] = UNSET,
+        download: Optional[bool] = False,
         partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2936,9 +2940,11 @@ class Documents(BaseSDK):
     ) -> Optional[models.DocumentWithContent]:
         r"""Get Document Content
 
-        Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
+        Get the content of a document. The `media_type` parameter can be used to request the content in a different format. When requesting as `application/json` additional metadata about the document will be included. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data. Using mime types such as `audio/mpeg` or `video/mp4` will stream the file in a format that can be provided to an audio video player.
 
         :param document_id: The id of the document.
+        :param media_type: The desired media type of the content to return described as a mime type. An error will be returned if the requested media type is not supported for the document's type.
+        :param download: Whether to return the content as a file download or a raw stream. If set to `true`, the content will be returned as a named file for download.
         :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2957,6 +2963,8 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentContentRequest(
             document_id=document_id,
+            media_type=media_type,
+            download=download,
             partition=partition,
         )
 
@@ -3035,6 +3043,10 @@ class Documents(BaseSDK):
         self,
         *,
         document_id: str,
+        media_type: OptionalNullable[
+            Union[models.QueryParamMediaType, models.QueryParamMediaTypeTypedDict]
+        ] = UNSET,
+        download: Optional[bool] = False,
         partition: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -3043,9 +3055,11 @@ class Documents(BaseSDK):
     ) -> Optional[models.DocumentWithContent]:
         r"""Get Document Content
 
-        Get the content of a document. The content is the raw text of the document. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data.
+        Get the content of a document. The `media_type` parameter can be used to request the content in a different format. When requesting as `application/json` additional metadata about the document will be included. If the original document contained content such as images or other non-textual media, this response will include a text description of that media instead of the original file data. Using mime types such as `audio/mpeg` or `video/mp4` will stream the file in a format that can be provided to an audio video player.
 
         :param document_id: The id of the document.
+        :param media_type: The desired media type of the content to return described as a mime type. An error will be returned if the requested media type is not supported for the document's type.
+        :param download: Whether to return the content as a file download or a raw stream. If set to `true`, the content will be returned as a named file for download.
         :param partition: An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -3064,6 +3078,8 @@ class Documents(BaseSDK):
 
         request = models.GetDocumentContentRequest(
             document_id=document_id,
+            media_type=media_type,
+            download=download,
             partition=partition,
         )
 

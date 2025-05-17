@@ -2,26 +2,18 @@
 
 from __future__ import annotations
 from ragie.types import BaseModel
-from typing import Union
+from typing import Any, Dict, Union
 from typing_extensions import TypeAliasType, TypedDict
 
 
-class Data2TypedDict(TypedDict):
-    pass
-
-
-class Data2(BaseModel):
-    pass
-
-
 UpdateDocumentRawParamsDataTypedDict = TypeAliasType(
-    "UpdateDocumentRawParamsDataTypedDict", Union[Data2TypedDict, str]
+    "UpdateDocumentRawParamsDataTypedDict", Union[str, Dict[str, Any]]
 )
 r"""Document data in a text or JSON format."""
 
 
 UpdateDocumentRawParamsData = TypeAliasType(
-    "UpdateDocumentRawParamsData", Union[Data2, str]
+    "UpdateDocumentRawParamsData", Union[str, Dict[str, Any]]
 )
 r"""Document data in a text or JSON format."""
 

@@ -4,17 +4,104 @@ from __future__ import annotations
 from enum import Enum
 import io
 import pydantic
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from ragie.utils import FieldMetadata, MultipartFormMetadata
 from typing import IO, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class UpdateDocumentFileParamsMode(str, Enum):
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
-
+class UpdateDocumentFileParamsModeStatic(str, Enum):
     HI_RES = "hi_res"
     FAST = "fast"
+
+
+class UpdateDocumentFileParamsModeVideo(str, Enum):
+    AUDIO_ONLY = "audio_only"
+    VIDEO_ONLY = "video_only"
+    AUDIO_VIDEO = "audio_video"
+
+
+class Mode2TypedDict(TypedDict):
+    static: NotRequired[Nullable[UpdateDocumentFileParamsModeStatic]]
+    audio: NotRequired[Nullable[bool]]
+    video: NotRequired[Nullable[UpdateDocumentFileParamsModeVideo]]
+
+
+class Mode2(BaseModel):
+    static: OptionalNullable[UpdateDocumentFileParamsModeStatic] = UNSET
+
+    audio: OptionalNullable[bool] = UNSET
+
+    video: OptionalNullable[UpdateDocumentFileParamsModeVideo] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["static", "audio", "video"]
+        nullable_fields = ["static", "audio", "video"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class UpdateDocumentFileParams12TypedDict(TypedDict):
+    pass
+
+
+class UpdateDocumentFileParams12(BaseModel):
+    pass
+
+
+class UpdateDocumentFileParams11(str, Enum):
+    HI_RES = "hi_res"
+    FAST = "fast"
+
+
+UpdateDocumentFileParamsMode1TypedDict = TypeAliasType(
+    "UpdateDocumentFileParamsMode1TypedDict",
+    Union[UpdateDocumentFileParams12TypedDict, UpdateDocumentFileParams11],
+)
+
+
+UpdateDocumentFileParamsMode1 = TypeAliasType(
+    "UpdateDocumentFileParamsMode1",
+    Union[UpdateDocumentFileParams12, UpdateDocumentFileParams11],
+)
+
+
+UpdateDocumentFileParamsModeTypedDict = TypeAliasType(
+    "UpdateDocumentFileParamsModeTypedDict",
+    Union[Mode2TypedDict, UpdateDocumentFileParamsMode1TypedDict],
+)
+r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }"""
+
+
+UpdateDocumentFileParamsMode = TypeAliasType(
+    "UpdateDocumentFileParamsMode", Union[Mode2, UpdateDocumentFileParamsMode1]
+)
+r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }"""
 
 
 class UpdateDocumentFileParamsFileTypedDict(TypedDict):
@@ -47,8 +134,8 @@ class UpdateDocumentFileParamsTypedDict(TypedDict):
     Images: `.png` `.webp` `.jpg` `.jpeg` `.tiff` `.bmp` `.heic`
     Documents: `.csv` `.doc` `.docx` `.epub` `.epub+zip` `.odt` `.pdf` `.ppt` `.pptx` `.tsv` `.xlsx` `.xls`.
     """
-    mode: NotRequired[UpdateDocumentFileParamsMode]
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
+    mode: NotRequired[UpdateDocumentFileParamsModeTypedDict]
+    r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }"""
 
 
 class UpdateDocumentFileParams(BaseModel):
@@ -62,6 +149,7 @@ class UpdateDocumentFileParams(BaseModel):
     """
 
     mode: Annotated[
-        Optional[UpdateDocumentFileParamsMode], FieldMetadata(multipart=True)
-    ] = UpdateDocumentFileParamsMode.FAST
-    r"""Partition strategy for the document. Options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode."""
+        Optional[UpdateDocumentFileParamsMode],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }"""
