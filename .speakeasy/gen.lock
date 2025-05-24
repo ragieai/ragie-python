@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: e96990103b98a2e048512029c82fc4a4
+  docChecksum: 896e8b53e0968c892ab19f842b1234f7
   docVersion: 1.0.0
-  speakeasyVersion: 1.546.1
-  generationVersion: 2.604.2
-  releaseVersion: 1.9.0
-  configChecksum: 6ffe9f2395c642686ad47aea159460da
+  speakeasyVersion: 1.551.0
+  generationVersion: 2.610.0
+  releaseVersion: 1.10.0
+  configChecksum: 926b95a38b0fdc57fde9e74ba57c5fa6
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.18.1
+    core: 5.19.0
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -500,7 +500,7 @@ examples:
           document_id: "00000000-0000-0000-0000-000000000000"
           chunk_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
@@ -517,7 +517,7 @@ examples:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
