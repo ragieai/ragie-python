@@ -112,17 +112,18 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 
 ```python
 # Synchronous Example
+import ragie
 from ragie import Ragie
 
 
-with Ragie(
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-) as r_client:
+with Ragie() as r_client:
 
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
+    res = r_client.eventevent_post(request={
+        "nonce": "<value>",
+        "type": "partition_limit_exceeded",
+        "payload": {
+            "partition": "<value>",
+            "limit_type": ragie.LimitType.PAGES_HOSTED_LIMIT_MONTHLY,
         },
     })
 
@@ -138,18 +139,19 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
+import ragie
 from ragie import Ragie
 
 async def main():
 
-    async with Ragie(
-        auth="<YOUR_BEARER_TOKEN_HERE>",
-    ) as r_client:
+    async with Ragie() as r_client:
 
-        res = await r_client.documents.create_async(request={
-            "file": {
-                "file_name": "example.file",
-                "content": open("example.file", "rb"),
+        res = await r_client.eventevent_post_async(request={
+            "nonce": "<value>",
+            "type": "partition_limit_exceeded",
+            "payload": {
+                "partition": "<value>",
+                "limit_type": ragie.LimitType.PAGES_HOSTED_LIMIT_MONTHLY,
             },
         })
 
