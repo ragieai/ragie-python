@@ -1,0 +1,10 @@
+# ConnectionLimitExceededWebhook
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `nonce`                                                                                            | *str*                                                                                              | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `type`                                                                                             | *Literal["connection_limit_exceeded"]*                                                             | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `payload`                                                                                          | [models.ConnectionLimitExceededWebhookPayload](../models/connectionlimitexceededwebhookpayload.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

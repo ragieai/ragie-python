@@ -61,6 +61,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListInstructions",
                 oauth2_scopes=[],
@@ -151,6 +152,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListInstructions",
                 oauth2_scopes=[],
@@ -253,6 +255,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateInstruction",
                 oauth2_scopes=[],
@@ -358,6 +361,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateInstruction",
                 oauth2_scopes=[],
@@ -470,6 +474,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateInstruction",
                 oauth2_scopes=[],
@@ -582,6 +587,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateInstruction",
                 oauth2_scopes=[],
@@ -682,6 +688,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteInstruction",
                 oauth2_scopes=[],
@@ -782,6 +789,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteInstruction",
                 oauth2_scopes=[],
@@ -883,6 +891,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListEntitiesByInstruction",
                 oauth2_scopes=[],
@@ -1008,6 +1017,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListEntitiesByInstruction",
                 oauth2_scopes=[],
@@ -1133,6 +1143,7 @@ class Entities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListEntitiesByDocument",
                 oauth2_scopes=[],
@@ -1258,6 +1269,7 @@ class Entities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListEntitiesByDocument",
                 oauth2_scopes=[],
