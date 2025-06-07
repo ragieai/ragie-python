@@ -1,0 +1,10 @@
+# ConnectionSyncFinishedWebhook
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `nonce`                                                                                          | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `type`                                                                                           | *Literal["connection_sync_finished"]*                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `payload`                                                                                        | [models.ConnectionSyncFinishedWebhookPayload](../models/connectionsyncfinishedwebhookpayload.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
