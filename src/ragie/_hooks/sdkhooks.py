@@ -11,6 +11,7 @@ from .types import (
     AfterErrorHook,
     Hooks,
 )
+from .registration import init_hooks
 from typing import List, Optional, Tuple
 from ragie.httpclient import HttpClient
 
@@ -21,6 +22,7 @@ class SDKHooks(Hooks):
         self.before_request_hooks: List[BeforeRequestHook] = []
         self.after_success_hooks: List[AfterSuccessHook] = []
         self.after_error_hooks: List[AfterErrorHook] = []
+        init_hooks(self)
 
     def register_sdk_init_hook(self, hook: SDKInitHook) -> None:
         self.sdk_init_hooks.append(hook)

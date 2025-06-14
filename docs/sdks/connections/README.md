@@ -30,7 +30,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.connections.list(filter_="{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}")
+    res = r_client.connections.list(page_size=10, filter_="{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}")
 
     while res is not None:
         # Handle items

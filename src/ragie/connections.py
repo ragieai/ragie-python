@@ -74,6 +74,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_connections_connections_get",
                 oauth2_scopes=[],
@@ -203,6 +204,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_connections_connections_get",
                 oauth2_scopes=[],
@@ -329,6 +331,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_oauth_redirect_url_connections_oauth_post",
                 oauth2_scopes=[],
@@ -434,6 +437,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_oauth_redirect_url_connections_oauth_post",
                 oauth2_scopes=[],
@@ -529,6 +533,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_connection_source_types_connections_source_type_get",
                 oauth2_scopes=[],
@@ -619,6 +624,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_connection_source_types_connections_source_type_get",
                 oauth2_scopes=[],
@@ -731,6 +737,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_connection_enabled_connections__connection_id__enabled_put",
                 oauth2_scopes=[],
@@ -846,6 +853,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_connection_enabled_connections__connection_id__enabled_put",
                 oauth2_scopes=[],
@@ -954,6 +962,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_connection_connections__connection_id__put",
                 oauth2_scopes=[],
@@ -1062,6 +1071,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_connection_connections__connection_id__put",
                 oauth2_scopes=[],
@@ -1162,6 +1172,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_connection_connections__connection_id__get",
                 oauth2_scopes=[],
@@ -1262,6 +1273,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_connection_connections__connection_id__get",
                 oauth2_scopes=[],
@@ -1362,6 +1374,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_connection_stats_connections__connection_id__stats_get",
                 oauth2_scopes=[],
@@ -1462,6 +1475,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_connection_stats_connections__connection_id__stats_get",
                 oauth2_scopes=[],
@@ -1576,6 +1590,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_connection_limits_connections__connection_id__limit_put",
                 oauth2_scopes=[],
@@ -1690,6 +1705,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_connection_limits_connections__connection_id__limit_put",
                 oauth2_scopes=[],
@@ -1804,6 +1820,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_connection_connections__connection_id__delete_post",
                 oauth2_scopes=[],
@@ -1918,6 +1935,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_connection_connections__connection_id__delete_post",
                 oauth2_scopes=[],
@@ -2018,6 +2036,7 @@ class Connections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="SyncConnection",
                 oauth2_scopes=[],
@@ -2120,6 +2139,7 @@ class Connections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="SyncConnection",
                 oauth2_scopes=[],
