@@ -59,6 +59,7 @@ Create a new instruction. Instructions are applied to documents as they are crea
 ### Example Usage
 
 ```python
+import ragie
 from ragie import Ragie
 
 
@@ -68,6 +69,7 @@ with Ragie(
 
     res = r_client.entities.create_instruction(request={
         "name": "Find all pizzas",
+        "scope": ragie.CreateInstructionParamsScope.DOCUMENT,
         "prompt": "Find all pizzas described in the text.",
         "entity_schema": {
             "key": "<value>",

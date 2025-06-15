@@ -1,0 +1,10 @@
+# PartitionLimitExceededWebhook
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `nonce`                                                                                          | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `type`                                                                                           | *Literal["partition_limit_exceeded"]*                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `payload`                                                                                        | [models.PartitionLimitExceededWebhookPayload](../models/partitionlimitexceededwebhookpayload.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
