@@ -25,7 +25,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.partitions.list()
+    res = r_client.partitions.list(page_size=10)
 
     while res is not None:
         # Handle items
