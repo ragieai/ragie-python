@@ -1,0 +1,10 @@
+# ConnectionSyncStartedWebhook
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `nonce`                                                                                        | *str*                                                                                          | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `type`                                                                                         | *Literal["connection_sync_started"]*                                                           | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `payload`                                                                                      | [models.ConnectionSyncStartedWebhookPayload](../models/connectionsyncstartedwebhookpayload.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |

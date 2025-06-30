@@ -71,6 +71,7 @@ class Partitions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_partitions_partitions_get",
                 oauth2_scopes=[],
@@ -196,6 +197,7 @@ class Partitions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="list_partitions_partitions_get",
                 oauth2_scopes=[],
@@ -323,6 +325,7 @@ class Partitions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_partition_partitions_post",
                 oauth2_scopes=[],
@@ -428,6 +431,7 @@ class Partitions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_partition_partitions_post",
                 oauth2_scopes=[],
@@ -528,6 +532,7 @@ class Partitions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_partition_partitions__partition_id__get",
                 oauth2_scopes=[],
@@ -628,6 +633,7 @@ class Partitions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_partition_partitions__partition_id__get",
                 oauth2_scopes=[],
@@ -728,6 +734,7 @@ class Partitions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_partition_partitions__partition_id__delete",
                 oauth2_scopes=[],
@@ -828,6 +835,7 @@ class Partitions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_partition_partitions__partition_id__delete",
                 oauth2_scopes=[],
@@ -942,6 +950,7 @@ class Partitions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_partition_limits_partitions__partition_id__limits_put",
                 oauth2_scopes=[],
@@ -1056,6 +1065,7 @@ class Partitions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="set_partition_limits_partitions__partition_id__limits_put",
                 oauth2_scopes=[],

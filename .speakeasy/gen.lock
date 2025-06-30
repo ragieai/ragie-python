@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: e96990103b98a2e048512029c82fc4a4
+  docChecksum: 28b7db95b730e6be381e55609fec3511
   docVersion: 1.0.0
-  speakeasyVersion: 1.546.1
-  generationVersion: 2.604.2
-  releaseVersion: 1.9.0
-  configChecksum: 6ffe9f2395c642686ad47aea159460da
+  speakeasyVersion: 1.571.2
+  generationVersion: 2.640.2
+  releaseVersion: 1.10.0
+  configChecksum: 38d7f6bd3d6a6b885d4f956ca8a044d0
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,12 +14,13 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.18.1
+    core: 5.19.3
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
+    examples: 3.0.1
     flattening: 3.1.1
     globalSecurity: 3.0.3
     globalSecurityCallbacks: 1.0.0
@@ -32,9 +33,10 @@ features:
     pagination: 3.0.5
     responseFormat: 1.0.1
     retries: 3.0.2
-    sdkHooks: 1.0.1
+    sdkHooks: 1.1.0
     unions: 3.0.4
     uploadStreams: 1.0.0
+    webhooks: 2.0.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -47,10 +49,18 @@ generatedFiles:
   - docs/models/connection.md
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
+  - docs/models/connectionlimitexceededwebhook.md
+  - docs/models/connectionlimitexceededwebhookpayload.md
   - docs/models/connectionlimitparams.md
   - docs/models/connectionlist.md
   - docs/models/connectionmetadata.md
   - docs/models/connectionstats.md
+  - docs/models/connectionsyncfinishedwebhook.md
+  - docs/models/connectionsyncfinishedwebhookpayload.md
+  - docs/models/connectionsyncprogresswebhook.md
+  - docs/models/connectionsyncprogresswebhookpayload.md
+  - docs/models/connectionsyncstartedwebhook.md
+  - docs/models/connectionsyncstartedwebhookpayload.md
   - docs/models/connectorsource.md
   - docs/models/connectorsourcetypeinfo.md
   - docs/models/createdocumentfromurlparams.md
@@ -74,6 +84,8 @@ generatedFiles:
   - docs/models/documentchunkdetail.md
   - docs/models/documentchunklist.md
   - docs/models/documentdelete.md
+  - docs/models/documentdeletewebhook.md
+  - docs/models/documentdeletewebhookpayload.md
   - docs/models/documentfileupdate.md
   - docs/models/documentget.md
   - docs/models/documentgetmetadata.md
@@ -83,12 +95,17 @@ generatedFiles:
   - docs/models/documentmetadataupdatemetadata.md
   - docs/models/documentrawupdate.md
   - docs/models/documentsummary.md
+  - docs/models/documentupdatewebhook.md
+  - docs/models/documentupdatewebhookpayload.md
   - docs/models/documenturlupdate.md
   - docs/models/documentwithcontent.md
   - docs/models/documentwithcontentmetadata.md
   - docs/models/entity.md
+  - docs/models/entityextractedwebhook.md
+  - docs/models/entityextractedwebhookpayload.md
   - docs/models/entitylist.md
   - docs/models/errormessage.md
+  - docs/models/eventeventpostbody.md
   - docs/models/file.md
   - docs/models/getconnectionconnectionsconnectionidgetrequest.md
   - docs/models/getconnectionstatsconnectionsconnectionidstatsgetrequest.md
@@ -102,6 +119,7 @@ generatedFiles:
   - docs/models/getpartitionpartitionspartitionidgetrequest.md
   - docs/models/httpvalidationerror.md
   - docs/models/instruction.md
+  - docs/models/limittype.md
   - docs/models/link.md
   - docs/models/listconnectionsconnectionsgetrequest.md
   - docs/models/listconnectionsconnectionsgetresponse.md
@@ -135,6 +153,8 @@ generatedFiles:
   - docs/models/pagination.md
   - docs/models/partition.md
   - docs/models/partitiondetail.md
+  - docs/models/partitionlimitexceededwebhook.md
+  - docs/models/partitionlimitexceededwebhookpayload.md
   - docs/models/partitionlimitparams.md
   - docs/models/partitionlimits.md
   - docs/models/partitionlist.md
@@ -211,9 +231,17 @@ generatedFiles:
   - src/ragie/models/audiomodalitydata.py
   - src/ragie/models/connection.py
   - src/ragie/models/connectionbase.py
+  - src/ragie/models/connectionlimitexceededwebhook.py
+  - src/ragie/models/connectionlimitexceededwebhookpayload.py
   - src/ragie/models/connectionlimitparams.py
   - src/ragie/models/connectionlist.py
   - src/ragie/models/connectionstats.py
+  - src/ragie/models/connectionsyncfinishedwebhook.py
+  - src/ragie/models/connectionsyncfinishedwebhookpayload.py
+  - src/ragie/models/connectionsyncprogresswebhook.py
+  - src/ragie/models/connectionsyncprogresswebhookpayload.py
+  - src/ragie/models/connectionsyncstartedwebhook.py
+  - src/ragie/models/connectionsyncstartedwebhookpayload.py
   - src/ragie/models/connectorsource.py
   - src/ragie/models/connectorsourcetypeinfo.py
   - src/ragie/models/createdocumentfromurlparams.py
@@ -231,17 +259,24 @@ generatedFiles:
   - src/ragie/models/documentchunkdetail.py
   - src/ragie/models/documentchunklist.py
   - src/ragie/models/documentdelete.py
+  - src/ragie/models/documentdeletewebhook.py
+  - src/ragie/models/documentdeletewebhookpayload.py
   - src/ragie/models/documentfileupdate.py
   - src/ragie/models/documentget.py
   - src/ragie/models/documentlist.py
   - src/ragie/models/documentmetadataupdate.py
   - src/ragie/models/documentrawupdate.py
   - src/ragie/models/documentsummary.py
+  - src/ragie/models/documentupdatewebhook.py
+  - src/ragie/models/documentupdatewebhookpayload.py
   - src/ragie/models/documenturlupdate.py
   - src/ragie/models/documentwithcontent.py
   - src/ragie/models/entity.py
+  - src/ragie/models/entityextractedwebhook.py
+  - src/ragie/models/entityextractedwebhookpayload.py
   - src/ragie/models/entitylist.py
   - src/ragie/models/errormessage.py
+  - src/ragie/models/eventevent_postop.py
   - src/ragie/models/get_connection_connections_connection_id_getop.py
   - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
   - src/ragie/models/get_partition_partitions_partition_id_getop.py
@@ -267,6 +302,8 @@ generatedFiles:
   - src/ragie/models/pagination.py
   - src/ragie/models/partition.py
   - src/ragie/models/partitiondetail.py
+  - src/ragie/models/partitionlimitexceededwebhook.py
+  - src/ragie/models/partitionlimitexceededwebhookpayload.py
   - src/ragie/models/partitionlimitparams.py
   - src/ragie/models/partitionlimits.py
   - src/ragie/models/partitionlist.py
@@ -323,7 +360,7 @@ examples:
   CreateDocument:
     speakeasy-default-create-document:
       requestBody:
-        multipart/form-data: {"file": {"": "x-file: example.file"}}
+        multipart/form-data: {"file": "x-file: example.file"}
       responses:
         "201":
           application/json: {"status": "<value>", "id": "514e493d-a037-48f4-af3c-12b09e8c8d24", "created_at": "2024-03-25T07:46:04.132Z", "updated_at": "2025-11-04T23:57:42.637Z", "name": "<value>", "metadata": {}, "partition": "<value>"}
@@ -404,7 +441,7 @@ examples:
         header:
           partition: "acme_customer_id"
       requestBody:
-        multipart/form-data: {"file": {"": "x-file: example.file"}}
+        multipart/form-data: {"file": "x-file: example.file"}
       responses:
         "200":
           application/json: {"status": "<value>"}
@@ -500,7 +537,7 @@ examples:
           document_id: "00000000-0000-0000-0000-000000000000"
           chunk_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
@@ -517,7 +554,7 @@ examples:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
@@ -649,6 +686,8 @@ examples:
         query:
           page_size: 10
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"pagination": {"total_count": 375666}, "connections": [{"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}, {"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}, {"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}]}
@@ -827,5 +866,14 @@ examples:
           application/json: {}
         "401":
           application/json: {"detail": "<value>"}
+  eventevent_post:
+    speakeasy-default-eventevent-post:
+      requestBody:
+        application/json: {"nonce": "<value>", "type": "partition_limit_exceeded", "payload": {"partition": "<value>", "limit_type": "pages_hosted_limit_monthly"}}
+      responses:
+        "200":
+          application/json: "<value>"
+        "422":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests: {}

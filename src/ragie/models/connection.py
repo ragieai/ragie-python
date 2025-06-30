@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
@@ -19,10 +19,12 @@ ConnectionMetadata = TypeAliasType(
 )
 
 
-SourceTypedDict = TypeAliasType("SourceTypedDict", Union[str, List[str]])
+SourceTypedDict = TypeAliasType(
+    "SourceTypedDict", Union[str, List[str], Dict[str, Any]]
+)
 
 
-Source = TypeAliasType("Source", Union[str, List[str]])
+Source = TypeAliasType("Source", Union[str, List[str], Dict[str, Any]])
 
 
 class DisabledBySystemReason(str, Enum):
