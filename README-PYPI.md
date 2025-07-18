@@ -108,7 +108,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Example 1
 
 ```python
 # Synchronous Example
@@ -160,6 +160,205 @@ async def main():
 
 asyncio.run(main())
 ```
+
+### Example 2
+
+```python
+# Synchronous Example
+import ragie
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.connections.create_connection(request=ragie.PublicCreateConnection(
+        partition_strategy=ragie.MediaModeParam(),
+        page_limit=None,
+        config=None,
+        connection=ragie.PublicGCSConnection(
+            data=ragie.BucketData(
+                bucket="<value>",
+            ),
+            credentials={
+                "key": "<value>",
+                "key1": "<value>",
+            },
+        ),
+    ))
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+```
+
+</br>
+
+The same SDK client can also be used to make asychronous requests by importing asyncio.
+```python
+# Asynchronous Example
+import asyncio
+import ragie
+from ragie import Ragie
+
+async def main():
+
+    async with Ragie(
+        auth="<YOUR_BEARER_TOKEN_HERE>",
+    ) as r_client:
+
+        res = await r_client.connections.create_connection_async(request=ragie.PublicCreateConnection(
+            partition_strategy=ragie.MediaModeParam(),
+            page_limit=None,
+            config=None,
+            connection=ragie.PublicGCSConnection(
+                data=ragie.BucketData(
+                    bucket="<value>",
+                ),
+                credentials={
+                    "key": "<value>",
+                    "key1": "<value>",
+                },
+            ),
+        ))
+
+        assert res is not None
+
+        # Handle response
+        print(res)
+
+asyncio.run(main())
+```
+
+### Example 3
+
+```python
+# Synchronous Example
+import ragie
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.authenticators.create(request={
+        "provider": ragie.Provider.ATLASSIAN,
+        "name": "<value>",
+        "client_id": "<id>",
+        "client_secret": "<value>",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+```
+
+</br>
+
+The same SDK client can also be used to make asychronous requests by importing asyncio.
+```python
+# Asynchronous Example
+import asyncio
+import ragie
+from ragie import Ragie
+
+async def main():
+
+    async with Ragie(
+        auth="<YOUR_BEARER_TOKEN_HERE>",
+    ) as r_client:
+
+        res = await r_client.authenticators.create_async(request={
+            "provider": ragie.Provider.ATLASSIAN,
+            "name": "<value>",
+            "client_id": "<id>",
+            "client_secret": "<value>",
+        })
+
+        assert res is not None
+
+        # Handle response
+        print(res)
+
+asyncio.run(main())
+```
+
+### Example 4
+
+```python
+# Synchronous Example
+import ragie
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.authenticators.create_authenticator_connection(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
+        partition_strategy=ragie.MediaModeParam(),
+        page_limit=None,
+        config=None,
+        connection=ragie.AuthenticatorDropboxConnection(
+            data=ragie.FolderData(
+                folder_id="<id>",
+                folder_name="<value>",
+            ),
+            email="Aliyah_Feest59@yahoo.com",
+            credentials=ragie.OAuthRefreshTokenCredentials(
+                refresh_token="<value>",
+            ),
+        ),
+    ))
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+```
+
+</br>
+
+The same SDK client can also be used to make asychronous requests by importing asyncio.
+```python
+# Asynchronous Example
+import asyncio
+import ragie
+from ragie import Ragie
+
+async def main():
+
+    async with Ragie(
+        auth="<YOUR_BEARER_TOKEN_HERE>",
+    ) as r_client:
+
+        res = await r_client.authenticators.create_authenticator_connection_async(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
+            partition_strategy=ragie.MediaModeParam(),
+            page_limit=None,
+            config=None,
+            connection=ragie.AuthenticatorDropboxConnection(
+                data=ragie.FolderData(
+                    folder_id="<id>",
+                    folder_name="<value>",
+                ),
+                email="Aliyah_Feest59@yahoo.com",
+                credentials=ragie.OAuthRefreshTokenCredentials(
+                    refresh_token="<value>",
+                ),
+            ),
+        ))
+
+        assert res is not None
+
+        # Handle response
+        print(res)
+
+asyncio.run(main())
+```
 <!-- End SDK Example Usage [usage] -->
 
 <!-- Start Available Resources and Operations [operations] -->
@@ -168,8 +367,16 @@ asyncio.run(main())
 <details open>
 <summary>Available methods</summary>
 
+### [authenticators](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md)
+
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create) - Create Authenticator
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#list) - List Authenticators
+* [create_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create_authenticator_connection) - Create Authenticator Connection
+* [delete_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#delete_authenticator_connection) - Delete Authenticator
+
 ### [connections](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md)
 
+* [create_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_connection) - Create Connection
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list) - List Connections
 * [create_o_auth_redirect_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_o_auth_redirect_url) - Create Oauth Redirect Url
 * [list_connection_source_types](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list_connection_source_types) - List Connection Source Types
@@ -346,28 +553,20 @@ with Ragie(
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
+[`RagieError`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/ragieerror.py) is the base class for all HTTP error responses. It has the following properties:
 
-By default, an API error will raise a models.SDKError exception, which has the following properties:
-
-| Property        | Type             | Description           |
-|-----------------|------------------|-----------------------|
-| `.status_code`  | *int*            | The HTTP status code  |
-| `.message`      | *str*            | The error message     |
-| `.raw_response` | *httpx.Response* | The raw HTTP response |
-| `.body`         | *str*            | The response content  |
-
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create_async` method may raise the following exceptions:
-
-| Error Type                 | Status Code        | Content Type     |
-| -------------------------- | ------------------ | ---------------- |
-| models.HTTPValidationError | 422                | application/json |
-| models.ErrorMessage        | 400, 401, 402, 429 | application/json |
-| models.SDKError            | 4XX, 5XX           | \*/\*            |
+| Property           | Type             | Description                                                                             |
+| ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
+| `err.message`      | `str`            | Error message                                                                           |
+| `err.status_code`  | `int`            | HTTP response status code eg `404`                                                      |
+| `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
+| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
+| `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
+| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](https://github.com/ragieai/ragie-python/blob/master/#error-classes). |
 
 ### Example
-
 ```python
+import ragie
 from ragie import Ragie, models
 
 
@@ -389,16 +588,42 @@ with Ragie(
         # Handle response
         print(res)
 
-    except models.HTTPValidationError as e:
-        # handle e.data: models.HTTPValidationErrorData
-        raise(e)
-    except models.ErrorMessage as e:
-        # handle e.data: models.ErrorMessageData
-        raise(e)
-    except models.SDKError as e:
-        # handle exception
-        raise(e)
+
+    except models.RagieError as e:
+        # The base class for HTTP error responses
+        print(e.message)
+        print(e.status_code)
+        print(e.body)
+        print(e.headers)
+        print(e.raw_response)
+
+        # Depending on the method different errors may be thrown
+        if isinstance(e, models.HTTPValidationError):
+            print(e.data.detail)  # Optional[List[ragie.ValidationError]]
 ```
+
+### Error Classes
+**Primary errors:**
+* [`RagieError`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/ragieerror.py): The base class for HTTP error responses.
+  * [`ErrorMessage`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/errormessage.py): Unauthorized.
+  * [`HTTPValidationError`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/httpvalidationerror.py): Validation Error. Status code `422`. *
+
+<details><summary>Less common errors (5)</summary>
+
+<br />
+
+**Network errors:**
+* [`httpx.RequestError`](https://www.python-httpx.org/exceptions/#httpx.RequestError): Base class for request errors.
+    * [`httpx.ConnectError`](https://www.python-httpx.org/exceptions/#httpx.ConnectError): HTTP client was unable to make a request to a server.
+    * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
+
+
+**Inherit from [`RagieError`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/ragieerror.py)**:
+* [`ResponseValidationError`](https://github.com/ragieai/ragie-python/blob/master/./src/ragie/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
+
+</details>
+
+\* Check [the method documentation](https://github.com/ragieai/ragie-python/blob/master/#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->

@@ -1,0 +1,12 @@
+# AuthenticatorHubspotConnection
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `provider`                                                                       | *Literal["hubspot"]*                                                             | :heavy_check_mark:                                                               | N/A                                                                              |
+| `data`                                                                           | [models.HubspotData](../models/hubspotdata.md)                                   | :heavy_check_mark:                                                               | N/A                                                                              |
+| `hub_id`                                                                         | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
+| `hub_domain`                                                                     | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
+| `credentials`                                                                    | [models.OAuthRefreshTokenCredentials](../models/oauthrefreshtokencredentials.md) | :heavy_check_mark:                                                               | N/A                                                                              |

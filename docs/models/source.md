@@ -15,3 +15,9 @@ value: str = /* values here */
 value: List[str] = /* values here */
 ```
 
+### `Dict[str, Any]`
+
+```python
+value: Dict[str, Any] = /* values here */
+```
+

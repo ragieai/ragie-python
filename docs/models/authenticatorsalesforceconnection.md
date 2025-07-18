@@ -1,0 +1,11 @@
+# AuthenticatorSalesforceConnection
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `provider`                                                                       | *Literal["salesforce"]*                                                          | :heavy_check_mark:                                                               | N/A                                                                              |
+| `user_email`                                                                     | *str*                                                                            | :heavy_check_mark:                                                               | The email of the Salesforce account this is for                                  |
+| `url`                                                                            | *str*                                                                            | :heavy_check_mark:                                                               | The url of your Salesforce instance, where you go to login.                      |
+| `credentials`                                                                    | [models.OAuthRefreshTokenCredentials](../models/oauthrefreshtokencredentials.md) | :heavy_check_mark:                                                               | N/A                                                                              |

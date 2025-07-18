@@ -23,6 +23,7 @@ with Ragie(
 
     res = r_client.retrievals.retrieve(request={
         "query": "What is the best pizza place in SF?",
+        "rerank": True,
         "max_chunks_per_document": 0,
         "partition": "<value>",
     })

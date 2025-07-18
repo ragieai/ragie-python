@@ -18,6 +18,12 @@ class QueryParam1(str, Enum):
     TEXT_PLAIN = "text/plain"
     AUDIO_MPEG = "audio/mpeg"
     VIDEO_MP4 = "video/mp4"
+    IMAGE_WEBP = "image/webp"
+    IMAGE_HEIC = "image/heic"
+    IMAGE_BMP = "image/bmp"
+    IMAGE_PNG = "image/png"
+    IMAGE_JPEG = "image/jpeg"
+    IMAGE_TIFF = "image/tiff"
 
 
 QueryParamMediaTypeTypedDict = TypeAliasType(
@@ -39,6 +45,7 @@ class GetDocumentContentRequestTypedDict(TypedDict):
     r"""Whether to return the content as a file download or a raw stream. If set to `true`, the content will be returned as a named file for download."""
     partition: NotRequired[Nullable[str]]
     r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
+    range: NotRequired[Nullable[str]]
 
 
 class GetDocumentContentRequest(BaseModel):
@@ -65,10 +72,15 @@ class GetDocumentContentRequest(BaseModel):
     ] = UNSET
     r"""An optional partition to scope the request to. If omitted, accounts created after 1/9/2025 will have the request scoped to the default partition, while older accounts will have the request scoped to all partitions. Older accounts may opt in to strict partition scoping by contacting support@ragie.ai. Older accounts using the partitions feature are strongly recommended to scope the request to a partition."""
 
+    range: Annotated[
+        OptionalNullable[str],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["media_type", "download", "partition"]
-        nullable_fields = ["media_type", "partition"]
+        optional_fields = ["media_type", "download", "partition", "range"]
+        nullable_fields = ["media_type", "partition", "range"]
         null_default_fields = []
 
         serialized = handler(self)

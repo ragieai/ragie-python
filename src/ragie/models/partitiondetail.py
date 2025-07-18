@@ -5,16 +5,17 @@ from .partitionlimits import PartitionLimits, PartitionLimitsTypedDict
 from .partitionstats import PartitionStats, PartitionStatsTypedDict
 from datetime import datetime
 from pydantic import model_serializer
-from ragie.types import BaseModel, Nullable, UNSET_SENTINEL
-from typing_extensions import TypedDict
+from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
+from typing_extensions import NotRequired, TypedDict
 
 
 class PartitionDetailTypedDict(TypedDict):
     name: str
     is_default: bool
-    limit_exceeded_at: Nullable[datetime]
     limits: PartitionLimitsTypedDict
     stats: PartitionStatsTypedDict
+    limit_exceeded_at: NotRequired[Nullable[datetime]]
+    r"""Timestamp when the partition exceeded its limits, if applicable."""
 
 
 class PartitionDetail(BaseModel):
@@ -22,15 +23,16 @@ class PartitionDetail(BaseModel):
 
     is_default: bool
 
-    limit_exceeded_at: Nullable[datetime]
-
     limits: PartitionLimits
 
     stats: PartitionStats
 
+    limit_exceeded_at: OptionalNullable[datetime] = UNSET
+    r"""Timestamp when the partition exceeded its limits, if applicable."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
+        optional_fields = ["limit_exceeded_at"]
         nullable_fields = ["limit_exceeded_at"]
         null_default_fields = []
 

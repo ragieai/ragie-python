@@ -1,0 +1,11 @@
+# AuthenticatorGoogleDriveConnection
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `provider`                                                                       | *Literal["google_drive"]*                                                        | :heavy_check_mark:                                                               | N/A                                                                              |
+| `data`                                                                           | List[[models.GoogleFolderData](../models/googlefolderdata.md)]                   | :heavy_check_mark:                                                               | N/A                                                                              |
+| `email`                                                                          | *str*                                                                            | :heavy_check_mark:                                                               | The email of the Google Drive account this is for                                |
+| `credentials`                                                                    | [models.OAuthRefreshTokenCredentials](../models/oauthrefreshtokencredentials.md) | :heavy_check_mark:                                                               | N/A                                                                              |

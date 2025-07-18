@@ -1,0 +1,11 @@
+# AuthenticatorSharepointConnection
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `provider`                                                                       | *Literal["sharepoint"]*                                                          | :heavy_check_mark:                                                               | N/A                                                                              |
+| `data`                                                                           | [models.SharepointData](../models/sharepointdata.md)                             | :heavy_check_mark:                                                               | N/A                                                                              |
+| `user_email`                                                                     | *str*                                                                            | :heavy_check_mark:                                                               | The email of the Sharepoint account this is for                                  |
+| `credentials`                                                                    | [models.OAuthRefreshTokenCredentials](../models/oauthrefreshtokencredentials.md) | :heavy_check_mark:                                                               | N/A                                                                              |
