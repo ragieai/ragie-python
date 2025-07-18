@@ -4,6 +4,8 @@ sources:
     Ragie-OAS:
         inputs:
             - location: https://api.ragie.ai/openapi.json
+        overlays:
+            - location: .speakeasy/remove-webhooks.overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/ragie-ai/ragie-ai/ragie-oas
 targets:
