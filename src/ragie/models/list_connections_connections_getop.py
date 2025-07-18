@@ -5,7 +5,7 @@ from .connectionlist import ConnectionList, ConnectionListTypedDict
 import pydantic
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from ragie.utils import FieldMetadata, QueryParamMetadata
+from ragie.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
 from typing import Callable, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -17,6 +17,8 @@ class ListConnectionsConnectionsGetRequestTypedDict(TypedDict):
     r"""The number of items per page (must be greater than 0 and less than or equal to 100)"""
     filter_: NotRequired[Nullable[str]]
     r"""The metadata search filter. Returns only items which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
+    partition: NotRequired[Nullable[str]]
+    r"""An optional partition to scope the request to. If omitted, the request will be scoped to the default partition."""
 
 
 class ListConnectionsConnectionsGetRequest(BaseModel):
@@ -39,10 +41,16 @@ class ListConnectionsConnectionsGetRequest(BaseModel):
     ] = UNSET
     r"""The metadata search filter. Returns only items which match the filter. The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
 
+    partition: Annotated[
+        OptionalNullable[str],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = UNSET
+    r"""An optional partition to scope the request to. If omitted, the request will be scoped to the default partition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["cursor", "page_size", "filter"]
-        nullable_fields = ["cursor", "filter"]
+        optional_fields = ["cursor", "page_size", "filter", "partition"]
+        nullable_fields = ["cursor", "filter", "partition"]
         null_default_fields = []
 
         serialized = handler(self)

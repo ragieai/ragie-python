@@ -25,7 +25,7 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.partitions.list()
+    res = r_client.partitions.list(page_size=10)
 
     while res is not None:
         # Handle items
@@ -74,6 +74,14 @@ with Ragie(
         "pages_processed_limit_monthly": 1000,
         "pages_hosted_limit_max": 1000,
         "pages_processed_limit_max": 1000,
+        "audio_processed_limit_monthly": 60,
+        "audio_processed_limit_max": 60,
+        "video_processed_limit_monthly": 60,
+        "video_processed_limit_max": 60,
+        "media_streamed_limit_monthly": 1024,
+        "media_streamed_limit_max": 1024,
+        "media_hosted_limit_monthly": 1024,
+        "media_hosted_limit_max": 1024,
     })
 
     assert res is not None
@@ -205,6 +213,14 @@ with Ragie(
         "pages_processed_limit_monthly": 1000,
         "pages_hosted_limit_max": 1000,
         "pages_processed_limit_max": 1000,
+        "video_processed_limit_monthly": 3600,
+        "video_processed_limit_max": 3600,
+        "audio_processed_limit_monthly": 3600,
+        "audio_processed_limit_max": 3600,
+        "media_streamed_limit_monthly": 1024,
+        "media_streamed_limit_max": 1024,
+        "media_hosted_limit_monthly": 1024,
+        "media_hosted_limit_max": 1024,
     })
 
     assert res is not None

@@ -43,11 +43,11 @@ class Theme(str, Enum):
 
 class OAuthURLCreateTypedDict(TypedDict):
     redirect_uri: str
+    partition: NotRequired[Nullable[str]]
     source_type: NotRequired[ConnectorSource]
     metadata: NotRequired[Dict[str, OAuthURLCreateMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
     mode: NotRequired[Nullable[OAuthURLCreateModeTypedDict]]
-    partition: NotRequired[Nullable[str]]
     theme: NotRequired[Nullable[Theme]]
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
     page_limit: NotRequired[Nullable[int]]
@@ -59,14 +59,14 @@ class OAuthURLCreateTypedDict(TypedDict):
 class OAuthURLCreate(BaseModel):
     redirect_uri: str
 
+    partition: OptionalNullable[str] = UNSET
+
     source_type: Optional[ConnectorSource] = None
 
     metadata: Optional[Dict[str, OAuthURLCreateMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`."""
 
     mode: OptionalNullable[OAuthURLCreateMode] = UNSET
-
-    partition: OptionalNullable[str] = UNSET
 
     theme: OptionalNullable[Theme] = UNSET
     r"""Sets the theme of the Ragie Web UI when the user lands there. Can be light, dark, or system to use whatever the system value is. If omitted, system is used."""
@@ -80,15 +80,15 @@ class OAuthURLCreate(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
+            "partition",
             "source_type",
             "metadata",
             "mode",
-            "partition",
             "theme",
             "page_limit",
             "config",
         ]
-        nullable_fields = ["mode", "partition", "theme", "page_limit"]
+        nullable_fields = ["partition", "mode", "theme", "page_limit"]
         null_default_fields = []
 
         serialized = handler(self)

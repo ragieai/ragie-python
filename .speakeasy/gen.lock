@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: e96990103b98a2e048512029c82fc4a4
+  docChecksum: 6da8f8819dd3380752205904712b0599
   docVersion: 1.0.0
-  speakeasyVersion: 1.546.1
-  generationVersion: 2.604.2
-  releaseVersion: 1.9.0
-  configChecksum: 6ffe9f2395c642686ad47aea159460da
+  speakeasyVersion: 1.583.0
+  generationVersion: 2.658.3
+  releaseVersion: 1.10.0
+  configChecksum: 38d7f6bd3d6a6b885d4f956ca8a044d0
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,17 +14,19 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.18.1
+    core: 5.19.4
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
+    examples: 3.0.2
     flattening: 3.1.1
     globalSecurity: 3.0.3
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.1.1
+    groups: 3.0.0
     methodArguments: 1.0.2
     multipartFileContentType: 1.0.0
     nameOverrides: 3.0.1
@@ -32,7 +34,7 @@ features:
     pagination: 3.0.5
     responseFormat: 1.0.1
     retries: 3.0.2
-    sdkHooks: 1.0.1
+    sdkHooks: 1.1.0
     unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
@@ -40,10 +42,27 @@ generatedFiles:
   - .devcontainer/devcontainer.json
   - .devcontainer/setup.sh
   - .gitattributes
-  - .python-version
   - .vscode/settings.json
   - USAGE.md
+  - docs/models/accesstokencredentials.md
+  - docs/models/asyncdocumentmetadataupdate.md
   - docs/models/audiomodalitydata.md
+  - docs/models/authenticatorconfluenceconnection.md
+  - docs/models/authenticatordropboxconnection.md
+  - docs/models/authenticatorgmailconnection.md
+  - docs/models/authenticatorgoogledriveconnection.md
+  - docs/models/authenticatorhubspotconnection.md
+  - docs/models/authenticatorjiraconnection.md
+  - docs/models/authenticatorlist.md
+  - docs/models/authenticatornotionconnection.md
+  - docs/models/authenticatoronedriveconnection.md
+  - docs/models/authenticatorsalesforceconnection.md
+  - docs/models/authenticatorsharepointconnection.md
+  - docs/models/authenticatorslackconnection.md
+  - docs/models/backblazecredentials.md
+  - docs/models/basegetauthenticator.md
+  - docs/models/bucketdata.md
+  - docs/models/confluencedata.md
   - docs/models/connection.md
   - docs/models/connectionbase.md
   - docs/models/connectionbasemetadata.md
@@ -53,6 +72,11 @@ generatedFiles:
   - docs/models/connectionstats.md
   - docs/models/connectorsource.md
   - docs/models/connectorsourcetypeinfo.md
+  - docs/models/createauthenticatorconnection.md
+  - docs/models/createauthenticatorconnectionconnection.md
+  - docs/models/createauthenticatorconnectionmetadata.md
+  - docs/models/createauthenticatorconnectionrequest.md
+  - docs/models/createauthenticatorpayload.md
   - docs/models/createdocumentfromurlparams.md
   - docs/models/createdocumentfromurlparamsmetadata.md
   - docs/models/createdocumentfromurlparamsmode.md
@@ -63,6 +87,7 @@ generatedFiles:
   - docs/models/createinstructionparamsscope.md
   - docs/models/createpartitionparams.md
   - docs/models/data.md
+  - docs/models/deleteauthenticatorconnectionrequest.md
   - docs/models/deleteconnectionconnectionsconnectioniddeletepostrequest.md
   - docs/models/deleteconnectionpayload.md
   - docs/models/deletedocumentrequest.md
@@ -90,6 +115,9 @@ generatedFiles:
   - docs/models/entitylist.md
   - docs/models/errormessage.md
   - docs/models/file.md
+  - docs/models/folderdata.md
+  - docs/models/freshdeskcredentials.md
+  - docs/models/freshdeskdata.md
   - docs/models/getconnectionconnectionsconnectionidgetrequest.md
   - docs/models/getconnectionstatsconnectionsconnectionidstatsgetrequest.md
   - docs/models/getdocumentchunkcontentrequest.md
@@ -100,9 +128,16 @@ generatedFiles:
   - docs/models/getdocumentsourcerequest.md
   - docs/models/getdocumentsummaryrequest.md
   - docs/models/getpartitionpartitionspartitionidgetrequest.md
+  - docs/models/gmaildata.md
+  - docs/models/googlefolderdata.md
   - docs/models/httpvalidationerror.md
+  - docs/models/hubspotdata.md
   - docs/models/instruction.md
+  - docs/models/intercomcredentials.md
+  - docs/models/intercomdata.md
   - docs/models/link.md
+  - docs/models/listauthenticatorsrequest.md
+  - docs/models/listauthenticatorsresponse.md
   - docs/models/listconnectionsconnectionsgetrequest.md
   - docs/models/listconnectionsconnectionsgetresponse.md
   - docs/models/listconnectorsourcetypeinfo.md
@@ -124,6 +159,8 @@ generatedFiles:
   - docs/models/mode2.md
   - docs/models/modestatic.md
   - docs/models/modevideo.md
+  - docs/models/oauthcredentials.md
+  - docs/models/oauthrefreshtokencredentials.md
   - docs/models/oauthurlcreate.md
   - docs/models/oauthurlcreatemetadata.md
   - docs/models/oauthurlcreatemode.md
@@ -132,6 +169,7 @@ generatedFiles:
   - docs/models/one.md
   - docs/models/one1.md
   - docs/models/one2.md
+  - docs/models/onedrivedata.md
   - docs/models/pagination.md
   - docs/models/partition.md
   - docs/models/partitiondetail.md
@@ -143,12 +181,24 @@ generatedFiles:
   - docs/models/partitionstrategy1.md
   - docs/models/patchdocumentmetadataparams.md
   - docs/models/patchdocumentmetadatarequest.md
+  - docs/models/patchdocumentmetadataresponsepatchdocumentmetadata.md
+  - docs/models/provider.md
+  - docs/models/publicbackblazeconnection.md
+  - docs/models/publiccreateconnection.md
+  - docs/models/publiccreateconnectionconnection.md
+  - docs/models/publiccreateconnectionmetadata.md
+  - docs/models/publicfreshdeskconnection.md
+  - docs/models/publicgcsconnection.md
+  - docs/models/publicintercomconnection.md
+  - docs/models/publics3compatibleconnection.md
+  - docs/models/publiczendeskconnection.md
   - docs/models/queryparam1.md
   - docs/models/queryparammediatype.md
   - docs/models/reason.md
   - docs/models/responseok.md
   - docs/models/retrieval.md
   - docs/models/retrieveparams.md
+  - docs/models/s3compatiblecredentials.md
   - docs/models/scope.md
   - docs/models/scoredchunk.md
   - docs/models/security.md
@@ -156,11 +206,16 @@ generatedFiles:
   - docs/models/setconnectionenabledpayload.md
   - docs/models/setconnectionlimitsconnectionsconnectionidlimitputrequest.md
   - docs/models/setpartitionlimitspartitionspartitionidlimitsputrequest.md
+  - docs/models/sharepointdata.md
+  - docs/models/sharepointfiledata.md
+  - docs/models/sharepointsitedata.md
+  - docs/models/slackdata.md
   - docs/models/source.md
   - docs/models/static.md
   - docs/models/syncconnectionrequest.md
   - docs/models/theme.md
   - docs/models/two.md
+  - docs/models/type.md
   - docs/models/updateconnectionconnectionsconnectionidputrequest.md
   - docs/models/updatedocumentfileparams.md
   - docs/models/updatedocumentfileparams11.md
@@ -185,6 +240,9 @@ generatedFiles:
   - docs/models/video.md
   - docs/models/videomodalitydata.md
   - docs/models/wordtimestamp.md
+  - docs/models/zendeskcredentials.md
+  - docs/models/zendeskdata.md
+  - docs/sdks/authenticators/README.md
   - docs/sdks/connections/README.md
   - docs/sdks/documents/README.md
   - docs/sdks/entities/README.md
@@ -202,13 +260,32 @@ generatedFiles:
   - src/ragie/_hooks/sdkhooks.py
   - src/ragie/_hooks/types.py
   - src/ragie/_version.py
+  - src/ragie/authenticators.py
   - src/ragie/basesdk.py
   - src/ragie/connections.py
   - src/ragie/documents.py
   - src/ragie/entities.py
   - src/ragie/httpclient.py
   - src/ragie/models/__init__.py
+  - src/ragie/models/accesstokencredentials.py
+  - src/ragie/models/asyncdocumentmetadataupdate.py
   - src/ragie/models/audiomodalitydata.py
+  - src/ragie/models/authenticatorconfluenceconnection.py
+  - src/ragie/models/authenticatordropboxconnection.py
+  - src/ragie/models/authenticatorgmailconnection.py
+  - src/ragie/models/authenticatorgoogledriveconnection.py
+  - src/ragie/models/authenticatorhubspotconnection.py
+  - src/ragie/models/authenticatorjiraconnection.py
+  - src/ragie/models/authenticatorlist.py
+  - src/ragie/models/authenticatornotionconnection.py
+  - src/ragie/models/authenticatoronedriveconnection.py
+  - src/ragie/models/authenticatorsalesforceconnection.py
+  - src/ragie/models/authenticatorsharepointconnection.py
+  - src/ragie/models/authenticatorslackconnection.py
+  - src/ragie/models/backblazecredentials.py
+  - src/ragie/models/basegetauthenticator.py
+  - src/ragie/models/bucketdata.py
+  - src/ragie/models/confluencedata.py
   - src/ragie/models/connection.py
   - src/ragie/models/connectionbase.py
   - src/ragie/models/connectionlimitparams.py
@@ -216,6 +293,9 @@ generatedFiles:
   - src/ragie/models/connectionstats.py
   - src/ragie/models/connectorsource.py
   - src/ragie/models/connectorsourcetypeinfo.py
+  - src/ragie/models/createauthenticatorconnection.py
+  - src/ragie/models/createauthenticatorconnectionop.py
+  - src/ragie/models/createauthenticatorop.py
   - src/ragie/models/createdocumentfromurlparams.py
   - src/ragie/models/createdocumentparams.py
   - src/ragie/models/createdocumentrawparams.py
@@ -223,6 +303,7 @@ generatedFiles:
   - src/ragie/models/createpartitionparams.py
   - src/ragie/models/delete_connection_connections_connection_id_delete_postop.py
   - src/ragie/models/delete_partition_partitions_partition_id_deleteop.py
+  - src/ragie/models/deleteauthenticatorconnectionop.py
   - src/ragie/models/deleteconnectionpayload.py
   - src/ragie/models/deletedocumentop.py
   - src/ragie/models/deleteinstructionop.py
@@ -242,6 +323,9 @@ generatedFiles:
   - src/ragie/models/entity.py
   - src/ragie/models/entitylist.py
   - src/ragie/models/errormessage.py
+  - src/ragie/models/folderdata.py
+  - src/ragie/models/freshdeskcredentials.py
+  - src/ragie/models/freshdeskdata.py
   - src/ragie/models/get_connection_connections_connection_id_getop.py
   - src/ragie/models/get_connection_stats_connections_connection_id_stats_getop.py
   - src/ragie/models/get_partition_partitions_partition_id_getop.py
@@ -252,18 +336,28 @@ generatedFiles:
   - src/ragie/models/getdocumentop.py
   - src/ragie/models/getdocumentsourceop.py
   - src/ragie/models/getdocumentsummaryop.py
+  - src/ragie/models/gmaildata.py
+  - src/ragie/models/googlefolderdata.py
   - src/ragie/models/httpvalidationerror.py
+  - src/ragie/models/hubspotdata.py
   - src/ragie/models/instruction.py
+  - src/ragie/models/intercomcredentials.py
+  - src/ragie/models/intercomdata.py
   - src/ragie/models/link.py
   - src/ragie/models/list_connections_connections_getop.py
   - src/ragie/models/list_partitions_partitions_getop.py
+  - src/ragie/models/listauthenticatorsop.py
   - src/ragie/models/listconnectorsourcetypeinfo.py
   - src/ragie/models/listdocumentsop.py
   - src/ragie/models/listentitiesbydocumentop.py
   - src/ragie/models/listentitiesbyinstructionop.py
   - src/ragie/models/mediamodeparam.py
+  - src/ragie/models/no_response_error.py
+  - src/ragie/models/oauthcredentials.py
+  - src/ragie/models/oauthrefreshtokencredentials.py
   - src/ragie/models/oauthurlcreate.py
   - src/ragie/models/oauthurlresponse.py
+  - src/ragie/models/onedrivedata.py
   - src/ragie/models/pagination.py
   - src/ragie/models/partition.py
   - src/ragie/models/partitiondetail.py
@@ -273,9 +367,19 @@ generatedFiles:
   - src/ragie/models/partitionstats.py
   - src/ragie/models/patchdocumentmetadataop.py
   - src/ragie/models/patchdocumentmetadataparams.py
+  - src/ragie/models/publicbackblazeconnection.py
+  - src/ragie/models/publiccreateconnection.py
+  - src/ragie/models/publicfreshdeskconnection.py
+  - src/ragie/models/publicgcsconnection.py
+  - src/ragie/models/publicintercomconnection.py
+  - src/ragie/models/publics3compatibleconnection.py
+  - src/ragie/models/publiczendeskconnection.py
+  - src/ragie/models/ragieerror.py
   - src/ragie/models/responseok.py
+  - src/ragie/models/responsevalidationerror.py
   - src/ragie/models/retrieval.py
   - src/ragie/models/retrieveparams.py
+  - src/ragie/models/s3compatiblecredentials.py
   - src/ragie/models/scoredchunk.py
   - src/ragie/models/sdkerror.py
   - src/ragie/models/security.py
@@ -283,6 +387,10 @@ generatedFiles:
   - src/ragie/models/set_connection_limits_connections_connection_id_limit_putop.py
   - src/ragie/models/set_partition_limits_partitions_partition_id_limits_putop.py
   - src/ragie/models/setconnectionenabledpayload.py
+  - src/ragie/models/sharepointdata.py
+  - src/ragie/models/sharepointfiledata.py
+  - src/ragie/models/sharepointsitedata.py
+  - src/ragie/models/slackdata.py
   - src/ragie/models/syncconnectionop.py
   - src/ragie/models/update_connection_connections_connection_id_putop.py
   - src/ragie/models/updatedocumentfileop.py
@@ -296,6 +404,8 @@ generatedFiles:
   - src/ragie/models/validationerror.py
   - src/ragie/models/videomodalitydata.py
   - src/ragie/models/wordtimestamp.py
+  - src/ragie/models/zendeskcredentials.py
+  - src/ragie/models/zendeskdata.py
   - src/ragie/partitions.py
   - src/ragie/py.typed
   - src/ragie/retrievals.py
@@ -317,13 +427,14 @@ generatedFiles:
   - src/ragie/utils/retries.py
   - src/ragie/utils/security.py
   - src/ragie/utils/serializers.py
+  - src/ragie/utils/unmarshal_json_response.py
   - src/ragie/utils/url.py
   - src/ragie/utils/values.py
 examples:
   CreateDocument:
     speakeasy-default-create-document:
       requestBody:
-        multipart/form-data: {"file": {"": "x-file: example.file"}}
+        multipart/form-data: {"file": "x-file: example.file"}
       responses:
         "201":
           application/json: {"status": "<value>", "id": "514e493d-a037-48f4-af3c-12b09e8c8d24", "created_at": "2024-03-25T07:46:04.132Z", "updated_at": "2025-11-04T23:57:42.637Z", "name": "<value>", "metadata": {}, "partition": "<value>"}
@@ -387,6 +498,8 @@ examples:
       parameters:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
+        query:
+          async: false
         header:
           partition: "acme_customer_id"
       responses:
@@ -404,7 +517,7 @@ examples:
         header:
           partition: "acme_customer_id"
       requestBody:
-        multipart/form-data: {"file": {"": "x-file: example.file"}}
+        multipart/form-data: {"file": "x-file: example.file"}
       responses:
         "200":
           application/json: {"status": "<value>"}
@@ -452,7 +565,7 @@ examples:
         header:
           partition: "acme_customer_id"
       requestBody:
-        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "published": true, "articleCount": 42, "title": "declassified report"}}
+        application/json: {"metadata": {"classified": "null (setting null deletes key from metadata)", "editors": ["Alice", "Bob"], "published": true, "articleCount": 42, "title": "declassified report"}, "async": false}
       responses:
         "200":
           application/json: {"metadata": {"editors": ["Alice", "Bob"], "title": "declassified report", "unchanged_key": "unchanged_value", "updated_at": 1714491736216}}
@@ -500,7 +613,7 @@ examples:
           document_id: "00000000-0000-0000-0000-000000000000"
           chunk_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
@@ -517,7 +630,7 @@ examples:
         path:
           document_id: "00000000-0000-0000-0000-000000000000"
         query:
-          media_type: "video/mp4"
+          media_type: "text/plain"
           download: false
         header:
           partition: "acme_customer_id"
@@ -649,6 +762,8 @@ examples:
         query:
           page_size: 10
           filter: "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}"
+        header:
+          partition: "acme_customer_id"
       responses:
         "200":
           application/json: {"pagination": {"total_count": 375666}, "connections": [{"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}, {"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}, {"id": "86eb76f6-18c1-4463-a0c4-716c0f51cbac", "created_at": "2024-10-03T02:23:05.181Z", "updated_at": "2024-01-16T09:52:56.471Z", "metadata": {"key": ["<value 1>", "<value 2>", "<value 3>"], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": true}, "type": "<value>", "name": "<value>", "source": "<value>", "enabled": true, "disabled_by_system_reason": "authentication_failed", "page_limit": 209439, "disabled_by_system": false}]}
@@ -781,10 +896,10 @@ examples:
   create_partition_partitions_post:
     speakeasy-default-create-partition-partitions-post:
       requestBody:
-        application/json: {"name": "<value>", "pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000}
+        application/json: {"name": "<value>", "pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000, "audio_processed_limit_monthly": 60, "audio_processed_limit_max": 60, "video_processed_limit_monthly": 60, "video_processed_limit_max": 60, "media_streamed_limit_monthly": 1024, "media_streamed_limit_max": 1024, "media_hosted_limit_monthly": 1024, "media_hosted_limit_max": 1024}
       responses:
         "200":
-          application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2024-01-16T14:27:53.935Z", "limits": {"pages_processed_limit_monthly": 5303.15, "pages_hosted_limit_monthly": 7057.63, "pages_processed_limit_max": 1488.26, "pages_hosted_limit_max": 3860.18}}
+          application/json: {"name": "<value>", "is_default": false, "limit_exceeded_at": "2025-06-11T12:00:00Z", "limits": {"pages_processed_limit_monthly": 1000, "pages_hosted_limit_monthly": 1000, "pages_processed_limit_max": 1000, "pages_hosted_limit_max": 1000, "video_processed_limit_monthly": 60, "video_processed_limit_max": 60, "audio_processed_limit_monthly": 60, "audio_processed_limit_max": 60, "media_streamed_limit_monthly": 1024, "media_streamed_limit_max": 1024, "media_hosted_limit_monthly": 1024, "media_hosted_limit_max": 1024}}
         "422":
           application/json: {}
         "401":
@@ -796,7 +911,7 @@ examples:
           partition_id: "<id>"
       responses:
         "200":
-          application/json: {"name": "<value>", "is_default": true, "limit_exceeded_at": "2025-03-13T22:34:27.195Z", "limits": {"pages_processed_limit_monthly": 8934.44, "pages_hosted_limit_monthly": 1377.51, "pages_processed_limit_max": 5054.99, "pages_hosted_limit_max": 5073.22}, "stats": {"pages_processed_monthly": 8083.81, "pages_hosted_monthly": 3060.13, "pages_processed_total": 65.72, "pages_hosted_total": 7144.35, "document_count": 801056}}
+          application/json: {"name": "<value>", "is_default": true, "limit_exceeded_at": "2025-06-11T12:00:00Z", "limits": {"pages_processed_limit_monthly": 1000, "pages_hosted_limit_monthly": 1000, "pages_processed_limit_max": 1000, "pages_hosted_limit_max": 1000, "video_processed_limit_monthly": 60, "video_processed_limit_max": 60, "audio_processed_limit_monthly": 60, "audio_processed_limit_max": 60, "media_streamed_limit_monthly": 1024, "media_streamed_limit_max": 1024, "media_hosted_limit_monthly": 1024, "media_hosted_limit_max": 1024}, "stats": {"pages_processed_monthly": 1000, "pages_hosted_monthly": 1000, "pages_processed_total": 1000, "pages_hosted_total": 1000, "document_count": 1000, "video_processed_monthly": 60, "video_processed_total": 60, "audio_processed_monthly": 60, "audio_processed_total": 60, "media_streamed_monthly": 1024, "media_streamed_total": 1024, "media_hosted_monthly": 1024, "media_hosted_total": 1024}}
         "422":
           application/json: {}
         "401":
@@ -819,13 +934,73 @@ examples:
         path:
           partition_id: "<id>"
       requestBody:
-        application/json: {"pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000}
+        application/json: {"pages_hosted_limit_monthly": 1000, "pages_processed_limit_monthly": 1000, "pages_hosted_limit_max": 1000, "pages_processed_limit_max": 1000, "video_processed_limit_monthly": 3600, "video_processed_limit_max": 3600, "audio_processed_limit_monthly": 3600, "audio_processed_limit_max": 3600, "media_streamed_limit_monthly": 1024, "media_streamed_limit_max": 1024, "media_hosted_limit_monthly": 1024, "media_hosted_limit_max": 1024}
       responses:
         "200":
-          application/json: {"name": "<value>", "is_default": true, "limit_exceeded_at": "2024-11-01T21:01:15.346Z", "limits": {"pages_processed_limit_monthly": 8386.93, "pages_hosted_limit_monthly": 5996.32, "pages_processed_limit_max": 2850.42, "pages_hosted_limit_max": 4665.02}, "stats": {"pages_processed_monthly": 7494.45, "pages_hosted_monthly": 5737.57, "pages_processed_total": 27.55, "pages_hosted_total": 2366.15, "document_count": 706713}}
+          application/json: {"name": "<value>", "is_default": true, "limit_exceeded_at": "2025-06-11T12:00:00Z", "limits": {"pages_processed_limit_monthly": 1000, "pages_hosted_limit_monthly": 1000, "pages_processed_limit_max": 1000, "pages_hosted_limit_max": 1000, "video_processed_limit_monthly": 60, "video_processed_limit_max": 60, "audio_processed_limit_monthly": 60, "audio_processed_limit_max": 60, "media_streamed_limit_monthly": 1024, "media_streamed_limit_max": 1024, "media_hosted_limit_monthly": 1024, "media_hosted_limit_max": 1024}, "stats": {"pages_processed_monthly": 1000, "pages_hosted_monthly": 1000, "pages_processed_total": 1000, "pages_hosted_total": 1000, "document_count": 1000, "video_processed_monthly": 60, "video_processed_total": 60, "audio_processed_monthly": 60, "audio_processed_total": 60, "media_streamed_monthly": 1024, "media_streamed_total": 1024, "media_hosted_monthly": 1024, "media_hosted_total": 1024}}
         "422":
           application/json: {}
         "401":
+          application/json: {"detail": "<value>"}
+  CreateConnection:
+    speakeasy-default-create-connection:
+      requestBody:
+        application/json: {"partition_strategy": {}, "page_limit": null, "config": null, "connection": {"provider": "gcs", "data": {"bucket": "<value>"}, "credentials": {"key": "<value>", "key1": "<value>"}}}
+      responses:
+        "201":
+          application/json: {"id": "da70984e-94d6-41d3-8e1f-f5b07380320f", "created_at": "2025-09-01T08:43:13.460Z", "updated_at": "2025-01-25T11:55:52.101Z", "metadata": {}, "type": "<value>", "name": "<value>", "source": {"key": "<value>", "key1": "<value>"}, "enabled": false, "disabled_by_system_reason": "authentication_failed", "page_limit": 278994, "disabled_by_system": false}
+        "422":
+          application/json: {}
+        "400":
+          application/json: {"detail": "<value>"}
+  CreateAuthenticator:
+    speakeasy-default-create-authenticator:
+      requestBody:
+        application/json: {"provider": "atlassian", "name": "<value>", "client_id": "<id>", "client_secret": "<value>"}
+      responses:
+        "201":
+          application/json: {"provider": "<value>", "name": "<value>", "id": "97e98621-97b6-4d39-80e4-2be4978c4d5f"}
+        "422":
+          application/json: {}
+        "400":
+          application/json: {"detail": "<value>"}
+  ListAuthenticators:
+    speakeasy-default-list-authenticators:
+      parameters:
+        query:
+          page_size: 10
+      responses:
+        "200":
+          application/json: {"pagination": {"total_count": 822626}, "authenticators": []}
+        "422":
+          application/json: {}
+        "400":
+          application/json: {"detail": "<value>"}
+  CreateAuthenticatorConnection:
+    speakeasy-default-create-authenticator-connection:
+      parameters:
+        path:
+          authenticator_id: "84b0792c-1330-4854-b4f2-5d9c7bf9a385"
+      requestBody:
+        application/json: {"partition_strategy": {}, "page_limit": null, "config": null, "connection": {"provider": "dropbox", "data": {"folder_id": "<id>", "folder_name": "<value>"}, "email": "Aliyah_Feest59@yahoo.com", "credentials": {"refresh_token": "<value>"}}}
+      responses:
+        "201":
+          application/json: {"id": "b8fdca74-a155-4691-a241-f52935516d24", "created_at": "2024-10-12T00:52:42.659Z", "updated_at": "2024-03-31T18:08:45.116Z", "metadata": {"key": true}, "type": "<value>", "name": "<value>", "source": ["<value 1>", "<value 2>"], "enabled": true, "disabled_by_system_reason": "connection_over_total_page_limit", "page_limit": 115226, "disabled_by_system": false}
+        "422":
+          application/json: {}
+        "400":
+          application/json: {"detail": "<value>"}
+  DeleteAuthenticatorConnection:
+    speakeasy-default-delete-authenticator-connection:
+      parameters:
+        path:
+          authenticator_id: "6737a874-c5c2-4d13-8234-8119b200a2b0"
+      responses:
+        "200":
+          application/json: {"message": "ok"}
+        "422":
+          application/json: {}
+        "400":
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}

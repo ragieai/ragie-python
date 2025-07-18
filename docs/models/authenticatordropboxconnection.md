@@ -1,0 +1,11 @@
+# AuthenticatorDropboxConnection
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `provider`                                                                       | *Literal["dropbox"]*                                                             | :heavy_check_mark:                                                               | N/A                                                                              |
+| `data`                                                                           | [models.FolderData](../models/folderdata.md)                                     | :heavy_check_mark:                                                               | N/A                                                                              |
+| `email`                                                                          | *str*                                                                            | :heavy_check_mark:                                                               | The email of the Dropbox account this is for                                     |
+| `credentials`                                                                    | [models.OAuthRefreshTokenCredentials](../models/oauthrefreshtokencredentials.md) | :heavy_check_mark:                                                               | N/A                                                                              |

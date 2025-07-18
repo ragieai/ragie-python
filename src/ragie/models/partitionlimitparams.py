@@ -8,19 +8,67 @@ from typing_extensions import NotRequired, TypedDict
 
 class PartitionLimitParamsTypedDict(TypedDict):
     pages_hosted_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit of hosted pages added in the current month in the partition."""
     pages_processed_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit, in pages, for processed documents in the partition."""
     pages_hosted_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in pages, for hosted documents in the partition."""
     pages_processed_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in pages, for processed documents in the partition."""
+    video_processed_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit, in minutes, for video processing in the partition."""
+    video_processed_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in minutes, for video processing in the partition."""
+    audio_processed_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit, in minutes, for audio processing in the partition."""
+    audio_processed_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in minutes, for audio processing in the partition."""
+    media_streamed_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit, in MBs, for media streamed from the partition."""
+    media_streamed_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in MBs, for media streamed from the partition."""
+    media_hosted_limit_monthly: NotRequired[Nullable[int]]
+    r"""Monthly limit, in MBs, for media hosted in the partition."""
+    media_hosted_limit_max: NotRequired[Nullable[int]]
+    r"""Maximum limit, in MBs, for media hosted in the partition."""
 
 
 class PartitionLimitParams(BaseModel):
     pages_hosted_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit of hosted pages added in the current month in the partition."""
 
     pages_processed_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit, in pages, for processed documents in the partition."""
 
     pages_hosted_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in pages, for hosted documents in the partition."""
 
     pages_processed_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in pages, for processed documents in the partition."""
+
+    video_processed_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit, in minutes, for video processing in the partition."""
+
+    video_processed_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in minutes, for video processing in the partition."""
+
+    audio_processed_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit, in minutes, for audio processing in the partition."""
+
+    audio_processed_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in minutes, for audio processing in the partition."""
+
+    media_streamed_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit, in MBs, for media streamed from the partition."""
+
+    media_streamed_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in MBs, for media streamed from the partition."""
+
+    media_hosted_limit_monthly: OptionalNullable[int] = UNSET
+    r"""Monthly limit, in MBs, for media hosted in the partition."""
+
+    media_hosted_limit_max: OptionalNullable[int] = UNSET
+    r"""Maximum limit, in MBs, for media hosted in the partition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -29,12 +77,28 @@ class PartitionLimitParams(BaseModel):
             "pages_processed_limit_monthly",
             "pages_hosted_limit_max",
             "pages_processed_limit_max",
+            "video_processed_limit_monthly",
+            "video_processed_limit_max",
+            "audio_processed_limit_monthly",
+            "audio_processed_limit_max",
+            "media_streamed_limit_monthly",
+            "media_streamed_limit_max",
+            "media_hosted_limit_monthly",
+            "media_hosted_limit_max",
         ]
         nullable_fields = [
             "pages_hosted_limit_monthly",
             "pages_processed_limit_monthly",
             "pages_hosted_limit_max",
             "pages_processed_limit_max",
+            "video_processed_limit_monthly",
+            "video_processed_limit_max",
+            "audio_processed_limit_monthly",
+            "audio_processed_limit_max",
+            "media_streamed_limit_monthly",
+            "media_streamed_limit_max",
+            "media_hosted_limit_monthly",
+            "media_hosted_limit_max",
         ]
         null_default_fields = []
 

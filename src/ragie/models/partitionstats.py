@@ -7,19 +7,69 @@ from typing_extensions import TypedDict
 
 class PartitionStatsTypedDict(TypedDict):
     pages_processed_monthly: float
+    r"""Number of pages processed in the current month in this partition."""
     pages_hosted_monthly: float
+    r"""Number of hosted pages added in the current month in this partition."""
     pages_processed_total: float
+    r"""Total number of pages processed in this partition."""
     pages_hosted_total: float
+    r"""Total number of hosted pages in this partition."""
     document_count: int
+    r"""Total number of documents, inclusive of all files types, in this partition."""
+    video_processed_monthly: float
+    r"""Total number of seconds of video processed in the current month in this partition."""
+    video_processed_total: float
+    r"""Total number of seconds of video processed in this partition."""
+    audio_processed_monthly: float
+    r"""Total number of seconds of audio processed in the current month in this partition."""
+    audio_processed_total: float
+    r"""Total number of seconds of audio processed in this partition."""
+    media_streamed_monthly: float
+    r"""Total number of MBs streamed in the current month in this partition."""
+    media_streamed_total: float
+    r"""Total number of MBs streamed in this partition."""
+    media_hosted_monthly: float
+    r"""Total number of MBs hosted in the current month in this partition."""
+    media_hosted_total: float
+    r"""Total number of MBs hosted in this partition."""
 
 
 class PartitionStats(BaseModel):
     pages_processed_monthly: float
+    r"""Number of pages processed in the current month in this partition."""
 
     pages_hosted_monthly: float
+    r"""Number of hosted pages added in the current month in this partition."""
 
     pages_processed_total: float
+    r"""Total number of pages processed in this partition."""
 
     pages_hosted_total: float
+    r"""Total number of hosted pages in this partition."""
 
     document_count: int
+    r"""Total number of documents, inclusive of all files types, in this partition."""
+
+    video_processed_monthly: float
+    r"""Total number of seconds of video processed in the current month in this partition."""
+
+    video_processed_total: float
+    r"""Total number of seconds of video processed in this partition."""
+
+    audio_processed_monthly: float
+    r"""Total number of seconds of audio processed in the current month in this partition."""
+
+    audio_processed_total: float
+    r"""Total number of seconds of audio processed in this partition."""
+
+    media_streamed_monthly: float
+    r"""Total number of MBs streamed in the current month in this partition."""
+
+    media_streamed_total: float
+    r"""Total number of MBs streamed in this partition."""
+
+    media_hosted_monthly: float
+    r"""Total number of MBs hosted in the current month in this partition."""
+
+    media_hosted_total: float
+    r"""Total number of MBs hosted in this partition."""
