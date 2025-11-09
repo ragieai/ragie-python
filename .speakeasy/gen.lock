@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 891d898b-5da4-4813-8dd3-fceb5b9832fe
 management:
-  docChecksum: bf28c7679ddea849daa903e0993f7d99
+  docChecksum: aa2201ab955d3c1a12f853b9d2ea4458
   docVersion: 1.0.0
-  speakeasyVersion: 1.637.3
-  generationVersion: 2.727.9
-  releaseVersion: 1.13.0
-  configChecksum: 44adeaa41b793605d2a6b3befc34dec8
+  speakeasyVersion: 1.651.0
+  generationVersion: 2.745.2
+  releaseVersion: 1.14.0
+  configChecksum: aeec2e85c5ec74d5920e1113d50ccf89
   repoURL: https://github.com/ragieai/ragie-python.git
   installationURL: https://github.com/ragieai/ragie-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.23.0
+    core: 5.23.5
     defaultEnabledRetries: 0.2.0
     devContainers: 3.0.0
     downloadStreams: 1.0.1
@@ -25,7 +25,7 @@ features:
     globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
-    globalServerURLs: 3.1.1
+    globalServerURLs: 3.2.0
     groups: 3.0.1
     methodArguments: 1.0.2
     multipartFileContentType: 1.0.0
@@ -250,6 +250,7 @@ generatedFiles:
   - docs/models/setconnectionlimitsconnectionsconnectionidlimitputrequest.md
   - docs/models/setpartitionlimitspartitionspartitionidlimitsputrequest.md
   - docs/models/sharepointdata.md
+  - docs/models/sharepointdrivedata.md
   - docs/models/sharepointfiledata.md
   - docs/models/sharepointsitedata.md
   - docs/models/slackdata.md
@@ -472,6 +473,7 @@ generatedFiles:
   - src/ragie/models/set_partition_limits_partitions_partition_id_limits_putop.py
   - src/ragie/models/setconnectionenabledpayload.py
   - src/ragie/models/sharepointdata.py
+  - src/ragie/models/sharepointdrivedata.py
   - src/ragie/models/sharepointfiledata.py
   - src/ragie/models/sharepointsitedata.py
   - src/ragie/models/slackdata.py
@@ -768,6 +770,7 @@ examples:
       responses:
         "200":
           application/octet-stream: "x-file: example.file"
+          '*/*': "x-file: example.file"
         "422":
           application/json: {}
         "401":
@@ -1222,4 +1225,4 @@ examples:
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes Detected:\n* `ragie.responses.create()`:  `response` **Changed** **Breaking** :warning:\n* `ragie.responses.get()`:  `response` **Changed** **Breaking** :warning:\n* `ragie.connections.create_o_auth_redirect_url()`: \n  *  `request.metadata.{}.[number]` **Added**\n* `ragie.connections.set_enabled()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.documents.create_document_from_url()`: \n  *  `request.metadata.{}.[number]` **Added**\n  *  `response.metadata.{}.[number]` **Added**\n* `ragie.documents.get()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.documents.patch_metadata()`:  `response.[document_metadata_update].metadata.{}.[number]` **Added**\n* `ragie.documents.get_content()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.connections.create_connection()`: \n  *  `request.metadata.{}.[number]` **Added**\n  *  `response.metadata.{}.[number]` **Added**\n* `ragie.connections.list()`:  `response.connections.[].metadata.{}.[number]` **Added**\n* `ragie.partitions.update()`: **Added**\n* `ragie.documents.create_raw()`: \n  *  `request.metadata.{}.[number]` **Added**\n  *  `response.metadata.{}.[number]` **Added**\n* `ragie.connections.get()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.connections.update()`: \n  *  `request.connection_base.metadata.{}.[number]` **Added**\n  *  `response.metadata.{}.[number]` **Added**\n* `ragie.connections.set_limits()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.partitions.list()`:  `response.partitions.[]` **Changed**\n* `ragie.partitions.create()`: \n  *  `request.description` **Added**\n  *  `response` **Changed**\n* `ragie.partitions.get()`:  `response` **Changed**\n* `ragie.partitions.set_limits()`:  `response` **Changed**\n* `ragie.authenticators.create_authenticator_connection()`: \n  *  `request.create_authenticator_connection.metadata.{}.[number]` **Added**\n  *  `response.metadata.{}.[number]` **Added**\n* `ragie.documents.create()`:  `response.metadata.{}.[number]` **Added**\n* `ragie.documents.list()`:  `response.documents.[].metadata.{}.[number]` **Added**\n"
+releaseNotes: "## Python SDK Changes Detected:\n* `ragie.documents.get_source()`:  `response.status[200]` **Changed** **Breaking** :warning:\n* `ragie.authenticators.create_authenticator_connection()`: \n  *  `request.create_authenticator_connection.connection.[sharepoint].data` **Changed** **Breaking** :warning:\n"

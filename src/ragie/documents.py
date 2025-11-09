@@ -2979,7 +2979,7 @@ class Documents(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/octet-stream",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -3008,7 +3008,7 @@ class Documents(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/octet-stream"):
+        if utils.match_response(http_res, "200", "*/*"):
             return http_res
         if utils.match_response(http_res, "422", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
@@ -3086,7 +3086,7 @@ class Documents(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/octet-stream",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -3115,7 +3115,7 @@ class Documents(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/octet-stream"):
+        if utils.match_response(http_res, "200", "*/*"):
             return http_res
         if utils.match_response(http_res, "422", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)

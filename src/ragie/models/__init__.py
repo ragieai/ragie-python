@@ -504,6 +504,7 @@ if TYPE_CHECKING:
         SetConnectionEnabledPayloadTypedDict,
     )
     from .sharepointdata import SharepointData, SharepointDataTypedDict
+    from .sharepointdrivedata import SharepointDriveData, SharepointDriveDataTypedDict
     from .sharepointfiledata import (
         SharepointFileData,
         SharepointFileDataTypedDict,
@@ -987,6 +988,8 @@ __all__ = [
     "SetPartitionLimitsPartitionsPartitionIDLimitsPutRequestTypedDict",
     "SharepointData",
     "SharepointDataTypedDict",
+    "SharepointDriveData",
+    "SharepointDriveDataTypedDict",
     "SharepointFileData",
     "SharepointFileDataTypedDict",
     "SharepointSiteData",
@@ -1465,6 +1468,8 @@ _dynamic_imports: dict[str, str] = {
     "SetConnectionEnabledPayloadTypedDict": ".setconnectionenabledpayload",
     "SharepointData": ".sharepointdata",
     "SharepointDataTypedDict": ".sharepointdata",
+    "SharepointDriveData": ".sharepointdrivedata",
+    "SharepointDriveDataTypedDict": ".sharepointdrivedata",
     "SharepointFileData": ".sharepointfiledata",
     "SharepointFileDataTypedDict": ".sharepointfiledata",
     "Type": ".sharepointfiledata",
