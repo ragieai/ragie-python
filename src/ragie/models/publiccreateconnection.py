@@ -23,9 +23,8 @@ from .publiczendeskconnection import (
     PublicZendeskConnection,
     PublicZendeskConnectionTypedDict,
 )
-from pydantic import Discriminator, Tag, model_serializer
+from pydantic import Field, model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from ragie.utils import get_discriminator
 from typing import Any, Dict, List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -55,14 +54,14 @@ PublicCreateConnectionConnectionTypedDict = TypeAliasType(
 
 PublicCreateConnectionConnection = Annotated[
     Union[
-        Annotated[PublicBackblazeConnection, Tag("backblaze")],
-        Annotated[PublicFreshdeskConnection, Tag("freshdesk")],
-        Annotated[PublicGCSConnection, Tag("gcs")],
-        Annotated[PublicIntercomConnection, Tag("intercom")],
-        Annotated[PublicS3CompatibleConnection, Tag("s3")],
-        Annotated[PublicZendeskConnection, Tag("zendesk")],
+        PublicBackblazeConnection,
+        PublicFreshdeskConnection,
+        PublicGCSConnection,
+        PublicIntercomConnection,
+        PublicS3CompatibleConnection,
+        PublicZendeskConnection,
     ],
-    Discriminator(lambda m: get_discriminator(m, "provider", "provider")),
+    Field(discriminator="PROVIDER"),
 ]
 
 

@@ -365,14 +365,14 @@ asyncio.run(main())
 <details open>
 <summary>Available methods</summary>
 
-### [authenticators](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md)
+### [Authenticators](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md)
 
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create) - Create Authenticator
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#list) - List Authenticators
 * [create_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create_authenticator_connection) - Create Authenticator Connection
 * [delete_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#delete_authenticator_connection) - Delete Authenticator
 
-### [connections](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md)
+### [Connections](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md)
 
 * [create_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_connection) - Create Connection
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list) - List Connections
@@ -386,7 +386,7 @@ asyncio.run(main())
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#delete) - Delete Connection
 * [sync](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#sync) - Sync Connection
 
-### [documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
+### [Documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
 
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#list) - List Documents
@@ -405,7 +405,7 @@ asyncio.run(main())
 * [get_source](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_source) - Get Document Source
 * [get_summary](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
-### [entities](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md)
+### [Entities](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md)
 
 * [list_instructions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_instructions) - List Instructions
 * [create_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#create_instruction) - Create Instruction
@@ -414,7 +414,7 @@ asyncio.run(main())
 * [list_by_instruction](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 
-### [partitions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md)
+### [Partitions](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md)
 
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#list) - List Partitions
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#create) - Create Partition
@@ -423,14 +423,22 @@ asyncio.run(main())
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#delete) - Delete Partition
 * [set_limits](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#set_limits) - Set Partition Limits
 
-### [responses](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/responses/README.md)
+### [Responses](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/responses/README.md)
 
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/responses/README.md#create) - Create Response
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/responses/README.md#get) - Get Response
 
-### [retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
+### [Retrievals](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md)
 
 * [retrieve](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/retrievals/README.md#retrieve) - Retrieve
+
+### [WebhookEndpoints](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md)
+
+* [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#list) - List Webhook Endpoints
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#create) - Create Webhook Endpoint
+* [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#get) - Get Webhook Endpoint
+* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#update) - Update Webhook Endpoint
+* [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#delete) - Delete Webhook Endpoint
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

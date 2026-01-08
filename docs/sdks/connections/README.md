@@ -1,5 +1,4 @@
 # Connections
-(*connections*)
 
 ## Overview
 

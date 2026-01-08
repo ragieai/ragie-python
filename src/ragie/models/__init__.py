@@ -187,6 +187,10 @@ if TYPE_CHECKING:
         CreatePartitionParamsMetadataSchemaTypedDict,
         CreatePartitionParamsTypedDict,
     )
+    from .createwebhookendpointpayload import (
+        CreateWebhookEndpointPayload,
+        CreateWebhookEndpointPayloadTypedDict,
+    )
     from .delete_connection_connections_connection_id_delete_postop import (
         DeleteConnectionConnectionsConnectionIDDeletePostRequest,
         DeleteConnectionConnectionsConnectionIDDeletePostRequestTypedDict,
@@ -207,6 +211,10 @@ if TYPE_CHECKING:
     from .deleteinstructionop import (
         DeleteInstructionRequest,
         DeleteInstructionRequestTypedDict,
+    )
+    from .deletewebhookendpointop import (
+        DeleteWebhookEndpointRequest,
+        DeleteWebhookEndpointRequestTypedDict,
     )
     from .document import (
         Document,
@@ -316,6 +324,10 @@ if TYPE_CHECKING:
         GetDocumentSummaryRequest,
         GetDocumentSummaryRequestTypedDict,
     )
+    from .getwebhookendpointop import (
+        GetWebhookEndpointRequest,
+        GetWebhookEndpointRequestTypedDict,
+    )
     from .gmaildata import GmailData, GmailDataTypedDict
     from .googlefolderdata import GoogleFolderData, GoogleFolderDataTypedDict
     from .httpvalidationerror import HTTPValidationError, HTTPValidationErrorData
@@ -364,6 +376,12 @@ if TYPE_CHECKING:
         ListEntitiesByInstructionRequestTypedDict,
         ListEntitiesByInstructionResponse,
         ListEntitiesByInstructionResponseTypedDict,
+    )
+    from .listwebhookendpointsop import (
+        ListWebhookEndpointsRequest,
+        ListWebhookEndpointsRequestTypedDict,
+        ListWebhookEndpointsResponse,
+        ListWebhookEndpointsResponseTypedDict,
     )
     from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict, Static, Video
     from .modelusage import ModelUsage, ModelUsageTypedDict
@@ -579,6 +597,14 @@ if TYPE_CHECKING:
         UpdatePartitionParamsMetadataSchemaTypedDict,
         UpdatePartitionParamsTypedDict,
     )
+    from .updatewebhookendpointop import (
+        UpdateWebhookEndpointRequest,
+        UpdateWebhookEndpointRequestTypedDict,
+    )
+    from .updatewebhookendpointpayload import (
+        UpdateWebhookEndpointPayload,
+        UpdateWebhookEndpointPayloadTypedDict,
+    )
     from .validationerror import (
         Loc,
         LocTypedDict,
@@ -586,6 +612,8 @@ if TYPE_CHECKING:
         ValidationErrorTypedDict,
     )
     from .videomodalitydata import VideoModalityData, VideoModalityDataTypedDict
+    from .webhookendpoint import WebhookEndpoint, WebhookEndpointTypedDict
+    from .webhookendpointlist import WebhookEndpointList, WebhookEndpointListTypedDict
     from .wordtimestamp import WordTimestamp, WordTimestampTypedDict
     from .zendeskcredentials import ZendeskCredentials, ZendeskCredentialsTypedDict
     from .zendeskdata import ZendeskData, ZendeskDataTypedDict
@@ -692,6 +720,8 @@ __all__ = [
     "CreatePartitionParamsMetadataSchema",
     "CreatePartitionParamsMetadataSchemaTypedDict",
     "CreatePartitionParamsTypedDict",
+    "CreateWebhookEndpointPayload",
+    "CreateWebhookEndpointPayloadTypedDict",
     "Data",
     "DataTypedDict",
     "DeleteAuthenticatorConnectionRequest",
@@ -706,6 +736,8 @@ __all__ = [
     "DeleteInstructionRequestTypedDict",
     "DeletePartitionPartitionsPartitionIDDeleteRequest",
     "DeletePartitionPartitionsPartitionIDDeleteRequestTypedDict",
+    "DeleteWebhookEndpointRequest",
+    "DeleteWebhookEndpointRequestTypedDict",
     "DisabledBySystemReason",
     "Document",
     "DocumentChunk",
@@ -791,6 +823,8 @@ __all__ = [
     "GetPartitionPartitionsPartitionIDGetRequestTypedDict",
     "GetResponseResponsesResponseIDGetRequest",
     "GetResponseResponsesResponseIDGetRequestTypedDict",
+    "GetWebhookEndpointRequest",
+    "GetWebhookEndpointRequestTypedDict",
     "GmailData",
     "GmailDataTypedDict",
     "GoogleFolderData",
@@ -835,6 +869,10 @@ __all__ = [
     "ListPartitionsPartitionsGetRequestTypedDict",
     "ListPartitionsPartitionsGetResponse",
     "ListPartitionsPartitionsGetResponseTypedDict",
+    "ListWebhookEndpointsRequest",
+    "ListWebhookEndpointsRequestTypedDict",
+    "ListWebhookEndpointsResponse",
+    "ListWebhookEndpointsResponseTypedDict",
     "Loc",
     "LocTypedDict",
     "MediaModeParam",
@@ -1052,11 +1090,19 @@ __all__ = [
     "UpdatePartitionParamsTypedDict",
     "UpdatePartitionPartitionsPartitionIDPatchRequest",
     "UpdatePartitionPartitionsPartitionIDPatchRequestTypedDict",
+    "UpdateWebhookEndpointPayload",
+    "UpdateWebhookEndpointPayloadTypedDict",
+    "UpdateWebhookEndpointRequest",
+    "UpdateWebhookEndpointRequestTypedDict",
     "ValidationError",
     "ValidationErrorTypedDict",
     "Video",
     "VideoModalityData",
     "VideoModalityDataTypedDict",
+    "WebhookEndpoint",
+    "WebhookEndpointList",
+    "WebhookEndpointListTypedDict",
+    "WebhookEndpointTypedDict",
     "WordTimestamp",
     "WordTimestampTypedDict",
     "ZendeskCredentials",
@@ -1191,6 +1237,8 @@ _dynamic_imports: dict[str, str] = {
     "CreatePartitionParamsMetadataSchema": ".createpartitionparams",
     "CreatePartitionParamsMetadataSchemaTypedDict": ".createpartitionparams",
     "CreatePartitionParamsTypedDict": ".createpartitionparams",
+    "CreateWebhookEndpointPayload": ".createwebhookendpointpayload",
+    "CreateWebhookEndpointPayloadTypedDict": ".createwebhookendpointpayload",
     "DeleteConnectionConnectionsConnectionIDDeletePostRequest": ".delete_connection_connections_connection_id_delete_postop",
     "DeleteConnectionConnectionsConnectionIDDeletePostRequestTypedDict": ".delete_connection_connections_connection_id_delete_postop",
     "DeletePartitionPartitionsPartitionIDDeleteRequest": ".delete_partition_partitions_partition_id_deleteop",
@@ -1203,6 +1251,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteDocumentRequestTypedDict": ".deletedocumentop",
     "DeleteInstructionRequest": ".deleteinstructionop",
     "DeleteInstructionRequestTypedDict": ".deleteinstructionop",
+    "DeleteWebhookEndpointRequest": ".deletewebhookendpointop",
+    "DeleteWebhookEndpointRequestTypedDict": ".deletewebhookendpointop",
     "Document": ".document",
     "DocumentMetadata": ".document",
     "DocumentMetadataTypedDict": ".document",
@@ -1292,6 +1342,8 @@ _dynamic_imports: dict[str, str] = {
     "GetDocumentSourceRequestTypedDict": ".getdocumentsourceop",
     "GetDocumentSummaryRequest": ".getdocumentsummaryop",
     "GetDocumentSummaryRequestTypedDict": ".getdocumentsummaryop",
+    "GetWebhookEndpointRequest": ".getwebhookendpointop",
+    "GetWebhookEndpointRequestTypedDict": ".getwebhookendpointop",
     "GmailData": ".gmaildata",
     "GmailDataTypedDict": ".gmaildata",
     "GoogleFolderData": ".googlefolderdata",
@@ -1337,6 +1389,10 @@ _dynamic_imports: dict[str, str] = {
     "ListEntitiesByInstructionRequestTypedDict": ".listentitiesbyinstructionop",
     "ListEntitiesByInstructionResponse": ".listentitiesbyinstructionop",
     "ListEntitiesByInstructionResponseTypedDict": ".listentitiesbyinstructionop",
+    "ListWebhookEndpointsRequest": ".listwebhookendpointsop",
+    "ListWebhookEndpointsRequestTypedDict": ".listwebhookendpointsop",
+    "ListWebhookEndpointsResponse": ".listwebhookendpointsop",
+    "ListWebhookEndpointsResponseTypedDict": ".listwebhookendpointsop",
     "MediaModeParam": ".mediamodeparam",
     "MediaModeParamTypedDict": ".mediamodeparam",
     "Static": ".mediamodeparam",
@@ -1525,12 +1581,20 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePartitionParamsMetadataSchema": ".updatepartitionparams",
     "UpdatePartitionParamsMetadataSchemaTypedDict": ".updatepartitionparams",
     "UpdatePartitionParamsTypedDict": ".updatepartitionparams",
+    "UpdateWebhookEndpointRequest": ".updatewebhookendpointop",
+    "UpdateWebhookEndpointRequestTypedDict": ".updatewebhookendpointop",
+    "UpdateWebhookEndpointPayload": ".updatewebhookendpointpayload",
+    "UpdateWebhookEndpointPayloadTypedDict": ".updatewebhookendpointpayload",
     "Loc": ".validationerror",
     "LocTypedDict": ".validationerror",
     "ValidationError": ".validationerror",
     "ValidationErrorTypedDict": ".validationerror",
     "VideoModalityData": ".videomodalitydata",
     "VideoModalityDataTypedDict": ".videomodalitydata",
+    "WebhookEndpoint": ".webhookendpoint",
+    "WebhookEndpointTypedDict": ".webhookendpoint",
+    "WebhookEndpointList": ".webhookendpointlist",
+    "WebhookEndpointListTypedDict": ".webhookendpointlist",
     "WordTimestamp": ".wordtimestamp",
     "WordTimestampTypedDict": ".wordtimestamp",
     "ZendeskCredentials": ".zendeskcredentials",

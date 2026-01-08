@@ -1,5 +1,4 @@
 # Responses
-(*responses*)
 
 ## Overview
 

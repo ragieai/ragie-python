@@ -1,5 +1,4 @@
 # Entities
-(*entities*)
 
 ## Overview
 
