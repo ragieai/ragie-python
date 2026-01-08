@@ -1,5 +1,4 @@
 # Retrievals
-(*retrievals*)
 
 ## Overview
 

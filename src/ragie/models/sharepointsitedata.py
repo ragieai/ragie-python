@@ -8,9 +8,12 @@ from typing_extensions import TypedDict
 class SharepointSiteDataTypedDict(TypedDict):
     id: str
     name: str
+    display_name: str
 
 
 class SharepointSiteData(BaseModel):
     id: str
 
     name: str
+
+    display_name: str

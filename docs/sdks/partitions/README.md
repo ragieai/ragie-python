@@ -1,5 +1,4 @@
 # Partitions
-(*partitions*)
 
 ## Overview
 

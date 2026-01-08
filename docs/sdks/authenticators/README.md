@@ -1,5 +1,4 @@
 # Authenticators
-(*authenticators*)
 
 ## Overview
 

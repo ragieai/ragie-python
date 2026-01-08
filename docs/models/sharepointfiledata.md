@@ -7,5 +7,6 @@
 | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
 | `id`                             | *str*                            | :heavy_check_mark:               | N/A                              |
 | `name`                           | *str*                            | :heavy_check_mark:               | N/A                              |
+| `path`                           | *str*                            | :heavy_check_mark:               | N/A                              |
 | `type`                           | [models.Type](../models/type.md) | :heavy_check_mark:               | N/A                              |
 | `drive_id`                       | *Nullable[str]*                  | :heavy_check_mark:               | N/A                              |

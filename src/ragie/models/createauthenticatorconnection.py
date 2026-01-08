@@ -46,9 +46,8 @@ from .authenticatorslackconnection import (
     AuthenticatorSlackConnectionTypedDict,
 )
 from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict
-from pydantic import Discriminator, Tag, model_serializer
+from pydantic import Field, model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from ragie.utils import get_discriminator
 from typing import Any, Dict, List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -84,19 +83,19 @@ CreateAuthenticatorConnectionConnectionTypedDict = TypeAliasType(
 
 CreateAuthenticatorConnectionConnection = Annotated[
     Union[
-        Annotated[AuthenticatorConfluenceConnection, Tag("confluence")],
-        Annotated[AuthenticatorDropboxConnection, Tag("dropbox")],
-        Annotated[AuthenticatorGmailConnection, Tag("gmail")],
-        Annotated[AuthenticatorGoogleDriveConnection, Tag("google_drive")],
-        Annotated[AuthenticatorHubspotConnection, Tag("hubspot")],
-        Annotated[AuthenticatorJiraConnection, Tag("jira")],
-        Annotated[AuthenticatorNotionConnection, Tag("notion")],
-        Annotated[AuthenticatorOnedriveConnection, Tag("onedrive")],
-        Annotated[AuthenticatorSalesforceConnection, Tag("salesforce")],
-        Annotated[AuthenticatorSharepointConnection, Tag("sharepoint")],
-        Annotated[AuthenticatorSlackConnection, Tag("slack")],
+        AuthenticatorConfluenceConnection,
+        AuthenticatorDropboxConnection,
+        AuthenticatorGmailConnection,
+        AuthenticatorGoogleDriveConnection,
+        AuthenticatorHubspotConnection,
+        AuthenticatorJiraConnection,
+        AuthenticatorNotionConnection,
+        AuthenticatorOnedriveConnection,
+        AuthenticatorSalesforceConnection,
+        AuthenticatorSharepointConnection,
+        AuthenticatorSlackConnection,
     ],
-    Discriminator(lambda m: get_discriminator(m, "provider", "provider")),
+    Field(discriminator="PROVIDER"),
 ]
 
 

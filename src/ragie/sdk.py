@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from ragie.partitions import Partitions
     from ragie.responses import Responses
     from ragie.retrievals import Retrievals
+    from ragie.webhook_endpoints import WebhookEndpoints
 
 
 class Ragie(BaseSDK):
@@ -29,6 +30,7 @@ class Ragie(BaseSDK):
     retrievals: "Retrievals"
     entities: "Entities"
     connections: "Connections"
+    webhook_endpoints: "WebhookEndpoints"
     partitions: "Partitions"
     authenticators: "Authenticators"
     responses: "Responses"
@@ -37,6 +39,7 @@ class Ragie(BaseSDK):
         "retrievals": ("ragie.retrievals", "Retrievals"),
         "entities": ("ragie.entities", "Entities"),
         "connections": ("ragie.connections", "Connections"),
+        "webhook_endpoints": ("ragie.webhook_endpoints", "WebhookEndpoints"),
         "partitions": ("ragie.partitions", "Partitions"),
         "authenticators": ("ragie.authenticators", "Authenticators"),
         "responses": ("ragie.responses", "Responses"),

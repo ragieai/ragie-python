@@ -365,14 +365,14 @@ asyncio.run(main())
 <details open>
 <summary>Available methods</summary>
 
-### [authenticators](docs/sdks/authenticators/README.md)
+### [Authenticators](docs/sdks/authenticators/README.md)
 
 * [create](docs/sdks/authenticators/README.md#create) - Create Authenticator
 * [list](docs/sdks/authenticators/README.md#list) - List Authenticators
 * [create_authenticator_connection](docs/sdks/authenticators/README.md#create_authenticator_connection) - Create Authenticator Connection
 * [delete_authenticator_connection](docs/sdks/authenticators/README.md#delete_authenticator_connection) - Delete Authenticator
 
-### [connections](docs/sdks/connections/README.md)
+### [Connections](docs/sdks/connections/README.md)
 
 * [create_connection](docs/sdks/connections/README.md#create_connection) - Create Connection
 * [list](docs/sdks/connections/README.md#list) - List Connections
@@ -386,7 +386,7 @@ asyncio.run(main())
 * [delete](docs/sdks/connections/README.md#delete) - Delete Connection
 * [sync](docs/sdks/connections/README.md#sync) - Sync Connection
 
-### [documents](docs/sdks/documents/README.md)
+### [Documents](docs/sdks/documents/README.md)
 
 * [create](docs/sdks/documents/README.md#create) - Create Document
 * [list](docs/sdks/documents/README.md#list) - List Documents
@@ -405,7 +405,7 @@ asyncio.run(main())
 * [get_source](docs/sdks/documents/README.md#get_source) - Get Document Source
 * [get_summary](docs/sdks/documents/README.md#get_summary) - Get Document Summary
 
-### [entities](docs/sdks/entities/README.md)
+### [Entities](docs/sdks/entities/README.md)
 
 * [list_instructions](docs/sdks/entities/README.md#list_instructions) - List Instructions
 * [create_instruction](docs/sdks/entities/README.md#create_instruction) - Create Instruction
@@ -414,7 +414,7 @@ asyncio.run(main())
 * [list_by_instruction](docs/sdks/entities/README.md#list_by_instruction) - Get Instruction Extracted Entities
 * [list_by_document](docs/sdks/entities/README.md#list_by_document) - Get Document Extracted Entities
 
-### [partitions](docs/sdks/partitions/README.md)
+### [Partitions](docs/sdks/partitions/README.md)
 
 * [list](docs/sdks/partitions/README.md#list) - List Partitions
 * [create](docs/sdks/partitions/README.md#create) - Create Partition
@@ -423,14 +423,22 @@ asyncio.run(main())
 * [delete](docs/sdks/partitions/README.md#delete) - Delete Partition
 * [set_limits](docs/sdks/partitions/README.md#set_limits) - Set Partition Limits
 
-### [responses](docs/sdks/responses/README.md)
+### [Responses](docs/sdks/responses/README.md)
 
 * [create](docs/sdks/responses/README.md#create) - Create Response
 * [get](docs/sdks/responses/README.md#get) - Get Response
 
-### [retrievals](docs/sdks/retrievals/README.md)
+### [Retrievals](docs/sdks/retrievals/README.md)
 
 * [retrieve](docs/sdks/retrievals/README.md#retrieve) - Retrieve
+
+### [WebhookEndpoints](docs/sdks/webhookendpoints/README.md)
+
+* [list](docs/sdks/webhookendpoints/README.md#list) - List Webhook Endpoints
+* [create](docs/sdks/webhookendpoints/README.md#create) - Create Webhook Endpoint
+* [get](docs/sdks/webhookendpoints/README.md#get) - Get Webhook Endpoint
+* [update](docs/sdks/webhookendpoints/README.md#update) - Update Webhook Endpoint
+* [delete](docs/sdks/webhookendpoints/README.md#delete) - Delete Webhook Endpoint
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
