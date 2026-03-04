@@ -71,6 +71,7 @@ with Ragie(
         "name": "Find all pizzas",
         "scope": ragie.CreateInstructionParamsScope.DOCUMENT,
         "prompt": "Find all pizzas described in the text.",
+        "context_template": "Document: {{document.name}} {{document.metadata.key_foo}}",
         "entity_schema": {
             "key": "<value>",
             "key1": "<value>",

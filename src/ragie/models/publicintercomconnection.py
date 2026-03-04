@@ -26,3 +26,9 @@ class PublicIntercomConnection(BaseModel):
         Annotated[Literal["intercom"], AfterValidator(validate_const("intercom"))],
         pydantic.Field(alias="provider"),
     ] = "intercom"
+
+
+try:
+    PublicIntercomConnection.model_rebuild()
+except NameError:
+    pass

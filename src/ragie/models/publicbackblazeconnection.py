@@ -26,3 +26,9 @@ class PublicBackblazeConnection(BaseModel):
         Annotated[Literal["backblaze"], AfterValidator(validate_const("backblaze"))],
         pydantic.Field(alias="provider"),
     ] = "backblaze"
+
+
+try:
+    PublicBackblazeConnection.model_rebuild()
+except NameError:
+    pass

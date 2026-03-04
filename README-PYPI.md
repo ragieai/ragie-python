@@ -84,7 +84,7 @@ It's also possible to write a standalone Python script without needing to set up
 ```python
 #!/usr/bin/env -S uv run --script
 # /// script
-# requires-python = ">=3.9"
+# requires-python = ">=3.10"
 # dependencies = [
 #     "ragie",
 # ]
@@ -181,7 +181,6 @@ with Ragie(
     res = r_client.connections.create_connection(request=ragie.PublicCreateConnection(
         partition_strategy=ragie.MediaModeParam(),
         page_limit=None,
-        config=None,
         connection=ragie.PublicGCSConnection(
             data=ragie.BucketData(
                 bucket="<value>",
@@ -217,7 +216,6 @@ async def main():
         res = await r_client.connections.create_connection_async(request=ragie.PublicCreateConnection(
             partition_strategy=ragie.MediaModeParam(),
             page_limit=None,
-            config=None,
             connection=ragie.PublicGCSConnection(
                 data=ragie.BucketData(
                     bucket="<value>",
@@ -303,7 +301,6 @@ with Ragie(
     res = r_client.authenticators.create_authenticator_connection(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
         partition_strategy=ragie.MediaModeParam(),
         page_limit=None,
-        config=None,
         connection=ragie.AuthenticatorDropboxConnection(
             data=ragie.FolderData(
                 folder_id="<id>",
@@ -339,7 +336,6 @@ async def main():
         res = await r_client.authenticators.create_authenticator_connection_async(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
             partition_strategy=ragie.MediaModeParam(),
             page_limit=None,
-            config=None,
             connection=ragie.AuthenticatorDropboxConnection(
                 data=ragie.FolderData(
                     folder_id="<id>",
@@ -367,8 +363,8 @@ asyncio.run(main())
 
 ### [Authenticators](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md)
 
-* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create) - Create Authenticator
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#list) - List Authenticators
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create) - Create Authenticator
 * [create_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#create_authenticator_connection) - Create Authenticator Connection
 * [delete_authenticator_connection](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/authenticators/README.md#delete_authenticator_connection) - Delete Authenticator
 
@@ -379,8 +375,8 @@ asyncio.run(main())
 * [create_o_auth_redirect_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#create_o_auth_redirect_url) - Create Oauth Redirect Url
 * [list_connection_source_types](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#list_connection_source_types) - List Connection Source Types
 * [set_enabled](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#set_enabled) - Set Connection Enabled
-* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#update) - Update Connection
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get) - Get Connection
+* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#update) - Update Connection
 * [get_stats](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#get_stats) - Get Connection Stats
 * [set_limits](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#set_limits) - Set Connection Limits
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/connections/README.md#delete) - Delete Connection
@@ -388,8 +384,8 @@ asyncio.run(main())
 
 ### [Documents](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md)
 
-* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#list) - List Documents
+* [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create) - Create Document
 * [create_raw](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_raw) - Create Document Raw
 * [create_document_from_url](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#create_document_from_url) - Create Document From Url
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/documents/README.md#get) - Get Document
@@ -419,8 +415,8 @@ asyncio.run(main())
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#list) - List Partitions
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#create) - Create Partition
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#get) - Get Partition
-* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#update) - Update Partition
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#delete) - Delete Partition
+* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#update) - Update Partition
 * [set_limits](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/partitions/README.md#set_limits) - Set Partition Limits
 
 ### [Responses](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/responses/README.md)
@@ -437,8 +433,8 @@ asyncio.run(main())
 * [list](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#list) - List Webhook Endpoints
 * [create](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#create) - Create Webhook Endpoint
 * [get](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#get) - Get Webhook Endpoint
-* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#update) - Update Webhook Endpoint
 * [delete](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#delete) - Delete Webhook Endpoint
+* [update](https://github.com/ragieai/ragie-python/blob/master/docs/sdks/webhookendpoints/README.md#update) - Update Webhook Endpoint
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -518,16 +514,16 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
+    res = r_client.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    # Handle response
-    print(res)
+    while res is not None:
+        # Handle items
+
+        res = res.next()
 
 ```
 
@@ -542,15 +538,15 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
+    res = r_client.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     })
 
-    # Handle response
-    print(res)
+    while res is not None:
+        # Handle items
+
+        res = res.next()
 
 ```
 <!-- End Retries [retries] -->
@@ -581,15 +577,15 @@ with Ragie(
     res = None
     try:
 
-        res = r_client.documents.create(request={
-            "file": {
-                "file_name": "example.file",
-                "content": open("example.file", "rb"),
-            },
+        res = r_client.documents.list(request={
+            "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+            "partition": "acme_customer_id",
         })
 
-        # Handle response
-        print(res)
+        while res is not None:
+            # Handle items
+
+            res = res.next()
 
 
     except models.RagieError as e:
@@ -644,15 +640,15 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
+    res = r_client.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     })
 
-    # Handle response
-    print(res)
+    while res is not None:
+        # Handle items
+
+        res = res.next()
 
 ```
 <!-- End Server Selection [server] -->
@@ -758,15 +754,15 @@ with Ragie(
     auth="<YOUR_BEARER_TOKEN_HERE>",
 ) as r_client:
 
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
+    res = r_client.documents.list(request={
+        "filter_": "{\"department\":{\"$in\":[\"sales\",\"marketing\"]}}",
+        "partition": "acme_customer_id",
     })
 
-    # Handle response
-    print(res)
+    while res is not None:
+        # Handle items
+
+        res = res.next()
 
 ```
 <!-- End Authentication [security] -->

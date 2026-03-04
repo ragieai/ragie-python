@@ -4,7 +4,12 @@ from .sdkconfiguration import SDKConfiguration
 import httpx
 from ragie import models, utils
 from ragie._hooks import AfterErrorContext, AfterSuccessContext, BeforeRequestContext
-from ragie.utils import RetryConfig, SerializedRequestBody, get_body_content
+from ragie.utils import (
+    RetryConfig,
+    SerializedRequestBody,
+    get_body_content,
+    run_sync_in_thread,
+)
 from typing import Callable, List, Mapping, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
 
@@ -307,7 +312,10 @@ class BaseSDK:
         async def do():
             http_res = None
             try:
-                req = hooks.before_request(BeforeRequestContext(hook_ctx), request)
+                req = await run_sync_in_thread(
+                    hooks.before_request, BeforeRequestContext(hook_ctx), request
+                )
+
                 logger.debug(
                     "Request:\nMethod: %s\nURL: %s\nHeaders: %s\nBody: %s",
                     req.method,
@@ -321,7 +329,10 @@ class BaseSDK:
 
                 http_res = await client.send(req, stream=stream)
             except Exception as e:
-                _, e = hooks.after_error(AfterErrorContext(hook_ctx), None, e)
+                _, e = await run_sync_in_thread(
+                    hooks.after_error, AfterErrorContext(hook_ctx), None, e
+                )
+
                 if e is not None:
                     logger.debug("Request Exception", exc_info=True)
                     raise e
@@ -339,9 +350,10 @@ class BaseSDK:
             )
 
             if utils.match_status_codes(error_status_codes, http_res.status_code):
-                result, err = hooks.after_error(
-                    AfterErrorContext(hook_ctx), http_res, None
+                result, err = await run_sync_in_thread(
+                    hooks.after_error, AfterErrorContext(hook_ctx), http_res, None
                 )
+
                 if err is not None:
                     logger.debug("Request Exception", exc_info=True)
                     raise err
@@ -361,6 +373,8 @@ class BaseSDK:
             http_res = await do()
 
         if not utils.match_status_codes(error_status_codes, http_res.status_code):
-            http_res = hooks.after_success(AfterSuccessContext(hook_ctx), http_res)
+            http_res = await run_sync_in_thread(
+                hooks.after_success, AfterSuccessContext(hook_ctx), http_res
+            )
 
         return http_res

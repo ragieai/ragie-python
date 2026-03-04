@@ -31,3 +31,9 @@ class PublicFreshdeskConnection(BaseModel):
         Annotated[Literal["freshdesk"], AfterValidator(validate_const("freshdesk"))],
         pydantic.Field(alias="provider"),
     ] = "freshdesk"
+
+
+try:
+    PublicFreshdeskConnection.model_rebuild()
+except NameError:
+    pass

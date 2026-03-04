@@ -29,3 +29,9 @@ class AuthenticatorConfluenceConnection(BaseModel):
         Annotated[Literal["confluence"], AfterValidator(validate_const("confluence"))],
         pydantic.Field(alias="provider"),
     ] = "confluence"
+
+
+try:
+    AuthenticatorConfluenceConnection.model_rebuild()
+except NameError:
+    pass

@@ -7,8 +7,8 @@
 * [list](#list) - List Partitions
 * [create](#create) - Create Partition
 * [get](#get) - Get Partition
-* [update](#update) - Update Partition
 * [delete](#delete) - Delete Partition
+* [update](#update) - Update Partition
 * [set_limits](#set_limits) - Set Partition Limits
 
 ## list
@@ -154,6 +154,49 @@ with Ragie(
 | models.ErrorMessage        | 500                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
+## delete
+
+Deletes a partition and all of its associated data. This includes connections, documents, and partition specific instructions. This operation is irreversible.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="delete_partition_partitions__partition_id__delete" method="delete" path="/partitions/{partition_id}" -->
+```python
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.partitions.delete(partition_id="<id>", async_=True)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `partition_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `async_`                                                            | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | If true, performs partition deletion asynchronously.                |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ResponseOK](../../models/responseok.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 429              | application/json           |
+| models.ErrorMessage        | 500                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
 ## update
 
 Updates a partition. This includes the partition's description and metadata schema.
@@ -187,49 +230,6 @@ with Ragie(
 ### Response
 
 **[models.PartitionDetail](../../models/partitiondetail.md)**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models.HTTPValidationError | 422                        | application/json           |
-| models.ErrorMessage        | 401, 402, 429              | application/json           |
-| models.ErrorMessage        | 500                        | application/json           |
-| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
-
-## delete
-
-Deletes a partition and all of its associated data. This includes connections, documents, and partition specific instructions. This operation is irreversible.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="delete_partition_partitions__partition_id__delete" method="delete" path="/partitions/{partition_id}" -->
-```python
-from ragie import Ragie
-
-
-with Ragie(
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-) as r_client:
-
-    res = r_client.partitions.delete(partition_id="<id>", async_=True)
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `partition_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |                                                                     |
-| `async_`                                                            | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | If true, performs partition deletion asynchronously.                | true                                                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
-
-### Response
-
-**[models.ResponseOK](../../models/responseok.md)**
 
 ### Errors
 

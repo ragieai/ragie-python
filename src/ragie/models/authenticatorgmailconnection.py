@@ -34,3 +34,9 @@ class AuthenticatorGmailConnection(BaseModel):
         Annotated[Literal["gmail"], AfterValidator(validate_const("gmail"))],
         pydantic.Field(alias="provider"),
     ] = "gmail"
+
+
+try:
+    AuthenticatorGmailConnection.model_rebuild()
+except NameError:
+    pass

@@ -3,7 +3,8 @@
 from __future__ import annotations
 from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict
 from enum import Enum
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, UNSET_SENTINEL
 from typing import Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
@@ -11,6 +12,7 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 class UpdateDocumentFromURLParamsMode1(str, Enum):
     HI_RES = "hi_res"
     FAST = "fast"
+    AGENTIC_OCR = "agentic_ocr"
 
 
 UpdateDocumentFromURLParamsModeTypedDict = TypeAliasType(
@@ -40,3 +42,19 @@ class UpdateDocumentFromURLParams(BaseModel):
 
     mode: Optional[UpdateDocumentFromURLParamsMode] = None
     r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  To process all media types at the highest quality, use `'all'`.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }  Highest quality processing for all media types     \"all\" """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["mode"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

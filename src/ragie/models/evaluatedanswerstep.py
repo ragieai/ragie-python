@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .answer import Answer, AnswerTypedDict
 import pydantic
+from pydantic import model_serializer
 from pydantic.functional_validators import AfterValidator
-from ragie.types import BaseModel
+from ragie.types import BaseModel, UNSET_SENTINEL
 from ragie.utils import validate_const
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -45,3 +46,25 @@ class EvaluatedAnswerStep(BaseModel):
 
     other_resolved_question_ids: Optional[List[str]] = None
     r"""A list of questions ids that are no longer relevant to the current answer referenced by their IDs."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "errored", "other_resolved_question_ids"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    EvaluatedAnswerStep.model_rebuild()
+except NameError:
+    pass

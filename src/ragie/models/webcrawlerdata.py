@@ -3,23 +3,30 @@
 from __future__ import annotations
 from pydantic import model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
+from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class PaginationTypedDict(TypedDict):
-    total_count: int
-    next_cursor: NotRequired[Nullable[str]]
+class WebcrawlerDataTypedDict(TypedDict):
+    url: str
+    restrict_domain: NotRequired[bool]
+    max_depth: NotRequired[Nullable[int]]
+    max_pages: NotRequired[Nullable[int]]
 
 
-class Pagination(BaseModel):
-    total_count: int
+class WebcrawlerData(BaseModel):
+    url: str
 
-    next_cursor: OptionalNullable[str] = UNSET
+    restrict_domain: Optional[bool] = True
+
+    max_depth: OptionalNullable[int] = UNSET
+
+    max_pages: OptionalNullable[int] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["next_cursor"])
-        nullable_fields = set(["next_cursor"])
+        optional_fields = set(["restrict_domain", "max_depth", "max_pages"])
+        nullable_fields = set(["max_depth", "max_pages"])
         serialized = handler(self)
         m = {}
 

@@ -34,3 +34,9 @@ class AuthenticatorSlackConnection(BaseModel):
         Annotated[Literal["slack"], AfterValidator(validate_const("slack"))],
         pydantic.Field(alias="provider"),
     ] = "slack"
+
+
+try:
+    AuthenticatorSlackConnection.model_rebuild()
+except NameError:
+    pass

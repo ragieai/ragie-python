@@ -24,15 +24,15 @@ class Two1(str, Enum):
     FAST = "fast"
 
 
+class ModeStatic(str, Enum):
+    HI_RES = "hi_res"
+    FAST = "fast"
+
+
 TwoTypedDict = TypeAliasType("TwoTypedDict", Union[Two2TypedDict, Two1])
 
 
 Two = TypeAliasType("Two", Union[Two2, Two1])
-
-
-class ModeStatic(str, Enum):
-    HI_RES = "hi_res"
-    FAST = "fast"
 
 
 class ModeVideo(str, Enum):
@@ -56,31 +56,26 @@ class One(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["static", "audio", "video"]
-        nullable_fields = ["static", "audio", "video"]
-        null_default_fields = []
-
+        optional_fields = set(["static", "audio", "video"])
+        nullable_fields = set(["static", "audio", "video"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -93,12 +88,14 @@ Mode = TypeAliasType("Mode", Union[One, Two])
 r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  To process all media types at the highest quality, use `'all'`.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }  Highest quality processing for all media types     \"all\" """
 
 
-MetadataTypedDict = TypeAliasType(
-    "MetadataTypedDict", Union[str, float, bool, List[str]]
+CreateDocumentParamsMetadataTypedDict = TypeAliasType(
+    "CreateDocumentParamsMetadataTypedDict", Union[str, float, bool, List[str]]
 )
 
 
-Metadata = TypeAliasType("Metadata", Union[str, float, bool, List[str]])
+CreateDocumentParamsMetadata = TypeAliasType(
+    "CreateDocumentParamsMetadata", Union[str, float, bool, List[str]]
+)
 
 
 class FileTypedDict(TypedDict):
@@ -124,6 +121,22 @@ class File(BaseModel):
         FieldMetadata(multipart=True),
     ] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["contentType"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class CreateDocumentParamsTypedDict(TypedDict):
     file: FileTypedDict
@@ -133,7 +146,7 @@ class CreateDocumentParamsTypedDict(TypedDict):
     """
     mode: NotRequired[ModeTypedDict]
     r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  To process all media types at the highest quality, use `'all'`.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }  Highest quality processing for all media types     \"all\" """
-    metadata: NotRequired[Dict[str, MetadataTypedDict]]
+    metadata: NotRequired[Dict[str, CreateDocumentParamsMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`, `chunk_content_type`."""
     external_id: NotRequired[str]
     r"""An optional identifier for the document. A common value might be an id in an external system or the URL where the source file may be found."""
@@ -156,7 +169,7 @@ class CreateDocumentParams(BaseModel):
     r"""Partition strategy for the document. Different strategies exist for textual, audio and video file types and you can set the strategy you want for  each file type, or just for textual types.  For textual documents the options are `'hi_res'` or `'fast'`. When set to `'hi_res'`, images and tables will be extracted from the document. `'fast'` will only extract text. `'fast'` may be up to 20x faster than `'hi_res'`. `hi_res` is only applicable for Word documents, PDFs, Images, and PowerPoints. Images will always be processed in `hi_res`. If `hi_res` is set for an unsupported document type, it will be processed and billed in `fast` mode.  For audio files, the options are true or false. True if you want to process audio, false otherwise.          For video files, the options are `'audio_only'`, `'video_only'`, `'audio_video'`. `'audio_only'` will extract just the audio part of the video. `'video_only'` will similarly just extract the video part, ignoring audio. `'audio_video'` will extract both audio and video.  To process all media types at the highest quality, use `'all'`.  When you specify audio or video stategies, the format must be a JSON object. In this case, textual documents are denoted by the key \"static\". If you omit a key, that document type won't be processd.  See examples below.  Examples  Textual documents only     \"fast\"  Video documents only {     \"video\": \"audio_video\" }  Specify multiple document types {     \"static\": \"hi_res\",     \"audio\": true,     \"video\": \"video_only\" }  Specify only textual or audio document types {     \"static\": \"fast\",     \"audio\": true }  Highest quality processing for all media types     \"all\" """
 
     metadata: Annotated[
-        Optional[Dict[str, Metadata]],
+        Optional[Dict[str, CreateDocumentParamsMetadata]],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
     ] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`, `chunk_content_type`."""
@@ -169,3 +182,19 @@ class CreateDocumentParams(BaseModel):
 
     partition: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""An optional partition identifier. Documents can be scoped to a partition. Partitions must be lowercase alphanumeric and may only include the special characters `_` and `-`.  A partition is created any time a document is created."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["mode", "metadata", "external_id", "name", "partition"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -4,8 +4,8 @@
 
 ### Available Operations
 
-* [create](#create) - Create Document
 * [list](#list) - List Documents
+* [create](#create) - Create Document
 * [create_raw](#create_raw) - Create Document Raw
 * [create_document_from_url](#create_document_from_url) - Create Document From Url
 * [get](#get) - Get Document
@@ -20,53 +20,6 @@
 * [get_content](#get_content) - Get Document Content
 * [get_source](#get_source) - Get Document Source
 * [get_summary](#get_summary) - Get Document Summary
-
-## create
-
-On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="CreateDocument" method="post" path="/documents" -->
-```python
-from ragie import Ragie
-
-
-with Ragie(
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-) as r_client:
-
-    res = r_client.documents.create(request={
-        "file": {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
-    })
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.CreateDocumentParams](../../models/createdocumentparams.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Document](../../models/document.md)**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models.HTTPValidationError | 422                        | application/json           |
-| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
-| models.ErrorMessage        | 500                        | application/json           |
-| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
 ## list
 
@@ -112,6 +65,53 @@ with Ragie(
 | -------------------------- | -------------------------- | -------------------------- |
 | models.HTTPValidationError | 422                        | application/json           |
 | models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.ErrorMessage        | 500                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
+## create
+
+On ingest, the document goes through a series of steps before it is ready for retrieval. Each step is reflected in the status of the document which can be one of [`pending`, `partitioning`, `partitioned`, `refined`, `chunked`, `indexed`, `summary_indexed`, `keyword_indexed`, `ready`, `failed`]. The document is available for retrieval once it is in ready state. The summary index step can take a few seconds. You can optionally use the document for retrieval once it is in `indexed` state. However the summary will only be available once the state has changed to `summary_indexed` or `ready`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="CreateDocument" method="post" path="/documents" -->
+```python
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.documents.create(request={
+        "file": {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.CreateDocumentParams](../../models/createdocumentparams.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.Document](../../models/document.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 400, 401, 402, 429         | application/json           |
 | models.ErrorMessage        | 500                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 

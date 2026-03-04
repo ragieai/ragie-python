@@ -60,7 +60,6 @@ with Ragie(
     res = r_client.connections.create_connection(request=ragie.PublicCreateConnection(
         partition_strategy=ragie.MediaModeParam(),
         page_limit=None,
-        config=None,
         connection=ragie.PublicGCSConnection(
             data=ragie.BucketData(
                 bucket="<value>",
@@ -96,7 +95,6 @@ async def main():
         res = await r_client.connections.create_connection_async(request=ragie.PublicCreateConnection(
             partition_strategy=ragie.MediaModeParam(),
             page_limit=None,
-            config=None,
             connection=ragie.PublicGCSConnection(
                 data=ragie.BucketData(
                     bucket="<value>",
@@ -178,7 +176,6 @@ with Ragie(
     res = r_client.authenticators.create_authenticator_connection(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
         partition_strategy=ragie.MediaModeParam(),
         page_limit=None,
-        config=None,
         connection=ragie.AuthenticatorDropboxConnection(
             data=ragie.FolderData(
                 folder_id="<id>",
@@ -214,7 +211,6 @@ async def main():
         res = await r_client.authenticators.create_authenticator_connection_async(authenticator_id="84b0792c-1330-4854-b4f2-5d9c7bf9a385", create_authenticator_connection=ragie.CreateAuthenticatorConnection(
             partition_strategy=ragie.MediaModeParam(),
             page_limit=None,
-            config=None,
             connection=ragie.AuthenticatorDropboxConnection(
                 data=ragie.FolderData(
                     folder_id="<id>",

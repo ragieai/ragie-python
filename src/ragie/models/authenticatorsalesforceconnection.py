@@ -35,3 +35,9 @@ class AuthenticatorSalesforceConnection(BaseModel):
         Annotated[Literal["salesforce"], AfterValidator(validate_const("salesforce"))],
         pydantic.Field(alias="provider"),
     ] = "salesforce"
+
+
+try:
+    AuthenticatorSalesforceConnection.model_rebuild()
+except NameError:
+    pass
