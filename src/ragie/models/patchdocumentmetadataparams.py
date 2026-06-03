@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 import pydantic
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, UNSET_SENTINEL
 from typing import Any, Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -20,3 +21,25 @@ class PatchDocumentMetadataParams(BaseModel):
 
     async_: Annotated[Optional[bool], pydantic.Field(alias="async")] = False
     r"""Whether to run the metadata update asynchronously. If true, the metadata update will be run in the background and the response will be 202. If false, the metadata update will be run synchronously and the response will be 200."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["async"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    PatchDocumentMetadataParams.model_rebuild()
+except NameError:
+    pass

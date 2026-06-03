@@ -17,8 +17,7 @@ from ..types.basemodel import BaseModel, Nullable, OptionalNullable, Unset
 
 def serialize_decimal(as_str: bool):
     def serialize(d):
-        # Optional[T] is a Union[T, None]
-        if is_union(type(d)) and type(None) in get_args(type(d)) and d is None:
+        if d is None:
             return None
         if isinstance(d, Unset):
             return d
@@ -46,8 +45,7 @@ def validate_decimal(d):
 
 def serialize_float(as_str: bool):
     def serialize(f):
-        # Optional[T] is a Union[T, None]
-        if is_union(type(f)) and type(None) in get_args(type(f)) and f is None:
+        if f is None:
             return None
         if isinstance(f, Unset):
             return f
@@ -75,8 +73,7 @@ def validate_float(f):
 
 def serialize_int(as_str: bool):
     def serialize(i):
-        # Optional[T] is a Union[T, None]
-        if is_union(type(i)) and type(None) in get_args(type(i)) and i is None:
+        if i is None:
             return None
         if isinstance(i, Unset):
             return i
@@ -102,30 +99,9 @@ def validate_int(b):
     return int(b)
 
 
-def validate_open_enum(is_int: bool):
-    def validate(e):
-        if e is None:
-            return None
-
-        if isinstance(e, Unset):
-            return e
-
-        if is_int:
-            if not isinstance(e, int):
-                raise ValueError("Expected int")
-        else:
-            if not isinstance(e, str):
-                raise ValueError("Expected string")
-
-        return e
-
-    return validate
-
-
 def validate_const(v):
     def validate(c):
-        # Optional[T] is a Union[T, None]
-        if is_union(type(c)) and type(None) in get_args(type(c)) and c is None:
+        if c is None:
             return None
 
         if v != c:

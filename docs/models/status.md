@@ -1,11 +1,20 @@
 # Status
 
+Extraction status for this attempt.
+
+## Example Usage
+
+```python
+from ragie.models import Status
+
+value = Status.EXTRACTED
+```
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `COMPLETED`   | completed     |
-| `FAILED`      | failed        |
-| `IN_PROGRESS` | in_progress   |
-| `CANCELLED`   | cancelled     |
+| Name        | Value       |
+| ----------- | ----------- |
+| `EXTRACTED` | extracted   |
+| `NOT_FOUND` | not_found   |
+| `ERROR`     | error       |

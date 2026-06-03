@@ -1,5 +1,13 @@
 # SearchEffort
 
+## Example Usage
+
+```python
+from ragie.models import SearchEffort
+
+value = SearchEffort.LOW
+```
+
 
 ## Values
 

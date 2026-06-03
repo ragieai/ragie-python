@@ -7,8 +7,8 @@
 * [list](#list) - List Webhook Endpoints
 * [create](#create) - Create Webhook Endpoint
 * [get](#get) - Get Webhook Endpoint
-* [update](#update) - Update Webhook Endpoint
 * [delete](#delete) - Delete Webhook Endpoint
+* [update](#update) - Update Webhook Endpoint
 
 ## list
 
@@ -142,6 +142,48 @@ with Ragie(
 | models.ErrorMessage        | 500                        | application/json           |
 | models.SDKError            | 4XX, 5XX                   | \*/\*                      |
 
+## delete
+
+Delete a webhook endpoint to stop delivering webhook notifications to its URL.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteWebhookEndpoint" method="delete" path="/webhook_endpoints/{endpoint_id}" -->
+```python
+from ragie import Ragie
+
+
+with Ragie(
+    auth="<YOUR_BEARER_TOKEN_HERE>",
+) as r_client:
+
+    res = r_client.webhook_endpoints.delete(endpoint_id="85d9c6f8-9d22-4119-886a-0389b9d5eee3")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `endpoint_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ResponseOK](../../models/responseok.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models.HTTPValidationError | 422                        | application/json           |
+| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
+| models.ErrorMessage        | 500                        | application/json           |
+| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
+
 ## update
 
 Update a webhook endpoint's name, URL, or active status. Use this to rotate endpoints or temporarily disable delivery without deleting the endpoint.
@@ -175,48 +217,6 @@ with Ragie(
 ### Response
 
 **[models.WebhookEndpoint](../../models/webhookendpoint.md)**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models.HTTPValidationError | 422                        | application/json           |
-| models.ErrorMessage        | 401, 402, 404, 429         | application/json           |
-| models.ErrorMessage        | 500                        | application/json           |
-| models.SDKError            | 4XX, 5XX                   | \*/\*                      |
-
-## delete
-
-Delete a webhook endpoint to stop delivering webhook notifications to its URL.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="DeleteWebhookEndpoint" method="delete" path="/webhook_endpoints/{endpoint_id}" -->
-```python
-from ragie import Ragie
-
-
-with Ragie(
-    auth="<YOUR_BEARER_TOKEN_HERE>",
-) as r_client:
-
-    res = r_client.webhook_endpoints.delete(endpoint_id="85d9c6f8-9d22-4119-886a-0389b9d5eee3")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `endpoint_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ResponseOK](../../models/responseok.md)**
 
 ### Errors
 

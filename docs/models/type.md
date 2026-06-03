@@ -1,5 +1,13 @@
 # Type
 
+## Example Usage
+
+```python
+from ragie.models import Type
+
+value = Type.FILE
+```
+
 
 ## Values
 

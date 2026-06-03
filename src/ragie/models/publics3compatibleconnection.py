@@ -29,3 +29,9 @@ class PublicS3CompatibleConnection(BaseModel):
         Annotated[Literal["s3"], AfterValidator(validate_const("s3"))],
         pydantic.Field(alias="provider"),
     ] = "s3"
+
+
+try:
+    PublicS3CompatibleConnection.model_rebuild()
+except NameError:
+    pass

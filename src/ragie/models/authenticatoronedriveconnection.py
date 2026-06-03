@@ -34,3 +34,9 @@ class AuthenticatorOnedriveConnection(BaseModel):
         Annotated[Literal["onedrive"], AfterValidator(validate_const("onedrive"))],
         pydantic.Field(alias="provider"),
     ] = "onedrive"
+
+
+try:
+    AuthenticatorOnedriveConnection.model_rebuild()
+except NameError:
+    pass

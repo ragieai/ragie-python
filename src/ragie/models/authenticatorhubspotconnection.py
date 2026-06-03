@@ -35,3 +35,9 @@ class AuthenticatorHubspotConnection(BaseModel):
         Annotated[Literal["hubspot"], AfterValidator(validate_const("hubspot"))],
         pydantic.Field(alias="provider"),
     ] = "hubspot"
+
+
+try:
+    AuthenticatorHubspotConnection.model_rebuild()
+except NameError:
+    pass

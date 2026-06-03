@@ -34,3 +34,9 @@ class AuthenticatorSharepointConnection(BaseModel):
         Annotated[Literal["sharepoint"], AfterValidator(validate_const("sharepoint"))],
         pydantic.Field(alias="provider"),
     ] = "sharepoint"
+
+
+try:
+    AuthenticatorSharepointConnection.model_rebuild()
+except NameError:
+    pass

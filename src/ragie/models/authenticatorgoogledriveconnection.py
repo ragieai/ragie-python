@@ -36,3 +36,9 @@ class AuthenticatorGoogleDriveConnection(BaseModel):
         ],
         pydantic.Field(alias="provider"),
     ] = "google_drive"
+
+
+try:
+    AuthenticatorGoogleDriveConnection.model_rebuild()
+except NameError:
+    pass

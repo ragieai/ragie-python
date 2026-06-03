@@ -1,5 +1,13 @@
 # QueryParam1
 
+## Example Usage
+
+```python
+from ragie.models import QueryParam1
+
+value = QueryParam1.TEXT_PLAIN
+```
+
 
 ## Values
 

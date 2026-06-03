@@ -33,6 +33,12 @@ value: models.PublicIntercomConnection = /* values here */
 value: models.PublicS3CompatibleConnection = /* values here */
 ```
 
+### `models.PublicWebcrawlerConnection`
+
+```python
+value: models.PublicWebcrawlerConnection = /* values here */
+```
+
 ### `models.PublicZendeskConnection`
 
 ```python

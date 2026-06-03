@@ -1,5 +1,13 @@
 # ConnectorSource
 
+## Example Usage
+
+```python
+from ragie.models import ConnectorSource
+
+value = ConnectorSource.BACKBLAZE
+```
+
 
 ## Values
 

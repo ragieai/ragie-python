@@ -25,3 +25,9 @@ class AuthenticatorJiraConnection(BaseModel):
         Annotated[Literal["jira"], AfterValidator(validate_const("jira"))],
         pydantic.Field(alias="provider"),
     ] = "jira"
+
+
+try:
+    AuthenticatorJiraConnection.model_rebuild()
+except NameError:
+    pass

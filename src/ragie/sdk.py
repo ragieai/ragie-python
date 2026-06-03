@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from ragie.authenticators import Authenticators
     from ragie.connections import Connections
     from ragie.documents import Documents
+    from ragie.elements import Elements
     from ragie.entities import Entities
     from ragie.partitions import Partitions
     from ragie.responses import Responses
@@ -34,6 +35,7 @@ class Ragie(BaseSDK):
     partitions: "Partitions"
     authenticators: "Authenticators"
     responses: "Responses"
+    elements: "Elements"
     _sub_sdk_map = {
         "documents": ("ragie.documents", "Documents"),
         "retrievals": ("ragie.retrievals", "Retrievals"),
@@ -43,14 +45,15 @@ class Ragie(BaseSDK):
         "partitions": ("ragie.partitions", "Partitions"),
         "authenticators": ("ragie.authenticators", "Authenticators"),
         "responses": ("ragie.responses", "Responses"),
+        "elements": ("ragie.elements", "Elements"),
     }
 
     def __init__(
         self,
         auth: Union[str, Callable[[], str]],
         server_idx: Optional[int] = None,
-        server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
+        server_url: Optional[str] = None,
         client: Optional[HttpClient] = None,
         async_client: Optional[AsyncHttpClient] = None,
         retry_config: OptionalNullable[RetryConfig] = UNSET,
@@ -90,7 +93,9 @@ class Ragie(BaseSDK):
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
         security: Any = None
-        if callable(auth):
+        if auth is None:
+            security = None
+        elif callable(auth):
             # pylint: disable=unnecessary-lambda-assignment
             security = lambda: models.Security(auth=auth())
         else:

@@ -21,3 +21,9 @@ class Tool(BaseModel):
         Annotated[Literal["retrieve"], AfterValidator(validate_const("retrieve"))],
         pydantic.Field(alias="type"),
     ] = "retrieve"
+
+
+try:
+    Tool.model_rebuild()
+except NameError:
+    pass

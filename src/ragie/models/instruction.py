@@ -4,7 +4,8 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 import pydantic
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, UNSET_SENTINEL
 from typing import Any, Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -29,6 +30,8 @@ class InstructionTypedDict(TypedDict):
     r"""Whether the instruction is active. Active instructions are applied to documents when they're created or when their file is updated."""
     scope: NotRequired[Scope]
     r"""The scope of the instruction. Determines whether the instruction is applied to the entire document or to each chunk of the document. Options are `'document'` or `'chunk'`. Generally `'document'` should be used when analyzing the full document is desired, such as when generating a summary or determining sentiment, and `'chunk'` should be used when a fine grained search over a document is desired."""
+    context_template: NotRequired[str]
+    r"""An optional mustache style template used to prepend document context to the content sent for entity extraction. Available variables include `document.name`, `document.type`, `document.source`, and nested values under `document.metadata`."""
     filter_: NotRequired[Dict[str, Any]]
     r"""An optional metadata filter that is matched against document metadata during update and creation. The instruction will only be applied to documents with metadata matching the filter.  The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
     partition: NotRequired[str]
@@ -56,8 +59,35 @@ class Instruction(BaseModel):
     scope: Optional[Scope] = Scope.CHUNK
     r"""The scope of the instruction. Determines whether the instruction is applied to the entire document or to each chunk of the document. Options are `'document'` or `'chunk'`. Generally `'document'` should be used when analyzing the full document is desired, such as when generating a summary or determining sentiment, and `'chunk'` should be used when a fine grained search over a document is desired."""
 
+    context_template: Optional[str] = None
+    r"""An optional mustache style template used to prepend document context to the content sent for entity extraction. Available variables include `document.name`, `document.type`, `document.source`, and nested values under `document.metadata`."""
+
     filter_: Annotated[Optional[Dict[str, Any]], pydantic.Field(alias="filter")] = None
     r"""An optional metadata filter that is matched against document metadata during update and creation. The instruction will only be applied to documents with metadata matching the filter.  The following filter operators are supported: $eq - Equal to (number, string, boolean), $ne - Not equal to (number, string, boolean), $gt - Greater than (number), $gte - Greater than or equal to (number), $lt - Less than (number), $lte - Less than or equal to (number), $in - In array (string or number), $nin - Not in array (string or number). The operators can be combined with AND and OR. Read [Metadata & Filters guide](https://docs.ragie.ai/docs/metadata-filters) for more details and examples."""
 
     partition: Optional[str] = None
     r"""An optional partition identifier. Instructions can be scoped to a partition. An instruction that defines a partition will only be executed for documents in that partition."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["active", "scope", "context_template", "filter", "partition"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    Instruction.model_rebuild()
+except NameError:
+    pass
