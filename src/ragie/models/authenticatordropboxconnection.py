@@ -34,3 +34,9 @@ class AuthenticatorDropboxConnection(BaseModel):
         Annotated[Literal["dropbox"], AfterValidator(validate_const("dropbox"))],
         pydantic.Field(alias="provider"),
     ] = "dropbox"
+
+
+try:
+    AuthenticatorDropboxConnection.model_rebuild()
+except NameError:
+    pass

@@ -25,3 +25,9 @@ class PublicGCSConnection(BaseModel):
         Annotated[Literal["gcs"], AfterValidator(validate_const("gcs"))],
         pydantic.Field(alias="provider"),
     ] = "gcs"
+
+
+try:
+    PublicGCSConnection.model_rebuild()
+except NameError:
+    pass

@@ -1,5 +1,13 @@
 # Theme
 
+## Example Usage
+
+```python
+from ragie.models import Theme
+
+value = Theme.LIGHT
+```
+
 
 ## Values
 

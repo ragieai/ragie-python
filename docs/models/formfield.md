@@ -1,0 +1,15 @@
+# FormField
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `type`                                                                     | *Optional[Literal["FormField"]]*                                           | :heavy_minus_sign:                                                         | N/A                                                                        |
+| `content`                                                                  | *str*                                                                      | :heavy_check_mark:                                                         | The text content of the form field, including both the label and the value |
+| `input_type`                                                               | [models.InputType](../models/inputtype.md)                                 | :heavy_check_mark:                                                         | Type of input.                                                             |
+| `label`                                                                    | *str*                                                                      | :heavy_check_mark:                                                         | The main question/label for the field.                                     |
+| `value`                                                                    | *OptionalNullable[str]*                                                    | :heavy_minus_sign:                                                         | The filled text. For single checkbox: 'true'/'false'.                      |
+| `options`                                                                  | List[[models.FormOption](../models/formoption.md)]                         | :heavy_minus_sign:                                                         | List of available options.                                                 |
+| `selected_values`                                                          | List[*str*]                                                                | :heavy_minus_sign:                                                         | The 'label' of the selected option(s).                                     |
+| `help_text`                                                                | *OptionalNullable[str]*                                                    | :heavy_minus_sign:                                                         | The help text for the form field.                                          |

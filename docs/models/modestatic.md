@@ -1,5 +1,13 @@
 # ModeStatic
 
+## Example Usage
+
+```python
+from ragie.models import ModeStatic
+
+value = ModeStatic.HI_RES
+```
+
 
 ## Values
 

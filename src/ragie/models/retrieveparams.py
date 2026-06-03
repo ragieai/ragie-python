@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 import pydantic
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, UNSET_SENTINEL
 from typing import Any, Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -43,3 +44,34 @@ class RetrieveParams(BaseModel):
 
     recency_bias: Optional[bool] = False
     r"""Enables recency bias which will favor more recent documents vs older documents. https://docs.ragie.ai/docs/retrievals-recency-bias"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "top_k",
+                "filter",
+                "rerank",
+                "max_chunks_per_document",
+                "partition",
+                "recency_bias",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    RetrieveParams.model_rebuild()
+except NameError:
+    pass

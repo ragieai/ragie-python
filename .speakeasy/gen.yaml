@@ -16,6 +16,8 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: false
     sharedErrorComponentsApr2025: false
+    sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
@@ -23,13 +25,14 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 1.15.1
+  version: 2.0.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -40,6 +43,7 @@ python:
   authors:
     - Speakeasy
   baseErrorName: RagieError
+  bodyVariantOverloads: false
   clientServerStatusCodesAsErrors: true
   constFieldCasing: upper
   defaultErrorName: SDKError
@@ -47,10 +51,14 @@ python:
   enableCustomCodeRegions: false
   enumFormat: enum
   fixFlags:
+    asyncPaginationSep2025: false
+    conflictResistantModelImportsFeb2026: false
     responseRequiredSep2024: false
   flattenGlobalSecurity: true
   flattenRequests: false
   flatteningOrder: parameters-first
+  forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   imports:
     option: openapi
     paths:
@@ -65,14 +73,19 @@ python:
   license: ""
   maxMethodParams: 4
   methodArguments: infer-optional-args
+  methodTimeoutArgument: timeout-ms
+  methodTimeoutUnits: milliseconds
   moduleName: ""
   multipartArrayFormat: legacy
+  optionalDependencies: {}
   outputModelSuffix: output
   packageManager: poetry
   packageName: ragie
   preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
+  rawResponseHelpers: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
+  useAsyncHooks: false

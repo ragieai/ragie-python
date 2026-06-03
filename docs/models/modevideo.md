@@ -1,5 +1,13 @@
 # ModeVideo
 
+## Example Usage
+
+```python
+from ragie.models import ModeVideo
+
+value = ModeVideo.AUDIO_ONLY
+```
+
 
 ## Values
 

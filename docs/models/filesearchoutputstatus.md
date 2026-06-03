@@ -1,5 +1,13 @@
 # FileSearchOutputStatus
 
+## Example Usage
+
+```python
+from ragie.models import FileSearchOutputStatus
+
+value = FileSearchOutputStatus.IN_PROGRESS
+```
+
 
 ## Values
 

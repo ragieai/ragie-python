@@ -1,5 +1,13 @@
 # UpdateDocumentFileParamsModeVideo
 
+## Example Usage
+
+```python
+from ragie.models import UpdateDocumentFileParamsModeVideo
+
+value = UpdateDocumentFileParamsModeVideo.AUDIO_ONLY
+```
+
 
 ## Values
 

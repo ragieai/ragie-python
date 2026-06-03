@@ -36,3 +36,9 @@ class AuthenticatorNotionConnection(BaseModel):
         Annotated[Literal["notion"], AfterValidator(validate_const("notion"))],
         pydantic.Field(alias="provider"),
     ] = "notion"
+
+
+try:
+    AuthenticatorNotionConnection.model_rebuild()
+except NameError:
+    pass

@@ -10,9 +10,10 @@ from typing_extensions import NotRequired, TypedDict
 class Static(str, Enum):
     HI_RES = "hi_res"
     FAST = "fast"
+    AGENTIC_OCR = "agentic_ocr"
 
 
-class Video(str, Enum):
+class MediaModeParamVideo(str, Enum):
     AUDIO_ONLY = "audio_only"
     VIDEO_ONLY = "video_only"
     AUDIO_VIDEO = "audio_video"
@@ -21,7 +22,7 @@ class Video(str, Enum):
 class MediaModeParamTypedDict(TypedDict):
     static: NotRequired[Nullable[Static]]
     audio: NotRequired[Nullable[bool]]
-    video: NotRequired[Nullable[Video]]
+    video: NotRequired[Nullable[MediaModeParamVideo]]
 
 
 class MediaModeParam(BaseModel):
@@ -29,34 +30,29 @@ class MediaModeParam(BaseModel):
 
     audio: OptionalNullable[bool] = UNSET
 
-    video: OptionalNullable[Video] = UNSET
+    video: OptionalNullable[MediaModeParamVideo] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["static", "audio", "video"]
-        nullable_fields = ["static", "audio", "video"]
-        null_default_fields = []
-
+        optional_fields = set(["static", "audio", "video"])
+        nullable_fields = set(["static", "audio", "video"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

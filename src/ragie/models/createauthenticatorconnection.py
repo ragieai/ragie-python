@@ -45,7 +45,9 @@ from .authenticatorslackconnection import (
     AuthenticatorSlackConnection,
     AuthenticatorSlackConnectionTypedDict,
 )
+from .documentworkflow import DocumentWorkflow
 from .mediamodeparam import MediaModeParam, MediaModeParamTypedDict
+from .syncfilter import SyncFilter, SyncFilterTypedDict
 from pydantic import Field, model_serializer
 from ragie.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from typing import Any, Dict, List, Optional, Union
@@ -107,6 +109,8 @@ class CreateAuthenticatorConnectionTypedDict(TypedDict):
     config: NotRequired[Nullable[Dict[str, Any]]]
     metadata: NotRequired[Dict[str, CreateAuthenticatorConnectionMetadataTypedDict]]
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`, `chunk_content_type`."""
+    workflow: NotRequired[Nullable[DocumentWorkflow]]
+    sync_filter: NotRequired[Dict[str, SyncFilterTypedDict]]
 
 
 class CreateAuthenticatorConnection(BaseModel):
@@ -123,32 +127,33 @@ class CreateAuthenticatorConnection(BaseModel):
     metadata: Optional[Dict[str, CreateAuthenticatorConnectionMetadata]] = None
     r"""Metadata for the document. Keys must be strings. Values may be strings, numbers, booleans, or lists of strings. Numbers may be integers or floating point and will be converted to 64 bit floating point. 1000 total values are allowed. Each item in an array counts towards the total. The following keys are reserved for internal use: `document_id`, `document_type`, `document_source`, `document_name`, `document_uploaded_at`, `start_time`, `end_time`, `chunk_content_type`."""
 
+    workflow: OptionalNullable[DocumentWorkflow] = UNSET
+
+    sync_filter: Optional[Dict[str, SyncFilter]] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["partition", "page_limit", "config", "metadata"]
-        nullable_fields = ["partition", "page_limit", "config"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["partition", "page_limit", "config", "metadata", "workflow", "sync_filter"]
+        )
+        nullable_fields = set(["partition", "page_limit", "config", "workflow"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

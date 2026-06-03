@@ -1,5 +1,13 @@
 # CodeInterpreterOutputStatus
 
+## Example Usage
+
+```python
+from ragie.models import CodeInterpreterOutputStatus
+
+value = CodeInterpreterOutputStatus.IN_PROGRESS
+```
+
 
 ## Values
 

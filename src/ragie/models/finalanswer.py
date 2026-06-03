@@ -21,7 +21,8 @@ from .searchstepwithquerydetails import (
     SearchStepWithQueryDetailsTypedDict,
 )
 from .surrenderstep import SurrenderStep, SurrenderStepTypedDict
-from ragie.types import BaseModel
+from pydantic import model_serializer
+from ragie.types import BaseModel, UNSET_SENTINEL
 from typing import List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
@@ -85,3 +86,19 @@ class FinalAnswer(BaseModel):
     r"""The steps that led to the answer."""
 
     usage: Optional[AgentHoppsModelsModelsUsage] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["evidence", "steps", "usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

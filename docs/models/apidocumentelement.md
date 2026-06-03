@@ -1,0 +1,16 @@
+# APIDocumentElement
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `index`                                                              | *int*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `metadata`                                                           | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
+| `type`                                                               | [models.DocumentElementType](../models/documentelementtype.md)       | :heavy_check_mark:                                                   | N/A                                                                  |
+| `text`                                                               | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `markdown`                                                           | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `location`                                                           | [OptionalNullable[models.Location]](../models/location.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `data`                                                               | [models.APIElement](../models/apielement.md)                         | :heavy_check_mark:                                                   | N/A                                                                  |

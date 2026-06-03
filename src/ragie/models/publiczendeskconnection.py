@@ -26,3 +26,9 @@ class PublicZendeskConnection(BaseModel):
         Annotated[Literal["zendesk"], AfterValidator(validate_const("zendesk"))],
         pydantic.Field(alias="provider"),
     ] = "zendesk"
+
+
+try:
+    PublicZendeskConnection.model_rebuild()
+except NameError:
+    pass

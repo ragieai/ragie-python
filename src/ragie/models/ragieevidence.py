@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .searchresultlink import SearchResultLink, SearchResultLinkTypedDict
 import pydantic
+from pydantic import model_serializer
 from pydantic.functional_validators import AfterValidator
-from ragie.types import BaseModel
+from ragie.types import BaseModel, UNSET_SENTINEL
 from ragie.utils import validate_const
 from typing import Any, Dict, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -57,3 +58,25 @@ class RagieEvidence(BaseModel):
 
     links: Optional[Dict[str, SearchResultLink]] = None
     r"""The links to the evidence."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "metadata", "document_metadata", "links"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    RagieEvidence.model_rebuild()
+except NameError:
+    pass

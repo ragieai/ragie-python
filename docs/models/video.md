@@ -1,10 +1,9 @@
 # Video
 
 
-## Values
+## Fields
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `AUDIO_ONLY`  | audio_only    |
-| `VIDEO_ONLY`  | video_only    |
-| `AUDIO_VIDEO` | audio_video   |
+| Field                                  | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `type`                                 | *Optional[Literal["Video"]]*           | :heavy_minus_sign:                     | N/A                                    |
+| `content`                              | *str*                                  | :heavy_check_mark:                     | A description of what the video shows. |
